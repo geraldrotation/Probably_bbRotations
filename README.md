@@ -11,8 +11,7 @@ Requires:
 Addon Install Guide:
   1. Click 'Download ZIP', bottom right of github page: https://github.com/ProbablyEngine/Probably
   2. Click 'Download ZIP', bottom right of github page: https://github.com/backburn/Probably_bbRotations
-  3. Copy the Probably_bbRotations-master and Probably-master folders from the zip files to your 
-    World of Warcraft\Interface\AddOns folder.
+  3. Copy the Probably_bbRotations-master and Probably-master folders from the zip files to your World of Warcraft\Interface\AddOns folder.
   4. Rename the Probably-master folder to Probably.
   5. Rename the Probably_bbRotations-master folder to Probably_bbRotations.
 
