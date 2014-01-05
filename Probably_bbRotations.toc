@@ -1,0 +1,12 @@
+## Interface: 50400
+## Title: Probably - bbRotations
+## Author: Backburn
+## Dependencies: Probably
+
+libs\library.lua
+rotations\hunter\survival.lua
+rotations\druid\restoration.lua
+rotations\paladin\protection.lua
+rotations\warrior\protection.lua
+rotations\monk\windwalker.lua
+rotations\shaman\elemental.lua
