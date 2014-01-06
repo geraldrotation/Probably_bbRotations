@@ -2,10 +2,10 @@ bbLib = {}
 
 function bbLib.bossMods()
 	-- Darkmoon Faerie Cannon
-	if select(7, UnitBuffID("player", 102116)) 
-	  and select(7, UnitBuffID("player", 102116)) - GetTime() < 1.07 then 
-		CancelUnitBuff("player", "Magic Wings") 
-	end
+	--if select(7, UnitBuffID("player", 102116)) 
+	  --and select(7, UnitBuffID("player", 102116)) - GetTime() < 1.07 then 
+		--CancelUnitBuff("player", "Magic Wings") 
+	--end
 	
 	-- Raid Boss Checks
 	if UnitExists("boss1") then

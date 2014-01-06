@@ -30,7 +30,7 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
     { "883", "!pet.exists" }, -- Call Pet 1
     { "Heart of the Phoenix", "!pet.alive" },
     { "Revive Pet", "!pet.alive" },
-	{ "Mend Pet", { "pet.health <= 75", "pet.exists", "!pet.buff(Mend Pet)" } },
+	{ "Mend Pet", { "pet.health <= 75", "pet.exists", "!pet.buff(Mend Pet)", "pet.range < 40" } },
 
     -- Mouseovers
 	{ "Serpent Sting", { "toggle.mousesting", "mouseover.enemy", "mouseover.exists", "mouseover.alive", "!mouseover.debuff(Serpent Sting)", "!mouseover.state.charm", "mouseover.deathin > 10" }, "mouseover" },
