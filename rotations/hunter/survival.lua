@@ -24,7 +24,6 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
     -- Pet
     { "883", "!pet.exists" }, -- Call Pet 1
     { "Heart of the Phoenix", "!pet.alive" },
-    { "Revive Pet", "!pet.alive" },
 	{ "Mend Pet", { "pet.health <= 75", "pet.exists", "!pet.buff(Mend Pet)", "pet.range < 40" } },
 
 	-- PvP Abilities
@@ -77,73 +76,73 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 	{ "pause", "target.status.disorient" },
 	{ "pause", "target.status.incapacitate" },
 	{ "pause", "target.status.sleep" },
-	
-    -- Cooldowns
-	{{
-		{ "Exhilaration", "player.health < 50" },
-		{ "#5512", "player.health < 40" }, -- Healthstone
-		{ "#76097", { "player.health < 40", "@bbLib.useHealthPot" } }, -- Master Healing Potion
-		{ "#76089", { "pet.exists", "target.exists", "@bbLib.useAgiPot" } }, -- Agility Potion (76089)
-		{ "#gloves", { "pet.exists", "target.exists" } },
-		{ "Stampede", { "pet.exists", "@bbLib.playerHasted" } },
-		{ "Rapid Fire", { "pet.exists", "target.exists", "target.deathin > 10", "!player.buff(Focus Fire)", "!@bbLib.playerHasted" } },
-		{ "Berserking", { "pet.exists", "target.exists", "!@bbLib.playerHasted" } },
-	},{
-		"modifier.cooldowns",
-	}},
-    
-    -------- AoE DPS Rotation --------
-    {{
-		{ "Barrage" }, -- TIER 6: Barrage
-		{ "Glaive Toss" }, -- TIER 6: Glaive Toss
-		{ "Lynx Rush" }, -- TIER 5: Lynx Rush
-		{ "Dire Beast" }, -- TIER 4: Dire Beast
-		{ "Fervor", "player.focus < 50" }, -- TIER 4: Fervor
-		{ "Multi-Shot" },
-		--{ "Explosive Trap", "", "ground" },
-		{ "Black Arrow", { "target.deathin > 10", "!target.state.charm" } },
-		{ "Explosive Shot", "player.buff(Lock and Load)" },
-		{ "Kill Shot", "target.health <= 20" }, -- Kill Shot
-		{ "Cobra Shot", "player.focus < 30" },
-    }, 
-	{
-        "modifier.multitarget",
-        "modifier.enemies > 3",
-    }},
 
-    -------- Single DPS Rotation --------
-    { "Serpent Sting", { "!target.debuff(Serpent Sting)", "!target.state.charm", "target.deathin > 10" } }, -- Serpent Sting (1978)
-	{ "Explosive Shot" }, -- Explosive Shot on cooldown.
-	{ "Kill Shot", "target.health <= 20" }, -- Kill Shot
-    { "Black Arrow", { "target.deathin > 15", "!target.state.charm" } }, -- Black Arrow on cooldown (if the target will live for the full duration of Black Arrow).
+	-- Cooldowns
+	{ "Exhilaration", { "modifier.cooldowns", "player.health < 50" } },
+	{ "#5512", { "modifier.cooldowns", "player.health < 40" } }, -- Healthstone
+	{ "#76097", { "modifier.cooldowns", "player.health < 40", "@bbLib.useHealthPot" } }, -- Master Healing Potion
+	{ "#76089", { "modifier.cooldowns", "pet.exists", "target.exists", "@bbLib.useAgiPot" } }, -- Agility Potion (76089)
+	{ "Blood Fury", "modifier.cooldowns" },
+	{ "#gloves", { "modifier.cooldowns", "pet.exists", "target.exists" } },
+	{ "Berserking", { "modifier.cooldowns", "pet.exists", "target.exists", "!@bbLib.playerHasted" } },
+
+	-- PvP
 	{ "Concussive Shot", { "toggle.pvpmode", "!target.debuff(Concussive Shot).any", "target.moving", "!target.immune.snare" }},
 	{ "Widow Venom", { "toggle.pvpmode", "!target.debuff(Widow Venom).any", "target.health > 20" }},
-    { "Cobra Shot", "target.debuff(Serpent Sting).duration < 4" }, -- Cobra Shot if sting is about to drop.
+
+	-- DPS Rotation
+	{ "Explosive Trap", { "modifier.multitarget", "modifier.enemies > 1" }, "ground" },
+	{ "Fervor", "player.focus <= 50" }, -- TIER 4: Fervor
 	{ "A Murder of Crows" }, -- TIER 5: A Murder of Crows
 	{ "Lynx Rush" }, -- TIER 5: Lynx Rush
-	{ "Dire Beast" }, -- TIER 4: Dire Beast
-    { "Fervor", "player.focus < 50" }, -- TIER 4: Fervor
+	{ "Explosive Shot", "player.buff(Lock and Load)" },
 	{ "Glaive Toss" }, -- TIER 6: Glaive Toss
-    { "Powershot" }, -- TIER 6: Powershot
+	{ "Powershot" }, -- TIER 6: Powershot
 	{ "Barrage" }, -- TIER 6: Barrage
-	{ "Explosive Trap", { "modifier.multitarget", "modifier.enemies > 2" }, "ground" },
-	{ "Multi-Shot", { "modifier.multitarget", "modifier.enemies > 1", "player.focus >= 60", "!player.buff(56453)" } },
-    { "Arcane Shot", { "player.buff(Thrill of the Hunt)", "player.focus >= 40" } },
-    { "Arcane Shot", { "player.focus >= 60", "!player.buff(56453)" } },
-    { "Cobra Shot", { "player.focus < 80", "player.spell(Explosive Shot).cooldown > 1", "player.spell(Black Arrow).cooldown > 1" }},
+	{ "Serpent Sting", { "!target.debuff", "target.deathin >= 10", "!target.state.charm" } },
+	{ "Explosive Shot" },
+	{ "Kill Shot", "target.health <= 20" }, -- Kill Shot
+	{ "Black Arrow", { "!target.debuff", "target.deathin >= 8", "!target.state.charm" } },
+	{ "Multi-Shot", { "modifier.multitarget", "modifier.enemies > 3" } },
+	{ "Multi-Shot", { "player.buff(Thrill of the Hunt)", "target.debuff(Serpent Sting).duration < 2" } },
+	{ "Arcane Shot", "player.buff(Thrill of the Hunt)" },
+	{ "Rapid Fire", { "pet.exists", "target.exists", "!@bbLib.playerHasted" } },
+	{ "Dire Beast" }, -- TIER 4: Dire Beast
+	{ "Stampede", { "pet.exists", "@bbLib.playerHasted" } },
+	{ "Cobra Shot", "target.debuff(Serpent Sting).duration < 6" }, -- Cobra Shot if sting is about to drop.
+	{ "Arcane Shot", { "player.focus >= 67", "modifier.enemies < 2", "!modifier.multitarget" } },
+	{ "Multi-Shot", { "player.focus >= 67", "modifier.enemies > 1", "modifier.multitarget" } },
+	--{ "Cobra Shot" },
+	{ "Cobra Shot", { "player.spell(Explosive Shot).cooldown > 1", "player.spell(Black Arrow).cooldown > 1" } },
+	
 },
 {
+	-- Pauses
     { "pause", "modifier.lcontrol" },
 	{ "pause", "player.buff(Feign Death)" },
+	
 	{ "Aspect of the Cheetah", { "toggle.aspect", "player.moving", "!player.buff(Aspect of the Cheetah)", "!player.buff(Aspect of the Pack)" } },
-	{ "Hunter's Mark", { "target.exists", "target.alive", "!target.debuff(Hunter's Mark).any" }, "target" },
-    { "Mend Pet", { "pet.health <= 90", "pet.exists", "pet.alive", "!pet.buff(Mend Pet)" } },
 	{ "Camouflage", { "toggle.camomode", "!player.buff(Camouflage)", "!player.debuff(Orb of Power)" } }, 
 	
+	-- Pet
+	{ "883", "!pet.exists" }, -- Call Pet 1
+	{ "Revive Pet", "!pet.alive" },
+    { "Mend Pet", { "pet.health <= 90", "pet.exists", "pet.alive", "!pet.buff(Mend Pet)" } },
+
+	-- Traps
 	{ "Explosive Trap", "modifier.lalt", "ground" },
     { "Ice Trap" , "modifier.lalt", "ground" },
 	{ "Snake Trap" , "modifier.lalt", "ground" },
 	{ "Freezing Trap" , "modifier.ralt", "ground" },
+	
+	-- Mark
+	{ "Hunter's Mark", { "target.exists", "target.alive", "!target.debuff(Hunter's Mark).any" }, "target" },
+	
+	-- Consumables
+	-- TODO: flask,type=spring_blossoms
+	-- TODO: food,type=sea_mist_rice_noodles
+	-- TODO: PRE POT: virmens_bite_potion
+	
 }, 
 function()
 	ProbablyEngine.toggle.create('aspect', 'Interface\\Icons\\ability_mount_jungletiger', 'Auto Aspect', 'Automatically switch aspect when moving and not in combat.')
