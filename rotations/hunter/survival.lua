@@ -4,25 +4,20 @@
 ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 -- PLAYER CONTROLLED:
 -- SUGGESTED TALENTS:
--- CONTROLS: Pause - Left Control
+-- CONTROLS: Pause - Left Control, Explosive/Ice/Snake Traps - Left Alt, Freezing Trap - Right Alt
 
 -- COMBAT
 	-- Rotation Utilities
     { "pause", "modifier.lcontrol" },
 	{ "pause", "@bbLib.bossMods" },
+	{ "pause", "player.buff(Feign Death)" },
 	{ "pause", { "toggle.pvpmode", "@bbLib.BGFlag" } },
+
 	{ "/script TargetNearestEnemy()", { "toggle.autotarget", "!target.exists" } },
 	{ "/script TargetNearestEnemy()", { "toggle.autotarget", "target.exists", "target.dead" } },
 	
-	{ "pause", "player.buff(Feign Death)" },
 	--{ "pause", "player.time >= 300", "toggle.dpstest" } },
-	
-	-- Master's Call (53271)
-    { "53271", "player.state.disorient" },
-    { "53271", "player.state.stun" },
-    { "53271", "player.state.root" },
-    { "53271", "player.state.snare" },
-	
+
 	-- Interrupts
     { "Counter Shot", { "modifier.interruptAt(80)", "player.range < 40" } },
 	
@@ -32,33 +27,60 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
     { "Revive Pet", "!pet.alive" },
 	{ "Mend Pet", { "pet.health <= 75", "pet.exists", "!pet.buff(Mend Pet)", "pet.range < 40" } },
 
+	-- PvP Abilities
+	{ "Master's Call", "player.state.disorient" },
+    { "Master's Call", "player.state.stun" },
+    { "Master's Call", "player.state.root" },
+    { "Master's Call", "player.state.snare" },
+	{ "Scatter Shot", { "toggle.pvpmode", "mouseover.exists", "mouseover.enemy", "mouseover.alive", "!mouseover.status.disorient", 
+		"!mouseover.status.sleep", "!mouseover.status.incapacitate", "!mouseover.status.fear", "!mouseover.status.misc", "!mouseover.status.root", 
+		"!mouseover.status.stun", "!mouseover.status.snare", "!mouseover.immune.all", "!mouseover.immune.disorient" }, "mouseover" }, -- If casting too?
+	{ "Wyvern Sting", { "toggle.pvpmode", "mouseover.exists", "mouseover.enemy", "mouseover.alive", "!mouseover.status.disorient", 
+		"!mouseover.status.sleep", "!mouseover.status.incapacitate", "!mouseover.status.fear", "!mouseover.status.misc", "!mouseover.status.root", 
+		"!mouseover.status.stun", "!mouseover.status.snare", "!mouseover.immune.all", "!mouseover.immune.sleep" }, "mouseover" }, -- If casting too?
+	-- TODO: Binding Shot (ground)
+	-- TODO: Reactive Deterrence
+	{ "Scare Beast", { "toggle.pvpmode", "mouseover.exists", "mouseover.enemy", "mouseover.alive", "mouseover.creatureType(Beast)" }, "mouseover" },
+	{ "Scare Beast", { "toggle.pvpmode", "target.exists", "target.enemy", "target.alive", "target.creatureType(Beast)" } },
+	
     -- Mouseovers
-	{ "Serpent Sting", { "toggle.mousesting", "mouseover.enemy", "mouseover.exists", "mouseover.alive", "!mouseover.debuff(Serpent Sting)", "!mouseover.state.charm", "mouseover.deathin > 10" }, "mouseover" },
+	{ "Serpent Sting", { "toggle.mousesting", "mouseover.exists", "mouseover.enemy", "mouseover.alive", "!mouseover.debuff(Serpent Sting)",
+		"!mouseover.state.charm", "mouseover.deathin > 10" }, "mouseover" },
+	
 	-- Traps
     { "Explosive Trap", "modifier.lalt", "ground" },
     { "Ice Trap" , "modifier.lalt", "ground" },
 	{ "Snake Trap" , "modifier.lalt", "ground" },
-
+	{ "Freezing Trap" , "modifier.ralt", "ground" },
+	
     -- Tranq Shot
-    { "19801", "target.dispellable(19801)", "target" }, -- Tranquilizing Shot (19801)
+    { "Tranquilizing Shot", "target.dispellable(Tranquilizing Shot)", "target" },
 
-	-- Boss Functions + hold cooldowns
-	-- TODO
+	-- TODO: Boss Functions + hold cooldowns
 
-	-- Energy Pooling Toggle
-	-- TODO
+	-- TODO: Energy Pooling Toggle
+	
+	-- TODO: Cleave Rotation?
 
     -- Misdirect to focus target or pet when threat is above a certain threshold
-    { "Misdirection", { "focus.exists", "!player.buff(Misdirection)", "target.threat > 60" }, "focus" },
-    { "Misdirection", { "pet.exists", "!player.buff(Misdirection)", "!focus.exists", "target.threat > 85" }, "pet" },
+    { "Misdirection", { "!toggle.pvpmode", "focus.exists", "!player.buff(Misdirection)", "target.threat > 60" }, "focus" },
+    { "Misdirection", { "!toggle.pvpmode", "pet.exists", "!player.buff(Misdirection)", "!focus.exists", "target.threat > 85" }, "pet" },
 
 	-- Stances
-    { "109260", { "player.spell(109260).exists", "!player.buff(109260)", "!player.buff(13165)", "!player.moving" } }, -- Aspect of the Iron Hawk
-    { "13165", { "!player.spell(109260).exists", "!player.buff(109260)", "!player.buff(13165)", "!player.moving" } }, -- Aspect of the Hawk
+    { "Aspect of the Iron Hawk", { "!player.buff(Aspect of the Hawk)", "!player.buff(Aspect of the Iron Hawk)", "!player.moving" } }, -- Aspect of the Iron Hawk
+    { "Aspect of the Hawk", { "!player.buff(Aspect of the Hawk)", "!player.buff(Aspect of the Iron Hawk)", "!player.moving" } }, -- Aspect of the Hawk
+	
+	-- Pre DPS Pause
+	{ "pause", "target.debuff(Wyvern Sting).any" },
+	{ "pause", "target.debuff(Scatter Shot).any" },
+	{ "pause", "target.immune.all" },
+	{ "pause", "target.status.disorient" },
+	{ "pause", "target.status.incapacitate" },
+	{ "pause", "target.status.sleep" },
 	
     -- Cooldowns
 	{{
-		{ "Exhilaration", { "player.spell(109304).exists", "player.health < 50" } },
+		{ "Exhilaration", "player.health < 50" },
 		{ "#5512", "player.health < 40" }, -- Healthstone
 		{ "#76097", { "player.health < 40", "@bbLib.useHealthPot" } }, -- Master Healing Potion
 		{ "#76089", { "pet.exists", "target.exists", "@bbLib.useAgiPot" } }, -- Agility Potion (76089)
@@ -72,11 +94,11 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
     
     -------- AoE DPS Rotation --------
     {{
-		{ "Barrage", "player.spell(120360).exists" }, -- TIER 6: Barrage
-		{ "Glaive Toss", "player.spell(117050).exists" }, -- TIER 6: Glaive Toss
-		{ "Lynx Rush", "player.spell(120697).exists" }, -- TIER 5: Lynx Rush
-		{ "Dire Beast", "player.spell(120679).exists" }, -- TIER 4: Dire Beast
-		{ "Fervor", { "player.spell(82726).exists", "player.focus < 50" } }, -- TIER 4: Fervor
+		{ "Barrage" }, -- TIER 6: Barrage
+		{ "Glaive Toss" }, -- TIER 6: Glaive Toss
+		{ "Lynx Rush" }, -- TIER 5: Lynx Rush
+		{ "Dire Beast" }, -- TIER 4: Dire Beast
+		{ "Fervor", "player.focus < 50" }, -- TIER 4: Fervor
 		{ "Multi-Shot" },
 		--{ "Explosive Trap", "", "ground" },
 		{ "Black Arrow", { "target.deathin > 10", "!target.state.charm" } },
@@ -94,16 +116,16 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 	{ "Explosive Shot" }, -- Explosive Shot on cooldown.
 	{ "Kill Shot", "target.health <= 20" }, -- Kill Shot
     { "Black Arrow", { "target.deathin > 15", "!target.state.charm" } }, -- Black Arrow on cooldown (if the target will live for the full duration of Black Arrow).
-	{ "Concussive Shot", { "toggle.pvpmode", "!target.debuff(Concussive Shot).any" }},
+	{ "Concussive Shot", { "toggle.pvpmode", "!target.debuff(Concussive Shot).any", "target.moving", "!target.immune.snare" }},
 	{ "Widow Venom", { "toggle.pvpmode", "!target.debuff(Widow Venom).any", "target.health > 20" }},
     { "Cobra Shot", "target.debuff(Serpent Sting).duration < 4" }, -- Cobra Shot if sting is about to drop.
-	{ "A Murder of Crows", "player.spell(131894).exists" }, -- TIER 5: A Murder of Crows
-	{ "Lynx Rush", "player.spell(120697).exists" }, -- TIER 5: Lynx Rush
-	{ "Dire Beast", "player.spell(120679).exists" }, -- TIER 4: Dire Beast
-    { "Fervor", { "player.spell(82726).exists", "player.focus < 50" } }, -- TIER 4: Fervor
-	{ "Glaive Toss", "player.spell(117050).exists" }, -- TIER 6: Glaive Toss
-    { "Powershot", "player.spell(109259).exists" }, -- TIER 6: Powershot
-	{ "Barrage", "player.spell(120360).exists" }, -- TIER 6: Barrage
+	{ "A Murder of Crows" }, -- TIER 5: A Murder of Crows
+	{ "Lynx Rush" }, -- TIER 5: Lynx Rush
+	{ "Dire Beast" }, -- TIER 4: Dire Beast
+    { "Fervor", "player.focus < 50" }, -- TIER 4: Fervor
+	{ "Glaive Toss" }, -- TIER 6: Glaive Toss
+    { "Powershot" }, -- TIER 6: Powershot
+	{ "Barrage" }, -- TIER 6: Barrage
 	{ "Explosive Trap", { "modifier.multitarget", "modifier.enemies > 2" }, "ground" },
 	{ "Multi-Shot", { "modifier.multitarget", "modifier.enemies > 1", "player.focus >= 60", "!player.buff(56453)" } },
     { "Arcane Shot", { "player.buff(Thrill of the Hunt)", "player.focus >= 40" } },
@@ -113,10 +135,15 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 {
     { "pause", "modifier.lcontrol" },
 	{ "pause", "player.buff(Feign Death)" },
-	{ "5118", { "toggle.aspect", "player.moving", "!player.buff(5118)", "!player.buff(13159)" } }, -- Aspect of the Cheetah (5118)
-	{ "1130", { "target.exists", "target.alive", "!target.debuff(1130)" }, "target" }, -- Hunter's Mark
+	{ "Aspect of the Cheetah", { "toggle.aspect", "player.moving", "!player.buff(Aspect of the Cheetah)", "!player.buff(Aspect of the Pack)" } },
+	{ "Hunter's Mark", { "target.exists", "target.alive", "!target.debuff(Hunter's Mark).any" }, "target" },
     { "Mend Pet", { "pet.health <= 90", "pet.exists", "pet.alive", "!pet.buff(Mend Pet)" } },
-	{ "Camouflage", { "toggle.camomode", "!player.buff(Camouflage)" }},
+	{ "Camouflage", { "toggle.camomode", "!player.buff(Camouflage)", "!player.debuff(Orb of Power)" } }, 
+	
+	{ "Explosive Trap", "modifier.lalt", "ground" },
+    { "Ice Trap" , "modifier.lalt", "ground" },
+	{ "Snake Trap" , "modifier.lalt", "ground" },
+	{ "Freezing Trap" , "modifier.ralt", "ground" },
 }, 
 function()
 	ProbablyEngine.toggle.create('aspect', 'Interface\\Icons\\ability_mount_jungletiger', 'Auto Aspect', 'Automatically switch aspect when moving and not in combat.')

@@ -47,7 +47,7 @@ ProbablyEngine.rotation.register_custom(262, "bbElementalShaman", {
 	{ "Flame Shock", "target.debuff(Flame Shock).duration <= 3" },
 	{ "Lava Burst" },
 	{ "Elemental Blast" },
-	{ "Earth Shock", { "player.buff(Lightning Shield)", "player.buff(Lightning Shield).count >= 6" },
+	{ "Earth Shock", { "player.buff(Lightning Shield)", "player.buff(Lightning Shield).count >= 6" } },
 	{ "Chain Lightning", { "modifier.enemies > 2", "modifier.multitarget" } },
 
 	-- Filler
