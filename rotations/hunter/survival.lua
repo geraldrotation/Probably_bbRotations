@@ -66,8 +66,8 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
     { "Misdirection", { "!toggle.pvpmode", "pet.exists", "!player.buff(Misdirection)", "!focus.exists", "target.threat > 85" }, "pet" },
 
 	-- Stances
-    { "Aspect of the Iron Hawk", { "!player.buff(Aspect of the Hawk)", "!player.buff(Aspect of the Iron Hawk)", "!player.moving" } }, -- Aspect of the Iron Hawk
-    { "Aspect of the Hawk", { "!player.buff(Aspect of the Hawk)", "!player.buff(Aspect of the Iron Hawk)", "!player.moving" } }, -- Aspect of the Hawk
+    { "Aspect of the Iron Hawk", { "!player.buff(Aspect of the Hawk)", "!player.buff(Aspect of the Iron Hawk)", "!player.moving" } },
+    { "Aspect of the Hawk", { "!player.buff(Aspect of the Hawk)", "!player.buff(Aspect of the Iron Hawk)", "!player.moving" } },
 	
 	-- Pre DPS Pause
 	{ "pause", "target.debuff(Wyvern Sting).any" },
@@ -79,8 +79,8 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 
 	-- Cooldowns
 	{ "Exhilaration", { "modifier.cooldowns", "player.health < 50" } },
-	{ "#5512", { "modifier.cooldowns", "player.health < 40" } }, -- Healthstone
-	{ "#76097", { "modifier.cooldowns", "player.health < 40", "@bbLib.useHealthPot" } }, -- Master Healing Potion
+	{ "#5512", { "modifier.cooldowns", "player.health < 40" } }, -- Healthstone (5512)
+	{ "#76097", { "modifier.cooldowns", "player.health < 40", "@bbLib.useHealthPot" } }, -- Master Healing Potion (76097)
 	{ "#76089", { "modifier.cooldowns", "pet.exists", "target.exists", "@bbLib.useAgiPot" } }, -- Agility Potion (76089)
 	{ "Blood Fury", "modifier.cooldowns" },
 	{ "#gloves", { "modifier.cooldowns", "pet.exists", "target.exists" } },
@@ -112,8 +112,8 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 	{ "Cobra Shot", "target.debuff(Serpent Sting).duration < 6" }, -- Cobra Shot if sting is about to drop.
 	{ "Arcane Shot", { "player.focus >= 67", "modifier.enemies < 2", "!modifier.multitarget" } },
 	{ "Multi-Shot", { "player.focus >= 67", "modifier.enemies > 1", "modifier.multitarget" } },
-	--{ "Cobra Shot" },
 	{ "Cobra Shot", { "player.spell(Explosive Shot).cooldown > 1", "player.spell(Black Arrow).cooldown > 1" } },
+	{ "Cobra Shot", "player.focus < 35" },
 	
 },
 {
