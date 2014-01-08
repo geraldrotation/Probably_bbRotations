@@ -25,7 +25,7 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 	{ "pause", "modifier.lcontrol" },
 	{ "pause", "@bbLib.bossMods" },
 	{ "pause", { "toggle.pvpmode", "@bbLib.BGFlag" } },
-	{ "/script TargetNearestEnemy()", { "toggle.autotarget", "!target.exists" } },
+	w{ "/script TargetNearestEnemy()", { "toggle.autotarget", "!target.exists" } },
 	{ "/script TargetNearestEnemy()", { "toggle.autotarget", "target.exists", "target.dead" } },
 	--{ "/script FollowUnit('focus')", { "toggle.autofollow", "focus.exists", "focus.alive" } }, -- TODO: NYI: isFollowing()
 	
@@ -51,12 +51,12 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 
 	-- Tank
 	{ "Earth Shield", "!tank.buff(Earth Shield).any", "tank" },
-	{ "Riptide", "!tank.buff", "tank" },
+	{ "Riptide", "!tank.buff(Riptide)", "tank" },
 
 	-- Healing totem
 	{ "Healing Stream Totem" },
 	{ "Mana Tide Totem", { "modifier.cooldowns", "player.mana < 30" } },
-	{ "Healing Tide Totem", "@coreHealing.needsHealing(60, 4)", "lowest" },
+	{ "Healing Tide Totem", "@coreHealing.needsHealing(40, 4)", "lowest" },
 
 	-- Dispel
 	{ "Purify Spirit", "@coreHealing.needsDispelled('Aqua Bomb')" },
@@ -67,12 +67,12 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 
 	-- Unleash Life
 	{ "Greater Healing Wave", { "lowest.health < 50", "player.buff(Unleash Life)" }, "lowest" },
-	{ "Unleash Elements", "lowest.health < 50" }, -- Use before direct heals
+	{ "Unleash Elements", "lowest.health < 50" }w, -- Use before direct heals
 	{ "Healing Wave", { "lowest.health < 91", "lowest.debuff(Chomp)" }, "lowest" },
 
 	-- regular healing
 	{ "Healing Surge", "lowest.health < 40", "lowest" }, -- only if you feel that the target will die before you have a chance to complete a Greater Healing Wave Icon Greater Healing Wave cast on them. If you suspect that a player may be in danger of dying in the near future, apply Riptide Icon Riptide on them, this will give them a bit of healing and, thanks to Tidal Waves Icon Tidal Waves, this will increase the critical strike chance of Healing Surge Icon Healing Surge.
-	{ "Riptide", { "!lowest.buff", "lowest.health < 99" }, "lowest" },
+	{ "Riptide", { "!lowest.buff(Riptide)", "lowest.health < 99" }, "lowest" },
 	{ "Greater Healing Wave", { "lowest.health < 55", "player.buff(Tidal Waves).count = 2" }, "lowest" },
 	{ "Chain Heal", "@coreHealing.needsHealing(80, 4)", "lowest" }, --Therefore, you should always cast Chain Heal Icon Chain Heal on targets with an active Riptide Icon Riptide. 
 	{ "Healing Wave", "lowest.health < 75", "lowest" },
