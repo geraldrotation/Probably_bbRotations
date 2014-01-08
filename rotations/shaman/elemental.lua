@@ -29,15 +29,15 @@ ProbablyEngine.rotation.register_custom(262, "bbElementalShaman", {
 	-- Moving Rotation
 	{ "Lightning Bolt", { "player.moving", "!player.buff(Spiritwalker's Grace)" } },
 
-	-- AoE
-	{ "Chain Lightning", { "modifier.enemies >= 4", "modifier.multitarget" } },
-	{ "Thunderstorm", { "modifier.enemies >= 6", "modifier.multitarget" } },
-
 	-- Cooldowns
 	{ "Stormlash Totem", { "modifier.cooldowns", "target.boss" } },
 	{ "Fire Elemental Totem", { "modifier.cooldowns", "target.boss" } },
 	{ "Elemental Mastery", { "modifier.cooldowns", "target.boss" } },
 	{ "Ascendance", { "modifier.cooldowns", "target.boss", "!player.buff(Ascendance)" } },
+	
+	-- AoE
+	{ "Chain Lightning", { "modifier.enemies >= 4", "modifier.multitarget" } },
+	{ "Thunderstorm", { "modifier.enemies >= 6", "modifier.multitarget" } },
 
 	-- Totems
 	{ "Searing Totem", { "!player.totem(Fire Elemental Totem)", "!player.totem(Searing Totem)" } },
@@ -45,7 +45,8 @@ ProbablyEngine.rotation.register_custom(262, "bbElementalShaman", {
 
 	-- Rotation
 	{ "Flame Shock", "target.debuff(Flame Shock).duration <= 3" },
-	{ "Lava Burst" },
+	{ "Lava Beam", "modifier.multitarget" },
+	{ "Lava Burst", "!modifier.multitarget" },
 	{ "Elemental Blast" },
 	{ "Earth Shock", { "player.buff(Lightning Shield)", "player.buff(Lightning Shield).count >= 6" } },
 	{ "Chain Lightning", { "modifier.enemies > 2", "modifier.multitarget" } },
