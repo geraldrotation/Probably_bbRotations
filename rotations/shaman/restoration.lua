@@ -50,7 +50,7 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 	--{ "Ascendance", { "modifier.cooldowns", "target.boss", "!player.buff(Ascendance)" } },
 
 	-- Tank
-	{ "Earth Shield", { "!tank.buff(Earth Shield).any", "!tank.player" }, "tank" },
+	{ "Earth Shield", "!tank.buff(Earth Shield).any", "tank" },
 	{ "Riptide", "!tank.buff", "tank" },
 
 	-- Healing totem
