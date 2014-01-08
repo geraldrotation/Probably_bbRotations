@@ -40,6 +40,13 @@ function bbLib.useAgiPot()
 	return false
 end
 
+function bbLib.isTargetingMe(target)
+	if UnitExists(target) then
+		return UnitGUID(target.."target") == UnitGUID("player")
+	end
+	return false
+end
+
 function bbLib.useHealthPot()
 	-- 76098 = Master Health Potion
 	if GetItemCount(76097) > 1 
