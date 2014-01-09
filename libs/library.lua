@@ -13,12 +13,12 @@ function bbLib.bossMods()
 			local bossCheck = "boss"..i
 			if UnitExists(bossCheck) then
 				local npcID = tonumber(UnitGUID(bossCheck):sub(6, 10), 16)
-				local bossCasting,_,_,_,_,castEnd = UnitCastingInfo(bossCheck)
+				--local bossCasting,_,_,_,_,castEnd = UnitCastingInfo(bossCheck)
 				if npcID == 71515 then  -- SoO: General Nazgrim
-					if UnitBuffID("target", 71) then
-						SpellStopCasting()
-						return true
-					end
+					--if UnitBuffID("target", 71) then
+						--SpellStopCasting()
+						--return true
+					--end
 				end
 			end
 		end

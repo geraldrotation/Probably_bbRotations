@@ -13,7 +13,7 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 	{ "pause", "player.buff(Feign Death)" },
 	{ "pause", { "toggle.pvpmode", "@bbLib.BGFlag" } },
 
-	{ "/script TargetNearestEnemy()", { "toggle.autotarget", "!target.exists" } },
+	--{ "/script TargetNearestEnemy()", { "toggle.autotarget", "!target.exists" } },
 	{ "/script TargetNearestEnemy()", { "toggle.autotarget", "target.exists", "target.dead" } },
 	
 	--{ "pause", "player.time >= 300", "toggle.dpstest" } },
@@ -43,7 +43,7 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 	{ "Scare Beast", { "toggle.pvpmode", "target.exists", "target.enemy", "target.alive", "target.creatureType(Beast)" } },
 	
     -- Mouseovers
-	{ "Serpent Sting", { "toggle.mousesting", "mouseover.exists", "mouseover.enemy", "mouseover.alive", "!mouseover.debuff(Serpent Sting)",
+	{ "Serpent Sting", { "!modifier.pvpmode", "toggle.mousesting", "mouseover.exists", "mouseover.enemy", "mouseover.alive", "!mouseover.debuff(Serpent Sting)",
 		"!mouseover.state.charm", "mouseover.deathin > 10" }, "mouseover" },
 	
 	-- Traps
@@ -62,8 +62,8 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 	-- TODO: Cleave Rotation?
 
     -- Misdirect to focus target or pet when threat is above a certain threshold
-    { "Misdirection", { "!toggle.pvpmode", "focus.exists", "!player.buff(Misdirection)", "target.threat > 60" }, "focus" },
-    { "Misdirection", { "!toggle.pvpmode", "pet.exists", "!player.buff(Misdirection)", "!focus.exists", "target.threat > 85" }, "pet" },
+    { "Misdirection", { "!toggle.pvpmode", "!target.isPlayer", "focus.exists", "!player.buff(Misdirection)", "target.threat > 60" }, "focus" },
+    { "Misdirection", { "!toggle.pvpmode", "!target.isPlayer", "pet.exists", "!player.buff(Misdirection)", "!focus.exists", "target.threat > 85" }, "pet" },
 
 	-- Stances
     { "Aspect of the Iron Hawk", { "!player.buff(Aspect of the Hawk)", "!player.buff(Aspect of the Iron Hawk)", "!player.moving" } },
@@ -96,7 +96,7 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 	{ "A Murder of Crows" }, -- TIER 5: A Murder of Crows
 	{ "Lynx Rush" }, -- TIER 5: Lynx Rush
 	{ "Explosive Shot", "player.buff(Lock and Load)" },
-	{ "Glaive Toss" }, -- TIER 6: Glaive Toss
+	{ "Glaive Toss" }, -- TIER 6: Glaive Toss --TODO: do range check
 	{ "Powershot" }, -- TIER 6: Powershot
 	{ "Barrage" }, -- TIER 6: Barrage
 	{ "Serpent Sting", { "!target.debuff", "target.deathin >= 10", "!target.state.charm" } },
@@ -112,7 +112,7 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 	{ "Cobra Shot", "target.debuff(Serpent Sting).duration < 6" }, -- Cobra Shot if sting is about to drop.
 	{ "Arcane Shot", { "player.focus >= 67", "modifier.enemies < 2", "!modifier.multitarget" } },
 	{ "Multi-Shot", { "player.focus >= 67", "modifier.enemies > 1", "modifier.multitarget" } },
-	{ "Cobra Shot", { "player.spell(Explosive Shot).cooldown > 1", "player.spell(Black Arrow).cooldown > 1" } },
+	{ "Cobra Shot", "player.spell(Explosive Shot).cooldown > 1" },
 	{ "Cobra Shot", "player.focus < 35" },
 	
 },
