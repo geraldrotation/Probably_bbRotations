@@ -1,7 +1,7 @@
 -- ProbablyEngine Rotation Packager
 -- Custom Combat Rogue Rotation
 -- Created on Dec 25th 2013 1:00 am
-ProbablyEngine.rotation.register_custom(260, "bbCombatRogue" {
+ProbablyEngine.rotation.register_custom(260, "bbCombatRogue", {
 -- PLAYER CONTROLLED:
 -- SUGGESTED TALENTS:
 -- CONTROLS: Pause - Left Control
@@ -69,7 +69,7 @@ ProbablyEngine.rotation.register_custom(260, "bbCombatRogue" {
 
 	{ "Marked for Death", { "player.combopoints = 0", "target.debuff(Revealing Strike)" } },
 
-	{ "Fan of Knives", { "modifier.multitarget", "modifier.enemies >= 4", "player.combopoints < 5" } }, --TODO: player.spell(Fan of Knives).delay(5)
+	{ "Fan of Knives", { "modifier.multitarget", "modifier.enemies >= 4", "player.combopoints < 5", "modifier.timeout(Fan of Knives, 5)" } },
 	{ "Fan of Knives", { "modifier.multitarget", "modifier.enemies >= 4", "player.spell(Anticipation).exists", "player.buff(Anticipation).count <= 4", "!target.debuff(Revealing Strike)" } }, --TODO: player.spell(Fan of Knives).delay(5)
 
 	{ "Revealing Strike", { "target.debuff(Revealing Strike).duration <= 2", "player.combopoints < 5" } },

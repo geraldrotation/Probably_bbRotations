@@ -25,7 +25,7 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 	{ "pause", "modifier.lcontrol" },
 	{ "pause", "@bbLib.bossMods" },
 	{ "pause", { "toggle.pvpmode", "@bbLib.BGFlag" } },
-	w{ "/script TargetNearestEnemy()", { "toggle.autotarget", "!target.exists" } },
+	{ "/script TargetNearestEnemy()", { "toggle.autotarget", "!target.exists" } },
 	{ "/script TargetNearestEnemy()", { "toggle.autotarget", "target.exists", "target.dead" } },
 	--{ "/script FollowUnit('focus')", { "toggle.autofollow", "focus.exists", "focus.alive" } }, -- TODO: NYI: isFollowing()
 	
@@ -67,7 +67,7 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 
 	-- Unleash Life
 	{ "Greater Healing Wave", { "lowest.health < 50", "player.buff(Unleash Life)" }, "lowest" },
-	{ "Unleash Elements", "lowest.health < 50" }w, -- Use before direct heals
+	{ "Unleash Elements", "lowest.health < 50" }, -- Use before direct heals
 	{ "Healing Wave", { "lowest.health < 91", "lowest.debuff(Chomp)" }, "lowest" },
 
 	-- regular healing
