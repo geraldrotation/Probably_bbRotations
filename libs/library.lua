@@ -26,6 +26,48 @@ function bbLib.bossMods()
 	return false
 end
 
+function bbLib.bossTaunt()
+  -- Thanks to Rubim!
+  -- Make sure we're a tank first and we're in a raid
+  if UnitGroupRolesAssigned("player") ~= "TANK" or not IsInRaid() then
+    return false
+  end
+
+  local otherTank
+  for i = 1, GetNumGroupMembers() do
+    local other = "raid" .. i
+    if not otherTank and not UnitIsUnit("player", other) and UnitGroupRolesAssigned(other) == "TANK" then
+      otherTank = other
+    end
+  end
+  if not otherTank then return false end
+
+  if UnitIsDeadOrGhost(otherTank) then return false end
+
+  for i = 1, 4 do
+    local bossID = "boss" .. i
+    local boss = UnitID(bossID) -- /script print(UnitID("target"))
+    if     boss == 71543 then -- Immersus
+      if ProbablyEngine.dsl.get('debuff.any')(otherTank, 143437) or ProbablyEngine.dsl.get('debuff.any')(otherTank, 143436) then
+        ProbablyEngine.dsl.parsedTarget = bossID
+        return true
+      end
+    elseif boss == 71967 then -- Norushen
+      if ProbablyEngine.dsl.get('buff.count')(otherTank, GetSpellID(146124)) then
+        ProbablyEngine.dsl.parsedTarget = bossID
+        return true
+      end
+    elseif boss == 71734 then -- Sha of Pride
+      if ProbablyEngine.dsl.get('debuff.any')(otherTank, 144358) then
+        ProbablyEngine.dsl.parsedTarget = bossID
+        return true
+      end
+    end
+  end
+
+  return false
+end
+
 function bbLib.useAgiPot()
 	-- 76089 = Virmen's Bite
 	if GetItemCount(76089) > 1 

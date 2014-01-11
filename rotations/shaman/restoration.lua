@@ -82,9 +82,9 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 	{ "Fire Elemental Totem", { "modifier.cooldowns", "target.boss" } },
 	{ "Stormlash Totem", { "modifier.cooldowns", "target.boss" } },
 	{ "Searing Totem", { "!player.totem(Fire Elemental Totem)", "!player.totem(Searing Totem)" } },
-	{ "Flame Shock", { "focustarget.exists", "!focustarget.debuff(Flame Shock)", "player.mana > 66" }, "focustarget" },
-	{ "Lava Burst", { "focustarget.exists", "focustarget.debuff(Flame Shock)", "player.mana > 66" }, "focustarget" },
-	{ "Lightning Bolt", { "focustarget.exists", "player.glyph(Glyph of Telluric Currents)" }, "focustarget" },
+	----{ "Flame Shock", { "focustarget.exists", "!focustarget.debuff(Flame Shock)", "player.mana > 66" }, "focustarget" },
+	--{ "Lava Burst", { "focustarget.exists", "focustarget.debuff(Flame Shock)", "player.mana > 66" }, "focustarget" },
+	--{ "Lightning Bolt", { "focustarget.exists", "player.glyph(Glyph of Telluric Currents)" }, "focustarget" },
 	
 }, {
 -- OUT OF COMBAT ROTATION
