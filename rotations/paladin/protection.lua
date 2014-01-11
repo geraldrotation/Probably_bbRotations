@@ -46,7 +46,7 @@ ProbablyEngine.rotation.register_custom(66, "bbProtectionPaladin", {
 	
 	-- Raid Survivability
 	{ "Hand of Protection", { "lowest.exists", "lowest.alive", "lowest.friend", "!lowest.role(tank)", "!lowest.immune.melee", "lowest.health < 40" }, "lowest" },
-	{ "Hand of Sacrifice", { "tank.exists", "tank.alive", "tank.friend", "tank.range <= 40", "tank.health < 75" }, "tank" },
+	{ "Hand of Sacrifice", { "tank.exists", "tank.alive", "tank.friend", "tank.range <= 40", "tank.health < 75" }, "tank" }, --TODO: !tank.player
 	{ "Flash of Light", { "lowest.health < 50", "player.buff(Selfless Healer).count > 2" }, "lowest" }, -- T3
 	{ "Flash of Light", { "player.health < 70", "player.buff(Selfless Healer).count > 2", "player.buff(Bastion of Glory)" }, "player" }, -- T3
 	
@@ -61,8 +61,8 @@ ProbablyEngine.rotation.register_custom(66, "bbProtectionPaladin", {
 	}},
 	
 	-- Mouseovers
+	{ "Light's Hammer", { "modifier.lalt" }, "ground" },
 	{{
-		{ "Light's Hammer", { "modifier.lalt" }, "ground" },
 		{ "Hand of Freedom", { "mouseover.exists", "mouseover.alive", "mouseover.friend", "mouseover.range <= 40", "mouseover.state.root" }, "mouseover" },
 		{ "Hand of Freedom", { "mouseover.exists", "mouseover.alive", "mouseover.friend", "mouseover.range <= 40", "mouseover.state.snare" }, "mouseover" },
 		{ "Hand of Salvation", { "mouseover.exists", "mouseover.alive", "mouseover.friend", "mouseover.range <= 40", "!mouseover.role(tank)", "mouseover.threat > 90" }, "mouseover" },
@@ -85,8 +85,8 @@ ProbablyEngine.rotation.register_custom(66, "bbProtectionPaladin", {
 	{ "Holy Wrath", "!toggle.limitaoe" },
 	{ "Hammer of Wrath", "!toggle.limitaoe" },
 	{ "Consecration", { "target.spell(Crusader Strike).range", "!toggle.limitaoe" } },
-  
-  },{
+	
+},{
 -- OUT OF COMBAT ROTATION
 
 	-- Pause
