@@ -47,7 +47,7 @@ function bbLib.isTargetingMe(target)
 	return false
 end
 
-fuction bbLib.highThreatOnPlayerTarget(target)
+function bbLib.highThreatOnPlayerTarget(target)
 	if UnitExists(target) and UnitExists("target") then
 		local threat = UnitThreatSituation(target,"target")
 		if threat and threat > 0 then --not tanking, higher threat than tank.
