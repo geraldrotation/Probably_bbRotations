@@ -4,7 +4,7 @@
 ProbablyEngine.rotation.register_custom(66, "bbProtectionPaladin", {
 -- PLAYER CONTROLLED: Guardian of Ancient Kings, Divine Protection, Divine Shield, Devotion Aura, Light's Hammer (T6)
 -- SUGGESTED TALENTS:
--- CONTROLS: Pause - Left Control
+-- CONTROLS: Pause - Left Control, Light's Hammer - Left Alt
 
 -- COMBAT
 	-- Rotation Utilities
@@ -32,19 +32,21 @@ ProbablyEngine.rotation.register_custom(66, "bbProtectionPaladin", {
 	{ "Seal of Insight", "player.seal != 3" },
 
 	-- Interrupts
-	{ "Avenger's Shield", "modifier.interrupts" },
-	{ "Rebuke", "modifier.interrupts" },
+	{ "Avenger's Shield", "modifier.interrupts" }, 
+	{ "Rebuke", "modifier.interrupts" }, --TODO: Interrupt at 50% cast
 	
-	-- Mouseovers
-	-- Hand of Protection Mouseover (friendly)
-	-- TODO
-	
-	-- Hand of Salvation Mouseover (friendly)
-	-- TODO
-  
-	-- Damage Reduction & Healing
+	-- Survivability
+	{ "Hand of Freedom", { "!player.buff", "player.state.root" }, "player" },
+	{ "Hand of Freedom", { "!player.buff", "player.state.snare" }, "player" },
 	{ "Eternal Flame", "player.buff(Eternal Flame).duration < 3" }, -- T3
 	{ "Sacred Shield", "player.buff(Sacred Shield).duration < 3" }, -- T3
+	
+	-- BossMods
+	{ "Hand of Sacrifice", { "mouseover.exists", "mouseover.alive", "mouseover.friend", "mouseover.range <= 40", "mouseover.debuff(Assassin's Mark)" }, "mouseover" },
+	
+	-- Raid Survivability
+	{ "Hand of Protection", { "lowest.exists", "lowest.alive", "lowest.friend", "!lowest.role(tank)", "!lowest.immune.melee", "lowest.health < 40" }, "lowest" },
+	{ "Hand of Sacrifice", { "tank.exists", "tank.alive", "tank.friend", "tank.range <= 40", "tank.health < 75" }, "tank" },
 	{ "Flash of Light", { "lowest.health < 50", "player.buff(Selfless Healer).count > 2" }, "lowest" }, -- T3
 	{ "Flash of Light", { "player.health < 70", "player.buff(Selfless Healer).count > 2", "player.buff(Bastion of Glory)" }, "player" }, -- T3
 	
@@ -57,7 +59,17 @@ ProbablyEngine.rotation.register_custom(66, "bbProtectionPaladin", {
 	}, {
 		"modifier.cooldowns",
 	}},
-
+	
+	-- Mouseovers
+	{{
+		{ "Light's Hammer", { "modifier.lalt" }, "ground" },
+		{ "Hand of Freedom", { "mouseover.exists", "mouseover.alive", "mouseover.friend", "mouseover.range <= 40", "mouseover.state.root" }, "mouseover" },
+		{ "Hand of Freedom", { "mouseover.exists", "mouseover.alive", "mouseover.friend", "mouseover.range <= 40", "mouseover.state.snare" }, "mouseover" },
+		{ "Hand of Salvation", { "mouseover.exists", "mouseover.alive", "mouseover.friend", "mouseover.range <= 40", "!mouseover.role(tank)", "mouseover.threat > 90" }, "mouseover" },
+	}, {
+		"toggle.mouseovers",
+	}},
+	
 	-- DPS Rotation
 	{ "Avenger's Shield", { "modifier.multitarget", "modifier.enemies > 9" } },
 	{ "Judgment", "player.spell(Sanctified Wrath).exists" },
@@ -88,6 +100,7 @@ ProbablyEngine.rotation.register_custom(66, "bbProtectionPaladin", {
   
 },
 function()
+	ProbablyEngine.toggle.create('mouseovers', 'Interface\\Icons\\spell_fire_flameshock', 'Toggle Mouseovers', 'Automatically cast spells on mouseover targets')
 	ProbablyEngine.toggle.create('pvpmode', 'Interface\\Icons\\achievement_pvp_o_h', 'PvP', 'Toggle the usage of PvP abilities.')
 	ProbablyEngine.toggle.create('limitaoe', 'Interface\\Icons\\spell_fire_flameshock', 'Limit AoE', 'Toggle to avoid using CC breaking aoe effects.')
 	ProbablyEngine.toggle.create('autotarget', 'Interface\\Icons\\ability_hunter_snipershot', 'Auto Target', 'Automaticaly target the nearest enemy when target dies or does not exist.')
