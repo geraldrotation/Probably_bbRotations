@@ -47,6 +47,16 @@ function bbLib.isTargetingMe(target)
 	return false
 end
 
+fuction bbLib.highThreatOnPlayerTarget(target)
+	if UnitExists(target) and UnitExists("target") then
+		local threat = UnitThreatSituation(target,"target")
+		if threat and threat > 0 then --not tanking, higher threat than tank.
+			return true
+		end
+	end
+	return false
+end
+
 function bbLib.useHealthPot()
 	-- 76098 = Master Health Potion
 	if GetItemCount(76097) > 1 

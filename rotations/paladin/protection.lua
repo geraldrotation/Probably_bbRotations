@@ -65,7 +65,7 @@ ProbablyEngine.rotation.register_custom(66, "bbProtectionPaladin", {
 	{{
 		{ "Hand of Freedom", { "mouseover.exists", "mouseover.alive", "mouseover.friend", "mouseover.range <= 40", "mouseover.state.root" }, "mouseover" },
 		{ "Hand of Freedom", { "mouseover.exists", "mouseover.alive", "mouseover.friend", "mouseover.range <= 40", "mouseover.state.snare" }, "mouseover" },
-		{ "Hand of Salvation", { "mouseover.exists", "mouseover.alive", "mouseover.friend", "mouseover.range <= 40", "!mouseover.role(tank)", "mouseover.threat > 90" }, "mouseover" },
+		{ "Hand of Salvation", { "mouseover.exists", "mouseover.alive", "mouseover.friend", "mouseover.range <= 40", "!mouseover.role(tank)", "@bbLib.highThreatOnPlayerTarget(mouseover)" }, "mouseover" },
 	}, {
 		"toggle.mouseovers",
 	}},
