@@ -90,11 +90,23 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 	{ "Concussive Shot", { "toggle.pvpmode", "!target.debuff(Concussive Shot).any", "target.moving", "!target.immune.snare" }},
 	{ "Widow Venom", { "toggle.pvpmode", "!target.debuff(Widow Venom).any", "target.health > 20" }},
 
-	-- DPS Rotation
-	{ "Explosive Trap", { "modifier.multitarget", "modifier.enemies > 1" }, "ground" },
+	-- Dual Use
 	{ "Fervor", "player.focus <= 50" }, -- TIER 4: Fervor
 	{ "A Murder of Crows" }, -- TIER 5: A Murder of Crows
 	{ "Lynx Rush" }, -- TIER 5: Lynx Rush
+	
+	-- Multi Target
+	{ "Multi-Shot", "modifier.multitarget" },
+	{ "Glaive Toss", "modifier.multitarget" }, -- TIER 6: Glaive Toss --TODO: do range check
+	{ "Powershot", "modifier.multitarget" }, -- TIER 6: Powershot
+	{ "Barrage", "modifier.multitarget" }, -- TIER 6: Barrage
+	{ "Explosive Trap", "modifier.multitarget", "ground" },
+	{ "Black Arrow", { "modifier.multitarget", "!target.debuff", "target.deathin >= 8", "!target.state.charm" } },
+	{ "Explosive Shot", { "modifier.multitarget", "player.buff(Lock and Load)" } },
+	{ "Kill Shot", { "modifier.multitarget", "target.health <= 20" } },
+	{ "Cobra Shot", { "modifier.multitarget", "player.focus < 40" } },
+	
+	-- Single Target
 	{ "Explosive Shot", "player.buff(Lock and Load)" },
 	{ "Glaive Toss" }, -- TIER 6: Glaive Toss --TODO: do range check
 	{ "Powershot" }, -- TIER 6: Powershot
@@ -103,17 +115,17 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 	{ "Explosive Shot" },
 	{ "Kill Shot", "target.health <= 20" }, -- Kill Shot
 	{ "Black Arrow", { "!target.debuff", "target.deathin >= 8", "!target.state.charm" } },
-	{ "Multi-Shot", { "modifier.multitarget", "modifier.enemies > 3" } },
 	{ "Multi-Shot", { "player.buff(Thrill of the Hunt)", "target.debuff(Serpent Sting).duration < 2" } },
 	{ "Arcane Shot", "player.buff(Thrill of the Hunt)" },
 	{ "Rapid Fire", { "pet.exists", "target.exists", "!@bbLib.playerHasted" } },
 	{ "Dire Beast" }, -- TIER 4: Dire Beast
 	{ "Stampede", { "pet.exists", "@bbLib.playerHasted" } },
 	{ "Cobra Shot", "target.debuff(Serpent Sting).duration < 6" }, -- Cobra Shot if sting is about to drop.
-	{ "Arcane Shot", { "player.focus >= 67", "modifier.enemies < 2", "!modifier.multitarget" } },
-	{ "Multi-Shot", { "player.focus >= 67", "modifier.enemies > 1", "modifier.multitarget" } },
+	{ "Multi-Shot", { "player.focus >= 67", "toggle.cleavemode", "modifier.enemies > 1" } },
+	{ "Explosive Trap", { "toggle.cleavemode", "modifier.enemies > 2" }, "ground" },
+	{ "Arcane Shot", { "player.focus >= 67" } },
 	{ "Cobra Shot", "player.spell(Explosive Shot).cooldown > 1" },
-	{ "Cobra Shot", "player.focus < 35" },
+	{ "Cobra Shot", "player.focus < 40" },
 	
 },
 {
@@ -145,6 +157,7 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 	
 }, 
 function()
+	ProbablyEngine.toggle.create('cleavemode', 'Interface\\Icons\\achievement_pvp_o_h', 'Cleave Mode', 'Toggle the usage of AoE abilities for 2 to 3 enemies.')
 	ProbablyEngine.toggle.create('aspect', 'Interface\\Icons\\ability_mount_jungletiger', 'Auto Aspect', 'Automatically switch aspect when moving and not in combat.')
 	ProbablyEngine.toggle.create('mousesting', 'Interface\\Icons\\ability_hunter_quickshot', 'Auto Sting', 'Automatically cast Serpent Sting on mouseover targets.')
 	ProbablyEngine.toggle.create('pvpmode', 'Interface\\Icons\\achievement_pvp_o_h', 'PvP', 'Toggle the usage of PvP abilities.')

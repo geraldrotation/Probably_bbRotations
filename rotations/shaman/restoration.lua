@@ -2,17 +2,17 @@
 -- Custom Restoration Shaman Rotation
 -- Created on Dec 25th 2013 1:00 am
 ProbablyEngine.library.register('coreHealing', {
-  needsHealing = function(percent, count)
-    return ProbablyEngine.raid.needsHealing(tonumber(percent)) >= count
-  end,
-  needsDispelled = function(spell)
-    for _, unit in pairs(ProbablyEngine.raid.roster) do
-      if UnitDebuff(unit.unit, spell) then
-        ProbablyEngine.dsl.parsedTarget = unit.unit
-        return true
-      end
-    end
-  end,
+	needsHealing = function(percent, count)
+		return ProbablyEngine.raid.needsHealing(tonumber(percent)) >= count
+	end,
+	needsDispelled = function(spell)
+		for _, unit in pairs(ProbablyEngine.raid.roster) do
+			if UnitDebuff(unit.unit, spell) then
+				ProbablyEngine.dsl.parsedTarget = unit.unit
+				return true
+			end
+		end
+	end,
 })
 
 ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
@@ -56,7 +56,7 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 	-- Healing totem
 	{ "Healing Stream Totem" },
 	{ "Mana Tide Totem", { "modifier.cooldowns", "player.mana < 30" } },
-	{ "Healing Tide Totem", "@coreHealing.needsHealing(40, 4)", "lowest" },
+	{ "Healing Tide Totem", "@coreHealing.needsHealing(40, 8)", "lowest" },
 
 	-- Dispel
 	{ "Purify Spirit", "@coreHealing.needsDispelled('Aqua Bomb')" },
@@ -97,7 +97,7 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 
 	-- Heal
 	{ "Healing Stream Totem", "player.health < 80" },
-	{ "Healing Wave", "@coreHealing.needsHealing(80, 1)", "lowest" },
+	--{ "Healing Wave", "@coreHealing.needsHealing(80, 1)", "lowest" },
 	{ "Healing Wave", "lowest.health < 85", "lowest" },
 	
 },
