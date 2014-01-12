@@ -19,6 +19,7 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 -- PLAYER CONTROLLED:
 -- SUGGESTED TALENTS:
 -- CONTROLS: Pause - Left Control, Healing Rain - Left Shift
+-- NOTE: Set Focus target to tank, for: Earth Shield, Riptide, Lightning Bolt
 
 -- COMBAT
 	-- Rotation Utilities
@@ -46,18 +47,23 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 	--{ "Flame Shock", { "mouseover.enemy", "mouseover.alive", "mouseover.deathin > 15", "mouseover.debuff(Flame Shock).duration <= 3", "toggle.mouseovers" }, "mouseover" },
 
 	-- Cooldowns
-	--{ "Elemental Mastery", { "modifier.cooldowns", "target.boss" } },
-	--{ "Ascendance", { "modifier.cooldowns", "target.boss", "!player.buff(Ascendance)" } },
+	{ "Elemental Mastery", { "modifier.cooldowns", "target.boss" } }, -- T4
 
 	-- Tank
 	{ "Earth Shield", "!focus.buff(Earth Shield).any", "focus" },
 	{ "Riptide", "!focus.buff(Riptide)", "focus" },
 	{ "Riptide", "!tank.buff(Riptide)", "tank" },
+	
+	-- Oh Shit
+	{ "Ancestral Swiftness", "lowest.health < 25" }
+	{ "Greater Healing Wave", { "lowest.health < 25", "player.buff(Ancestral Swiftness)" }, "lowest" },
 
-	-- Healing totem
+	-- Cooldowns
 	{ "Healing Stream Totem", { "!player.totem(Healing Tide Totem)", "!player.totem(Mana Tide Totem)" } },
 	{ "Mana Tide Totem", { "modifier.cooldowns", "player.mana < 30" } },
-	{ "Healing Tide Totem", "@coreHealing.needsHealing(40, 8)" },
+	{ "Healing Tide Totem", { "modifier.cooldowns", "@coreHealing.needsHealing(40, 8)" } },
+	{ "Spirit Link Totem", { "modifier.cooldowns", "!player.totem(Healing Tide Totem)", "@coreHealing.needsHealing(40, 8)" } },
+	{ "Ascendance", { "modifier.cooldowns", "modifier.cooldowns", "!player.totem(Spirit Link Totem)", "!player.totem(Healing Tide Totem)", "@coreHealing.needsHealing(40, 8)" } },
 
 	-- Dispel
 	{ "Purify Spirit", "@coreHealing.needsDispelled('Aqua Bomb')" },
@@ -79,12 +85,16 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 
 
 	-- DPS
-	--{ "Fire Elemental Totem", { "modifier.cooldowns", "target.boss" } },
-	--{ "Stormlash Totem", { "modifier.cooldowns", "target.boss" } },
-	{ "Searing Totem", { "!player.totem(Fire Elemental Totem)", "!player.totem(Searing Totem)" } },
-	----{ "Flame Shock", { "focustarget.exists", "!focustarget.debuff(Flame Shock)", "player.mana > 66" }, "focustarget" },
-	--{ "Lava Burst", { "focustarget.exists", "focustarget.debuff(Flame Shock)", "player.mana > 66" }, "focustarget" },
-	--{ "Lightning Bolt", { "focustarget.exists", "player.glyph(Glyph of Telluric Currents)" }, "focustarget" },
+	{{
+		{ "Lightning Bolt", { "focus.exists", "focustarget.exists", "focustarget.enemy", "focustarget.range < 40", "player.mana < 50", "player.glyph(Glyph of Telluric Currents)" }, "focustarget" },
+		{ "Fire Elemental Totem", { "modifier.cooldowns", "target.boss" } },
+		{ "Stormlash Totem", { "modifier.cooldowns", "target.boss" } },
+		{ "Searing Totem", { "!player.totem(Magma Totem)", "!player.totem(Fire Elemental Totem)", "!player.totem(Searing Totem)" } },
+		----{ "Flame Shock", { "focustarget.exists", "!focustarget.debuff(Flame Shock)", "player.mana > 66" }, "focustarget" },
+		--{ "Lava Burst", { "focustarget.exists", "focustarget.debuff(Flame Shock)", "player.mana > 66" }, "focustarget" },
+	}, {
+		"toggle.dpsmode",
+	}},
 	
 }, {
 -- OUT OF COMBAT ROTATION
@@ -103,6 +113,7 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 },
 function()
 	ProbablyEngine.toggle.create('pvpmode', 'Interface\\Icons\\achievement_pvp_o_h', 'PvP', 'Toggle the usage of PvP abilities.')
+	ProbablyEngine.toggle.create('dpsmode', 'Interface\\Icons\\ability_dualwield', 'DPS Mode', 'Toggle the usage of damage dealing abilities.')
 	ProbablyEngine.toggle.create('mouseovers', 'Interface\\Icons\\spell_fire_flameshock', 'Toggle Mouseovers', 'Automatically cast spells on mouseover targets')
 	ProbablyEngine.toggle.create('autotarget', 'Interface\\Icons\\ability_hunter_snipershot', 'Auto Target', 'Automaticaly target the nearest enemy when target dies or does not exist.')
 end)

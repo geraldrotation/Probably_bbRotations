@@ -29,132 +29,101 @@ end
 function bbLib.bossTaunt()
 	-- Thanks to Rubim!
 	-- Make sure we're a tank first and we're in a raid
-	if UnitGroupRolesAssigned("player") ~= "TANK" or not IsInRaid() then
-		return false
-	end
-
-	local otherTank
-	for i = 1, GetNumGroupMembers() do
-		local other = "raid" .. i
-		if not otherTank and not UnitIsUnit("player", other) and UnitGroupRolesAssigned(other) == "TANK" then
-			otherTank = other
+	if UnitGroupRolesAssigned("player") == "TANK" and IsInRaid() then
+		local otherTank
+		for i = 1, GetNumGroupMembers() do
+			local other = "raid" .. i
+			if not otherTank and not UnitIsUnit("player", other) and UnitGroupRolesAssigned(other) == "TANK" then
+				otherTank = other
+			end
 		end
-	end
-	if not otherTank then return false end
-
-	if UnitIsDeadOrGhost(otherTank) then return false end
-
-	for j = 1, 4 do
-		local bossID = "boss" .. j
-		local boss = UnitID(bossID) -- /script print(UnitID("target"))
-		if     boss == 71543 then -- Immersus
-			if UnitDebuff(otherTank, "Corrosive Blast") 
-			  and not UnitDebuff("player", "Corrosive Blast") then
-				ProbablyEngine.dsl.parsedTarget = bossID
-				return true
-			end 
-		elseif boss == 72276 then -- Norushen
-			local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Self Doubt") -- Possibly a buff?
-			if debuffName 
-			  and debuffCount > 2
-			  and not UnitDebuff("player", "Self Doubt") then
-				ProbablyEngine.dsl.parsedTarget = bossID
-				return true
-			end 
-		elseif boss == 71734 then -- Sha of Pride
-			if UnitDebuff(otherTank, "Wounded Pride") 
-			  and not UnitDebuff("player", "Wounded Pride") then
-				ProbablyEngine.dsl.parsedTarget = bossID
-				return true
-			end
-		elseif boss == 72249 then -- Galakras
-			local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Flames of Galakrond")
-			if debuffName 
-			  and debuffCount > 2 
-			  and not UnitDebuff("player", "Flames of Galakrond") then
-				ProbablyEngine.dsl.parsedTarget = bossID
-				return true
-			end  
-		elseif boss == 71466 then -- Iron Juggernaut
-			local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Ignite Armor")
-			if debuffName 
-			  and debuffCount > 2 
-			  and not UnitDebuff("player", "Ignite Armor") then
-				ProbablyEngine.dsl.parsedTarget = bossID
-				return true
-			end  
-		elseif boss == 71859 then -- Kor'kron Dark Shaman
-			local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Froststorm Strike") -- Earthbreaker Haromm
-			if debuffName 
-			  and debuffCount > 4
-			  and not UnitDebuff("player", "Froststorm Strike") then
-				ProbablyEngine.dsl.parsedTarget = bossID
-				return true
-			end   
-		elseif boss == 71515 then -- General Nazgrim
-			local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Sundering Blow")
-			if debuffName 
-			  and debuffCount > 2 
-			  and not UnitDebuff("player", "Sundering Blow") then
-				ProbablyEngine.dsl.parsedTarget = bossID
-				return true
-			end
-		elseif boss == 71454 then -- Malkorok
-			local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Fatal Strike")
-			if debuffName 
-			  and debuffCount > 11
-			  and not UnitDebuff("player", "Fatal Strike") then
-				ProbablyEngine.dsl.parsedTarget = bossID
-				return true
-			end
-		elseif boss == 71529 then -- Thok the Bloodsthirsty
-			local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Fearsome Roar")
-			if debuffName 
-			  and debuffCount > 2
-			  and not UnitDebuff("player", "Fearsome Roar") then
-				ProbablyEngine.dsl.parsedTarget = bossID
-				return true
-			end
-			local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Acid Breath")
-			if debuffName 
-			  and debuffCount > 2
-			  and not UnitDebuff("player", "Acid Breath") then
-				ProbablyEngine.dsl.parsedTarget = bossID
-				return true
-			end 
-			local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Freezing Breath")
-			if debuffName 
-			  and debuffCount > 2
-			  and not UnitDebuff("player", "Freezing Breath") then
-				ProbablyEngine.dsl.parsedTarget = bossID
-				return true
-			end 
-			local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Scorching Breath")
-			if debuffName 
-			  and debuffCount > 2
-			  and not UnitDebuff("player", "Scorching Breath") then
-				ProbablyEngine.dsl.parsedTarget = bossID
-				return true
-			end
-		elseif boss == 71504 then -- Siegecrafter Blackfuse
-			local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Electrostatic Charge")
-			if debuffName 
-			  and debuffCount > 3
-			  and not UnitDebuff("player", "Electrostatic Charge") then
-				ProbablyEngine.dsl.parsedTarget = bossID
-				return true
-			end
-		elseif boss == 71504 then -- Garrosh Hellscream
-			local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Gripping Despair")
-			if debuffName 
-			  and debuffCount > 2
-			  and not UnitDebuff("player", "Gripping Despair") then
-				ProbablyEngine.dsl.parsedTarget = bossID
-				return true
+		if otherTank and not UnitIsDeadOrGhost(otherTank) then
+			for j = 1, 4 do
+				local bossID = "boss" .. j
+				local boss = UnitID(bossID) -- /script print(UnitID("target"))
+				if     boss == 71543 then -- Immersus
+					if UnitDebuff(otherTank, "Corrosive Blast") and not UnitDebuff("player", "Corrosive Blast") then
+						ProbablyEngine.dsl.parsedTarget = bossID
+						return true
+					end 
+				elseif boss == 72276 then -- Norushen
+					local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Self Doubt") -- Possibly a buff?
+					if debuffName and debuffCount > 2 and not UnitDebuff("player", "Self Doubt") then
+						ProbablyEngine.dsl.parsedTarget = bossID
+						return true
+					end 
+				elseif boss == 71734 then -- Sha of Pride
+					if UnitDebuff(otherTank, "Wounded Pride") and not UnitDebuff("player", "Wounded Pride") then
+						ProbablyEngine.dsl.parsedTarget = bossID
+						return true
+					end
+				elseif boss == 72249 then -- Galakras
+					local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Flames of Galakrond")
+					if debuffName and debuffCount > 2 and not UnitDebuff("player", "Flames of Galakrond") then
+						ProbablyEngine.dsl.parsedTarget = bossID
+						return true
+					end  
+				elseif boss == 71466 then -- Iron Juggernaut
+					local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Ignite Armor")
+					if debuffName and debuffCount > 2 and not UnitDebuff("player", "Ignite Armor") then
+						ProbablyEngine.dsl.parsedTarget = bossID
+						return true
+					end  
+				elseif boss == 71859 then -- Kor'kron Dark Shaman
+					local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Froststorm Strike") -- Earthbreaker Haromm
+					if debuffName and debuffCount > 4 and not UnitDebuff("player", "Froststorm Strike") then
+						ProbablyEngine.dsl.parsedTarget = bossID
+						return true
+					end   
+				elseif boss == 71515 then -- General Nazgrim
+					local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Sundering Blow")
+					if debuffName and debuffCount > 2 and not UnitDebuff("player", "Sundering Blow") then
+						ProbablyEngine.dsl.parsedTarget = bossID
+						return true
+					end
+				elseif boss == 71454 then -- Malkorok
+					local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Fatal Strike")
+					if debuffName and debuffCount > 11 and not UnitDebuff("player", "Fatal Strike") then
+						ProbablyEngine.dsl.parsedTarget = bossID
+						return true
+					end
+				elseif boss == 71529 then -- Thok the Bloodsthirsty
+					local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Fearsome Roar")
+					if debuffName and debuffCount > 2 and not UnitDebuff("player", "Fearsome Roar") then
+						ProbablyEngine.dsl.parsedTarget = bossID
+						return true
+					end
+					local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Acid Breath")
+					if debuffName and debuffCount > 2 and not UnitDebuff("player", "Acid Breath") then
+						ProbablyEngine.dsl.parsedTarget = bossID
+						return true
+					end 
+					local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Freezing Breath")
+					if debuffName and debuffCount > 2 and not UnitDebuff("player", "Freezing Breath") then
+						ProbablyEngine.dsl.parsedTarget = bossID
+						return true
+					end 
+					local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Scorching Breath")
+					if debuffName and debuffCount > 2 and not UnitDebuff("player", "Scorching Breath") then
+						ProbablyEngine.dsl.parsedTarget = bossID
+						return true
+					end
+				elseif boss == 71504 then -- Siegecrafter Blackfuse
+					local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Electrostatic Charge")
+					if debuffName and debuffCount > 3 and not UnitDebuff("player", "Electrostatic Charge") then
+						ProbablyEngine.dsl.parsedTarget = bossID
+						return true
+					end
+				elseif boss == 71504 then -- Garrosh Hellscream
+					local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Gripping Despair")
+					if debuffName and debuffCount > 2 and not UnitDebuff("player", "Gripping Despair") then
+						ProbablyEngine.dsl.parsedTarget = bossID
+						return true
+					end
+				end
 			end
 		end
 	end
-
 	return false
 end
 

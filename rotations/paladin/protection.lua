@@ -42,7 +42,7 @@ ProbablyEngine.rotation.register_custom(66, "bbProtectionPaladin", {
 	{ "Sacred Shield", "player.buff(Sacred Shield).duration < 3" }, -- T3
 	
 	-- BossMods
-	{ "Reckoning", { "@bbLib.bossTaunt", "toggle.autotaunt" }, "target" },
+	{ "Reckoning", { "toggle.autotaunt", "@bbLib.bossTaunt" }, "target" },
 	{ "Hand of Sacrifice", { "mouseover.exists", "mouseover.alive", "mouseover.friend", "mouseover.range <= 40", "mouseover.debuff(Assassin's Mark)" }, "mouseover" },
 	
 	-- Raid Survivability

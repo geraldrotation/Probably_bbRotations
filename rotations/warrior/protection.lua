@@ -32,7 +32,7 @@ ProbablyEngine.rotation.register_custom(73, "bbWarriorProtection", {
 	{ "Victory Rush" },
 	
 	-- BossMods
-	{ "Taunt", { "@bbLib.bossTaunt", "toggle.autotaunt" }, "target" },
+	{ "Taunt", { "toggle.autotaunt", "@bbLib.bossTaunt" }, "target" },
 
 	-- Survival Buffs
 	{ "Shield Block", { "!player.buff(Shield Block)", "toggle.shieldblock" } }, -- for heavy physical dmg
