@@ -55,7 +55,7 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 	{ "Riptide", "!tank.buff(Riptide)", "tank" },
 	
 	-- Oh Shit
-	{ "Ancestral Swiftness", "lowest.health < 25" }
+	{ "Ancestral Swiftness", "lowest.health < 25" },
 	{ "Greater Healing Wave", { "lowest.health < 25", "player.buff(Ancestral Swiftness)" }, "lowest" },
 
 	-- Cooldowns
