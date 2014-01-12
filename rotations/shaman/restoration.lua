@@ -54,7 +54,7 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 	{ "Riptide", "!tank.buff(Riptide)", "tank" },
 
 	-- Healing totem
-	{ "Healing Stream Totem" },
+	{ "Healing Stream Totem", { "!player.totem(Healing Tide Totem)", "!player.totem(Mana Tide Totem)" } },
 	{ "Mana Tide Totem", { "modifier.cooldowns", "player.mana < 30" } },
 	{ "Healing Tide Totem", "@coreHealing.needsHealing(40, 8)", "lowest" },
 
@@ -73,14 +73,14 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 	-- regular healing
 	{ "Healing Surge", "lowest.health < 40", "lowest" }, -- only if you feel that the target will die before you have a chance to complete a Greater Healing Wave Icon Greater Healing Wave cast on them. If you suspect that a player may be in danger of dying in the near future, apply Riptide Icon Riptide on them, this will give them a bit of healing and, thanks to Tidal Waves Icon Tidal Waves, this will increase the critical strike chance of Healing Surge Icon Healing Surge.
 	{ "Riptide", { "!lowest.buff(Riptide)", "lowest.health < 99" }, "lowest" },
-	{ "Greater Healing Wave", { "lowest.health < 55", "player.buff(Tidal Waves).count = 2" }, "lowest" },
-	{ "Chain Heal", "@coreHealing.needsHealing(80, 4)", "lowest" }, --Therefore, you should always cast Chain Heal Icon Chain Heal on targets with an active Riptide Icon Riptide. 
-	{ "Healing Wave", "lowest.health < 75", "lowest" },
+	{ "Greater Healing Wave", { "lowest.health < 70", "player.buff(Tidal Waves).count = 2" }, "lowest" },
+	{ "Chain Heal", "lowest.health < 80", "lowest" }, --Therefore, you should always cast Chain Heal Icon Chain Heal on targets with an active Riptide Icon Riptide. 
+	{ "Healing Wave", "lowest.health < 80", "lowest" },
 
 
 	-- DPS
-	{ "Fire Elemental Totem", { "modifier.cooldowns", "target.boss" } },
-	{ "Stormlash Totem", { "modifier.cooldowns", "target.boss" } },
+	--{ "Fire Elemental Totem", { "modifier.cooldowns", "target.boss" } },
+	--{ "Stormlash Totem", { "modifier.cooldowns", "target.boss" } },
 	{ "Searing Totem", { "!player.totem(Fire Elemental Totem)", "!player.totem(Searing Totem)" } },
 	----{ "Flame Shock", { "focustarget.exists", "!focustarget.debuff(Flame Shock)", "player.mana > 66" }, "focustarget" },
 	--{ "Lava Burst", { "focustarget.exists", "focustarget.debuff(Flame Shock)", "player.mana > 66" }, "focustarget" },
