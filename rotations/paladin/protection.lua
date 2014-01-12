@@ -42,7 +42,7 @@ ProbablyEngine.rotation.register_custom(66, "bbProtectionPaladin", {
 	{ "Sacred Shield", "player.buff(Sacred Shield).duration < 3" }, -- T3
 	
 	-- BossMods
-	{ "Reckoning", "@bbLib.bossTaunt", "target" },
+	{ "Reckoning", { "@bbLib.bossTaunt", "toggle.autotaunt" }, "target" },
 	{ "Hand of Sacrifice", { "mouseover.exists", "mouseover.alive", "mouseover.friend", "mouseover.range <= 40", "mouseover.debuff(Assassin's Mark)" }, "mouseover" },
 	
 	-- Raid Survivability
@@ -64,8 +64,8 @@ ProbablyEngine.rotation.register_custom(66, "bbProtectionPaladin", {
 	-- Mouseovers
 	{ "Light's Hammer", { "modifier.lalt" }, "ground" },
 	{{
-		{ "Hand of Freedom", { "mouseover.exists", "mouseover.alive", "mouseover.friend", "mouseover.range <= 40", "mouseover.state.root" }, "mouseover" },
-		{ "Hand of Freedom", { "mouseover.exists", "mouseover.alive", "mouseover.friend", "mouseover.range <= 40", "mouseover.state.snare" }, "mouseover" },
+		{ "Hand of Freedom", { "mouseover.exists", "mouseover.alive", "mouseover.friend", "mouseover.range <= 40", "mouseover.state.root", "!mouseover.buff" }, "mouseover" },
+		{ "Hand of Freedom", { "mouseover.exists", "mouseover.alive", "mouseover.friend", "mouseover.range <= 40", "mouseover.state.snare", "!mouseover.buff" }, "mouseover" },
 		{ "Hand of Salvation", { "mouseover.exists", "mouseover.alive", "mouseover.friend", "mouseover.range <= 40", "!mouseover.role(tank)", "@bbLib.highThreatOnPlayerTarget(mouseover)" }, "mouseover" },
 	}, {
 		"toggle.mouseovers",
@@ -105,4 +105,5 @@ function()
 	ProbablyEngine.toggle.create('pvpmode', 'Interface\\Icons\\achievement_pvp_o_h', 'PvP', 'Toggle the usage of PvP abilities.')
 	ProbablyEngine.toggle.create('limitaoe', 'Interface\\Icons\\spell_fire_flameshock', 'Limit AoE', 'Toggle to avoid using CC breaking aoe effects.')
 	ProbablyEngine.toggle.create('autotarget', 'Interface\\Icons\\ability_hunter_snipershot', 'Auto Target', 'Automaticaly target the nearest enemy when target dies or does not exist.')
+	ProbablyEngine.toggle.create('autotaunt', 'Interface\\Icons\\spell_nature_reincarnation', 'Auto Taunt', 'Automaticaly taunt the boss at the appropriate stacks')
 end)

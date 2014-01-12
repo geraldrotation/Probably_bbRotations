@@ -30,6 +30,9 @@ ProbablyEngine.rotation.register_custom(73, "bbWarriorProtection", {
 	{ "Impending Victory", "player.health < 70" },
 	{ "Enraged Regeneration", "player.buff(Enrage)" },
 	{ "Victory Rush" },
+	
+	-- BossMods
+	{ "Taunt", { "@bbLib.bossTaunt", "toggle.autotaunt" }, "target" },
 
 	-- Survival Buffs
 	{ "Shield Block", { "!player.buff(Shield Block)", "toggle.shieldblock" } }, -- for heavy physical dmg
@@ -80,8 +83,9 @@ ProbablyEngine.rotation.register_custom(73, "bbWarriorProtection", {
 	{ "pause", "modifier.lcontrol" },
 }, function()
 	ProbablyEngine.toggle.create('pvpmode', 'Interface\\Icons\\achievement_pvp_o_h', 'PvP', 'Toggle the usage of PvP abilities.')
-  ProbablyEngine.toggle.create('shout', 'Interface\\ICONS\\ability_warrior_battleshout', 'Battle Shout', 'Toggle usage of Battle Shout vs Commanding Shout')
-  ProbablyEngine.toggle.create('shieldblock', 'Interface\\ICONS\\ability_defend', 'Shield Block', 'Toggle usage of Shield Block for Physical Damage')
-  ProbablyEngine.toggle.create('shieldbarrier', 'Interface\\ICONS\\inv_shield_07', 'Shield Barrier', 'Toggle usage of Shield Barrier for Magic/Bleed Damage')
-  ProbablyEngine.toggle.create('autotarget', 'Interface\\Icons\\ability_hunter_snipershot', 'Auto Target', 'Automaticaly target the nearest enemy when target dies or does not exist.')
+	ProbablyEngine.toggle.create('shout', 'Interface\\ICONS\\ability_warrior_battleshout', 'Battle Shout', 'Toggle usage of Battle Shout vs Commanding Shout')
+	ProbablyEngine.toggle.create('shieldblock', 'Interface\\ICONS\\ability_defend', 'Shield Block', 'Toggle usage of Shield Block for Physical Damage')
+	ProbablyEngine.toggle.create('shieldbarrier', 'Interface\\ICONS\\inv_shield_07', 'Shield Barrier', 'Toggle usage of Shield Barrier for Magic/Bleed Damage')
+	ProbablyEngine.toggle.create('autotarget', 'Interface\\Icons\\ability_hunter_snipershot', 'Auto Target', 'Automaticaly target the nearest enemy when target dies or does not exist.')
+	ProbablyEngine.toggle.create('autotaunt', 'Interface\\Icons\\spell_nature_reincarnation', 'Auto Taunt', 'Automaticaly taunt the boss at the appropriate stacks')
 end)

@@ -56,7 +56,7 @@ function bbLib.bossTaunt()
 		elseif boss == 72276 then -- Norushen
 			local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Self Doubt") -- Possibly a buff?
 			if debuffName 
-			  and debuffCount > 3 
+			  and debuffCount > 2
 			  and not UnitDebuff("player", "Self Doubt") then
 				ProbablyEngine.dsl.parsedTarget = bossID
 				return true
@@ -86,7 +86,7 @@ function bbLib.bossTaunt()
 		elseif boss == 71859 then -- Kor'kron Dark Shaman
 			local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Froststorm Strike") -- Earthbreaker Haromm
 			if debuffName 
-			  and debuffCount > 4 
+			  and debuffCount > 4
 			  and not UnitDebuff("player", "Froststorm Strike") then
 				ProbablyEngine.dsl.parsedTarget = bossID
 				return true
@@ -139,7 +139,7 @@ function bbLib.bossTaunt()
 		elseif boss == 71504 then -- Siegecrafter Blackfuse
 			local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Electrostatic Charge")
 			if debuffName 
-			  and debuffCount > 2
+			  and debuffCount > 3
 			  and not UnitDebuff("player", "Electrostatic Charge") then
 				ProbablyEngine.dsl.parsedTarget = bossID
 				return true
