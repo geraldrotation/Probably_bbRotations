@@ -48,31 +48,38 @@ function bbLib.bossTaunt()
 		local bossID = "boss" .. j
 		local boss = UnitID(bossID) -- /script print(UnitID("target"))
 		if     boss == 71543 then -- Immersus
-			if ProbablyEngine.dsl.get('debuff.any')(otherTank, 143437) or ProbablyEngine.dsl.get('debuff.any')(otherTank, 143436) then
+			if UnitDebuff(otherTank, "Corrosive Blast") 
+			  and not UnitDebuff("player", "Corrosive Blast") then
 				ProbablyEngine.dsl.parsedTarget = bossID
 				return true
-			end
+			end 
 		elseif boss == 72276 then -- Norushen
-			if ProbablyEngine.dsl.get('buff.count')(otherTank, GetSpellID(146124)) >= 4  then
+			local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Self Doubt") -- Possibly a buff?
+			if debuffName 
+			  and debuffCount > 3 
+			  and not UnitDebuff("player", "Self Doubt") then
 				ProbablyEngine.dsl.parsedTarget = bossID
 				return true
-			end
+			end 
 		elseif boss == 71734 then -- Sha of Pride
-			if ProbablyEngine.dsl.get('debuff.any')(otherTank, 144358) then
+			if UnitDebuff(otherTank, "Wounded Pride") 
+			  and not UnitDebuff("player", "Wounded Pride") then
 				ProbablyEngine.dsl.parsedTarget = bossID
 				return true
-			end
+			end  
 		elseif boss == 71859 then -- Shaman
-			if ProbablyEngine.dsl.get('debuff.count')(otherTank, GetSpellName(144215)) >= 4 then
+			local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Froststorm Strike")
+			if debuffName 
+			  and debuffCount > 3 
+			  and not UnitDebuff("player", "Froststorm Strike") then
 				ProbablyEngine.dsl.parsedTarget = bossID
 				return true
-			end
+			end   
 		elseif boss == 71515 then -- General Nazgrim
-			local sunderName, _, _, sunderCount = UnitDebuff(otherTank, "Sundering Blow")
-			if sunderName 
-			  and sunderCount > 3 
-			  and not UnitDebuff("player", "Sundering Blow") 
-			  and UnitID("target") == 71515 then
+			local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Sundering Blow")
+			if debuffName 
+			  and debuffCount > 3 
+			  and not UnitDebuff("player", "Sundering Blow") then
 				ProbablyEngine.dsl.parsedTarget = bossID
 				return true
 			end   
