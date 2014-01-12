@@ -43,20 +43,21 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 	{ "Wind Shear", "modifier.interrupt" },
 
 	-- Mouseovers
-	{ "Flame Shock", { "mouseover.enemy", "mouseover.alive", "mouseover.deathin > 15", "mouseover.debuff(Flame Shock).duration <= 3", "toggle.mouseovers" }, "mouseover" },
+	--{ "Flame Shock", { "mouseover.enemy", "mouseover.alive", "mouseover.deathin > 15", "mouseover.debuff(Flame Shock).duration <= 3", "toggle.mouseovers" }, "mouseover" },
 
 	-- Cooldowns
 	--{ "Elemental Mastery", { "modifier.cooldowns", "target.boss" } },
 	--{ "Ascendance", { "modifier.cooldowns", "target.boss", "!player.buff(Ascendance)" } },
 
 	-- Tank
-	{ "Earth Shield", "!tank.buff(Earth Shield).any", "tank" },
+	{ "Earth Shield", "!focus.buff(Earth Shield).any", "focus" },
+	{ "Riptide", "!focus.buff(Riptide)", "focus" },
 	{ "Riptide", "!tank.buff(Riptide)", "tank" },
 
 	-- Healing totem
 	{ "Healing Stream Totem", { "!player.totem(Healing Tide Totem)", "!player.totem(Mana Tide Totem)" } },
 	{ "Mana Tide Totem", { "modifier.cooldowns", "player.mana < 30" } },
-	{ "Healing Tide Totem", "@coreHealing.needsHealing(40, 8)", "lowest" },
+	{ "Healing Tide Totem", "@coreHealing.needsHealing(40, 8)" },
 
 	-- Dispel
 	{ "Purify Spirit", "@coreHealing.needsDispelled('Aqua Bomb')" },
@@ -68,7 +69,6 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 	-- Unleash Life
 	{ "Greater Healing Wave", { "lowest.health < 50", "player.buff(Unleash Life)" }, "lowest" },
 	{ "Unleash Elements", "lowest.health < 50" }, -- Use before direct heals
-	{ "Healing Wave", { "lowest.health < 91", "lowest.debuff(Chomp)" }, "lowest" },
 
 	-- regular healing
 	{ "Healing Surge", "lowest.health < 40", "lowest" }, -- only if you feel that the target will die before you have a chance to complete a Greater Healing Wave Icon Greater Healing Wave cast on them. If you suspect that a player may be in danger of dying in the near future, apply Riptide Icon Riptide on them, this will give them a bit of healing and, thanks to Tidal Waves Icon Tidal Waves, this will increase the critical strike chance of Healing Surge Icon Healing Surge.

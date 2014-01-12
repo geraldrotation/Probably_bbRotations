@@ -46,7 +46,7 @@ ProbablyEngine.rotation.register_custom(66, "bbProtectionPaladin", {
 	{ "Hand of Sacrifice", { "mouseover.exists", "mouseover.alive", "mouseover.friend", "mouseover.range <= 40", "mouseover.debuff(Assassin's Mark)" }, "mouseover" },
 	
 	-- Raid Survivability
-	{ "Hand of Protection", { "lowest.exists", "lowest.alive", "lowest.friend", "!lowest.role(tank)", "!lowest.immune.melee", "lowest.health < 40" }, "lowest" },
+	{ "Hand of Protection", { "lowest.exists", "lowest.alive", "lowest.friend", "!lowest.role(tank)", "!lowest.immune.melee", "lowest.health < 25" }, "lowest" },
 	--{ "Hand of Sacrifice", { "tank.exists", "tank.alive", "tank.friend", "tank.range <= 40", "tank.health < 75" }, "tank" }, --TODO: !tank.player
 	{ "Flash of Light", { "lowest.health < 50", "player.buff(Selfless Healer).count > 2" }, "lowest" }, -- T3
 	{ "Flash of Light", { "player.health < 70", "player.buff(Selfless Healer).count > 2", "player.buff(Bastion of Glory)" }, "player" }, -- T3
