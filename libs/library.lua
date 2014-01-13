@@ -65,7 +65,7 @@ function bbLib.bossTaunt()
 					end  
 				elseif boss == 71466 then -- Iron Juggernaut
 					local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Ignite Armor")
-					if debuffName and debuffCount > 2 and not UnitDebuff("player", "Ignite Armor") then
+					if debuffName and debuffCount > 1 and not UnitDebuff("player", "Ignite Armor") then
 						ProbablyEngine.dsl.parsedTarget = bossID
 						return true
 					end  
@@ -88,8 +88,8 @@ function bbLib.bossTaunt()
 						return true
 					end
 				elseif boss == 71529 then -- Thok the Bloodsthirsty
-					local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Fearsome Roar")
-					if debuffName and debuffCount > 2 and not UnitDebuff("player", "Fearsome Roar") then
+					local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Panic")
+					if debuffName and debuffCount > 2 and not UnitDebuff("player", "Panic") then
 						ProbablyEngine.dsl.parsedTarget = bossID
 						return true
 					end
@@ -114,7 +114,7 @@ function bbLib.bossTaunt()
 						ProbablyEngine.dsl.parsedTarget = bossID
 						return true
 					end
-				elseif boss == 71504 then -- Garrosh Hellscream
+				elseif boss == 71865 then -- Garrosh Hellscream
 					local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Gripping Despair")
 					if debuffName and debuffCount > 2 and not UnitDebuff("player", "Gripping Despair") then
 						ProbablyEngine.dsl.parsedTarget = bossID

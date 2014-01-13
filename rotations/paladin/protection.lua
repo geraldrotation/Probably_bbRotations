@@ -40,9 +40,10 @@ ProbablyEngine.rotation.register_custom(66, "bbProtectionPaladin", {
 	{ "Hand of Freedom", { "!player.buff", "player.state.snare" }, "player" },
 	{ "Eternal Flame", "player.buff(Eternal Flame).duration < 3" }, -- T3
 	{ "Sacred Shield", "player.buff(Sacred Shield).duration < 3" }, -- T3
+	{ "#5512", { "modifier.cooldowns", "player.health < 30" } }, -- Healthstone (5512)
 	
 	-- BossMods
-	{ "Reckoning", { "toggle.autotaunt", "@bbLib.bossTaunt" }, "target" },
+	{ "Reckoning", { "toggle.autotaunt", "@bbLib.bossTaunt" } },
 	{ "Hand of Sacrifice", { "mouseover.exists", "mouseover.alive", "mouseover.friend", "mouseover.range <= 40", "mouseover.debuff(Assassin's Mark)" }, "mouseover" },
 	
 	-- Raid Survivability

@@ -32,12 +32,13 @@ ProbablyEngine.rotation.register_custom(73, "bbWarriorProtection", {
 	{ "Victory Rush" },
 	
 	-- BossMods
-	{ "Taunt", { "toggle.autotaunt", "@bbLib.bossTaunt" }, "target" },
+	{ "Taunt", { "toggle.autotaunt", "@bbLib.bossTaunt" } },
 
 	-- Survival Buffs
 	{ "Shield Block", { "!player.buff(Shield Block)", "toggle.shieldblock" } }, -- for heavy physical dmg
 	{ "Shield Barrier", { "!player.buff(Shield Barrier)", "player.rage > 60", "toggle.shieldbarrier" } }, -- for magic/bleed/unblockable dmg
-
+	{ "#5512", { "modifier.cooldowns", "player.health < 30" } }, -- Healthstone (5512)
+	
 	-- Kicks
 	{{
 		{ "Pummel" },
