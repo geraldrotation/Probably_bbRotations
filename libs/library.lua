@@ -141,6 +141,33 @@ function bbLib.useAgiPot()
 	return false
 end
 
+function bbLib.useIntPot()
+	-- 114757 = Potion of the Jade Serpent
+	if GetItemCount(114757) > 1 
+	  and GetItemCooldown(114757) == 0 
+	  and ProbablyEngine.condition["modifier.cooldowns"] then 
+		return true
+	end
+	return false
+end
+
+function bbLib.useManaGem()
+	-- 36799 = Mana Gem
+	if GetItemCount(36799) > 0 
+	  and GetItemCooldown(36799) == 0 then 
+		return true
+	end
+	return false
+end
+
+function bbLib.conjureManaGem()
+	-- 36799 = Mana Gem
+	if GetItemCount(36799) < 3 then 
+		return true
+	end
+	return false
+end
+
 function bbLib.isTargetingMe(target)
 	if UnitExists(target) then
 		return UnitGUID(target.."target") == UnitGUID("player")

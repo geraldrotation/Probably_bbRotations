@@ -12,3 +12,4 @@ rotations\monk\windwalker.lua
 rotations\shaman\elemental.lua
 rotations\shaman\restoration.lua
 rotations\rogue\combat.lua
+rotations\mage\fire.lua
