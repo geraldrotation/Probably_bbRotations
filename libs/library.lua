@@ -162,7 +162,7 @@ end
 
 function bbLib.conjureManaGem()
 	-- 36799 = Mana Gem
-	if GetItemCount(36799) < 3 then 
+	if GetItemCount(36799) < 1 then -- TODO: make to work with charges
 		return true
 	end
 	return false
