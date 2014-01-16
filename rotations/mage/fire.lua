@@ -46,7 +46,7 @@ ProbablyEngine.rotation.register_custom(63, "bbFireMage", {
 
 	--  DPS Rotation
 	{ "Time Warp", { "modifier.cooldowns", "target.boss", "target.health < 25", "player.time > 5" } },
-	{ "Evocation", { "player.spell(Invocation).exists", "target.debuff(Living Bomb).duration > 5" } },
+	{ "Evocation", { "player.spell(Invocation).exists", "!player.buff(Invoker's Energy)", "target.debuff(Living Bomb).duration > 3" } },
 	{ "Berserking", { "modifier.cooldowns", "target.exists", "target.boss", "!player.buff(Alter Time)", "target.deathin < 18" } },
 	{ "#114757", { "modifier.cooldowns", "@bbLib.useIntPot", "target.exists", "!player.buff(Alter Time)", "target.deathin < 45" } }, -- Jade Serpent Potion
 	{ "Mirror Image", { "modifier.cooldowns", "target.boss" } },
@@ -89,6 +89,7 @@ ProbablyEngine.rotation.register_custom(63, "bbFireMage", {
 	-- rune_of_power
 	-- jade_serpent_potion
 	-- mirror_image
+	-- evocation
 },
 function()
 	ProbablyEngine.toggle.create('pvpmode', 'Interface\\Icons\\achievement_pvp_o_h', 'PvP Mode', 'Toggle the usage of PvP abilities.')
