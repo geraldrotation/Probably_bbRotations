@@ -30,8 +30,8 @@ ProbablyEngine.rotation.register_custom(63, "bbFireMage", {
 	{ "Quaking Palm", "modifier.interrupts" },
 
 	-- Survival
-	{ "Ice Block", {"modifier.cooldowns", "player.health <= 20"} },
-	{ "Cold Snap", {"modifier.cooldowns", "player.health <= 15", "player.spell(45438).cooldown"} },
+	{ "Ice Block", { "modifier.cooldowns", "player.health <= 20" } },
+	{ "Cold Snap", { "modifier.cooldowns", "player.health <= 15", "player.spell(45438).cooldown" } },
 	{ "Ice Barrier", { "!player.buff(Ice Barrier)", "player.health <= 80" } },
 	{ "Frost Nova", { "!target.boss", "target.threat > 80", "target.range <= 9" } },
 
@@ -44,7 +44,7 @@ ProbablyEngine.rotation.register_custom(63, "bbFireMage", {
 	{ "Dragon's Breath", { "target.enemy", "target.range <= 5" } }, 
 
 	--  DPS Rotation
-	{ "Time Warp", { "modifier.cooldowns", "target.boss", "target.health < 25", "player.time > 5" },
+	{ "Time Warp", { "modifier.cooldowns", "target.boss", "target.health < 25", "player.time > 5" } },
 	{ "Evocation", { "player.spell(Invocation).exists", "target.debuff(Living Bomb).duration > 5" } },
 	{ "Berserking", { "modifier.cooldowns", "target.exists", "target.boss", "!player.buff(Alter Time)", "target.deathin < 18" } },
 	{ "#114757", { "modifier.cooldowns", "@bbLib.useIntPot", "target.exists", "!player.buff(Alter Time)", "target.deathin < 45" } }, -- Jade Serpent Potion
@@ -66,7 +66,7 @@ ProbablyEngine.rotation.register_custom(63, "bbFireMage", {
 	{ "Inferno Blast", { "target.debuff(Combustion)", "modifier.enemies > 1" } }, --AOE
 	{ "Pyroblast", "player.buff(48108)" },
 	{ "Pyroblast", "player.buff(Presence of Mind)" },
-	{ "Inferno Blast", { "player.buff(Heating Up)", "!player.buff(48108)" },
+	{ "Inferno Blast", { "player.buff(Heating Up)", "!player.buff(48108)" } },
 	{ "Living Bomb", { "target.debuff(Living Bomb).duration <= 3", "target.deathin > 9" } }, -- TODO: CYCLE TARGETS
 	{ "Living Bomb", { "toggle.mouseovers", "mouseover.debuff(Living Bomb).duration <= 3", "mouseover.deathin > 9" }, "mouseover" },
 	{ "Nether Tempest", { "target.debuff(Nether Tempest).duration <= 3", "target.deathin > 9" } }, -- TODO: CYCLE TARGETS
