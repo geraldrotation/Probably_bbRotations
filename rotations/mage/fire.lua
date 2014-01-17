@@ -33,7 +33,7 @@ ProbablyEngine.rotation.register_custom(63, "bbFireMage", {
 	-- Survival
 	{ "Ice Block", { "modifier.cooldowns", "player.health <= 20" } },
 	{ "Cold Snap", { "modifier.cooldowns", "player.health <= 15", "player.spell(45438).cooldown" } },
-	{ "Ice Barrier", { "!player.buff(Ice Barrier)", "player.health <= 80" } },
+	{ "Ice Barrier", { "!player.buff(110909)", "!player.buff", "player.spell(11426).exists" }, "player" },
 	{ "Frost Nova", { "!target.boss", "target.threat > 80", "target.range <= 9" } },
 
 	-- Interrupts
@@ -68,12 +68,12 @@ ProbablyEngine.rotation.register_custom(63, "bbFireMage", {
 	{ "Pyroblast", "player.buff(48108)" },
 	{ "Pyroblast", "player.buff(Presence of Mind)" },
 	{ "Inferno Blast", { "player.buff(Heating Up)", "!player.buff(48108)" } },
-	{ "Living Bomb", { "target.debuff(Living Bomb).duration <= 3", "target.deathin > 9" } }, -- TODO: CYCLE TARGETS
-	{ "Living Bomb", { "toggle.mouseovers", "mouseover.debuff(Living Bomb).duration <= 3", "mouseover.deathin > 9" }, "mouseover" },
-	{ "Nether Tempest", { "target.debuff(Nether Tempest).duration <= 3", "target.deathin > 9" } }, -- TODO: CYCLE TARGETS
-	{ "Nether Tempest", { "toggle.mouseovers", "mouseover.debuff(Nether Tempest).duration <= 3", "mouseover.deathin > 9" }, "mouseover" },
-	{ "Fireball", "!player.moving" },
+	{ "Living Bomb", "target.debuff(Living Bomb).duration < 3" }, -- TODO: CYCLE TARGETS
+	{ "Living Bomb", { "toggle.mouseovers", "!mouseover.debuff(Living Bomb)" }, "mouseover" },
+	{ "Nether Tempest", "target.debuff(Nether Tempest).duration < 3" }, -- TODO: CYCLE TARGETS
+	{ "Nether Tempest", { "toggle.mouseovers", "!mouseover.debuff(Nether Tempest)", "mouseover.deathin > 9" }, "mouseover" },
 	{ "Scorch", "player.moving" },
+	{ "Fireball", "!player.moving" },
 
 },{
 	-- OUT OF COMBAT
