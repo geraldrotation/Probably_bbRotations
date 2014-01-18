@@ -45,7 +45,12 @@ ProbablyEngine.rotation.register_custom(250, "bbBloodDK", {
 	-- Keybound Cooldowns
 	{ "Army of the Dead", "modifier.lshift" },
 	{ "Death Grip", { "modifier.lalt", "mouseover.threat < 100", "target.range > 10", "!target.boss" }, "mouseover" },
-
+	-- Chains of Ice Mouseover
+	-- Anti-Magic Zone Ground
+	-- Raise Dead
+	-- Plague Leech Talent
+	-- Death's Advance
+	
 	-- Survival
 	{ "Anti-Magic Shell", { "player.health <= 70", "target.casting" } },
 	{ "Dancing Rune Weapon", "player.health <= 75" },
@@ -65,7 +70,7 @@ ProbablyEngine.rotation.register_custom(250, "bbBloodDK", {
 	
 	-- Rotation
 	{ "Heart Strike", { "modifier.multitarget", "player.runes(blood).count > 0", "modifier.enemies < 4" } },
-	{ "Pestilence", { "modifier.multitarget", "target.debuff(Blood Plague)", "target.debuff(Frost Fever)", "modifier.timeout(Pestilence, 30)", "modifier.enemies > 2" } },
+	{ "Pestilence", { "modifier.multitarget", "target.debuff(Blood Plague)", "target.debuff(Frost Fever)", "modifier.timeout(Pestilence, 30)", "modifier.enemies > 2", "!player.spell(Roiling Blood).exists" } },
 	{ "Blood Boil", { "modifier.multitarget", "target.range <= 10", "modifier.enemies > 3"  } },
 	{ "Death and Decay", { "modifier.multitarget", "!player.moving", "!target.moving" }, "ground" },
 	{ "Death Strike", "!modifier.last(Death Strike)" },
