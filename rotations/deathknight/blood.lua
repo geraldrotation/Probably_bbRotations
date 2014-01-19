@@ -1,7 +1,7 @@
 -- ProbablyEngine Rotation Packager
 -- Custom Blood Death Knight Rotation
 -- Created on Dec 25th 2013 1:00 am
-ProbablyEngine.rotation.register_custom(250, "bbBloodDK", {
+ProbablyEngine.rotation.register_custom(250, "bbBloodDeathKnight", {
 -- PLAYER CONTROLLED: 
 -- SUGGESTED TALENTS:
 -- CONTROLS: Pause - Left Control, Death Grip Mouseover - Left Alt, Army of the Dead - Left Shift
@@ -39,9 +39,6 @@ ProbablyEngine.rotation.register_custom(250, "bbBloodDK", {
 	{ "Bone Shield", "!player.buff" },
 	{ "Horn of Winter", "!player.buff(Horn of Winter).any" },
 	
-	-- Blood Tap
-	{ "Blood Tap", { "player.buff(Blood Charge).count > 5", "player.runes(death).count < 2" } },
-	
 	-- Keybound Cooldowns
 	{ "Army of the Dead", "modifier.lshift" },
 	{ "Death Grip", { "modifier.lalt", "mouseover.threat < 100", "target.range > 10", "!target.boss" }, "mouseover" },
@@ -50,16 +47,20 @@ ProbablyEngine.rotation.register_custom(250, "bbBloodDK", {
 	-- Raise Dead
 	-- Plague Leech Talent
 	-- Death's Advance
+	-- Blood Presence
+	
+	-- Blood Tap
+	{ "Blood Tap", { "player.buff(Blood Charge).count > 5", "player.runes(death).count < 2" } },
 	
 	-- Survival
 	{ "Anti-Magic Shell", { "player.health <= 70", "target.casting" } },
 	{ "Dancing Rune Weapon", "player.health <= 75" },
-	{ "Conversion", "player.health <= 60" }, -- Nobody should ever use this talent
+	{ "Conversion", "player.health <= 60" }, -- Nobody should ever use this talent, but just in case.
 	{ "Vampiric Blood", "player.health <= 55" },
-	{ "Icebound Fortitude", "player.health <= 50" },
+	{ "Icebound Fortitude", { "modifier.cooldowns", "player.health <= 50" } },
 	{ "Rune Tap", "player.health <= 40" },
-	{ "Empower Rune Weapon", "player.health <= 40" },
-	{ "/cast Raise Dead\n/cast Death Pact", { "player.health < 35", "player.spell(Death Pact).cooldown", "player.spell(Raise Dead).cooldown", "player.spell(Death Pact).usable" } },
+	{ "Empower Rune Weapon", { "modifier.cooldowns", "player.health <= 40" } },
+	{ "/cast Raise Dead\n/cast Death Pact", { "modifier.cooldowns", "player.health < 35", "player.spell(Death Pact).cooldown", "player.spell(Raise Dead).cooldown", "player.spell(Death Pact).usable" } },
 
 	-- Diseases
 	{ "Outbreak", { "!target.debuff(Frost Fever)", "!target.debuff(Blood Plague)" } },
@@ -93,7 +94,7 @@ ProbablyEngine.rotation.register_custom(250, "bbBloodDK", {
 	{ "Death Grip", "modifier.lalt" },
 },
 function ()
-	ProbablyEngine.toggle.create('mouseovers', 'Interface\\Icons\\spell_fire_flameshock', 'Toggle Mouseovers', 'Automatically cast spells on mouseover targets')
+	ProbablyEngine.toggle.create('mouseovers', 'Interface\\Icons\\inv_pet_lilsmoky', 'Toggle Mouseovers', 'Automatically cast spells on mouseover targets')
 	ProbablyEngine.toggle.create('pvpmode', 'Interface\\Icons\\achievement_pvp_o_h', 'PvP', 'Toggle the usage of PvP abilities.')
 	ProbablyEngine.toggle.create('limitaoe', 'Interface\\Icons\\spell_fire_flameshock', 'Limit AoE', 'Toggle to avoid using CC breaking aoe effects.')
 	ProbablyEngine.toggle.create('autotarget', 'Interface\\Icons\\ability_hunter_snipershot', 'Auto Target', 'Automaticaly target the nearest enemy when target dies or does not exist.')
