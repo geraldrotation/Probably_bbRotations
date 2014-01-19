@@ -40,7 +40,7 @@ ProbablyEngine.rotation.register_custom(250, "bbBloodDeathKnight", {
 	{ "Death's Advance", "player.state.snare" },
 
 	-- Buffs
-	{ "Bone Shield", "!player.buff(Bone Shield)" },
+	{ "49222", "!player.buff(49222)" }, -- Bone Shield (49222)
 	{ "Horn of Winter", "!player.buff(Horn of Winter).any" },
 	
 	-- Keybinds
