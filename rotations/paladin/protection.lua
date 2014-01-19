@@ -86,7 +86,7 @@ ProbablyEngine.rotation.register_custom(66, "bbProtectionPaladin", {
 	{ "Hand of Purity" },  -- T4
 	{ "Holy Wrath", "!toggle.limitaoe" },
 	{ "Hammer of Wrath", "!toggle.limitaoe" },
-	{ "Consecration", { "target.spell(Crusader Strike).range", "!toggle.limitaoe" } },
+	{ "Consecration", { "target.spell(Crusader Strike).range", "!toggle.limitaoe", "!player.moving" } },
 	
 },{
 -- OUT OF COMBAT ROTATION
@@ -102,7 +102,7 @@ ProbablyEngine.rotation.register_custom(66, "bbProtectionPaladin", {
   
 },
 function()
-	ProbablyEngine.toggle.create('mouseovers', 'Interface\\Icons\\spell_fire_flameshock', 'Toggle Mouseovers', 'Automatically cast spells on mouseover targets')
+	ProbablyEngine.toggle.create('mouseovers', 'Interface\\Icons\\inv_pet_lilsmoky', 'Toggle Mouseovers', 'Automatically cast spells on mouseover targets')
 	ProbablyEngine.toggle.create('pvpmode', 'Interface\\Icons\\achievement_pvp_o_h', 'PvP', 'Toggle the usage of PvP abilities.')
 	ProbablyEngine.toggle.create('limitaoe', 'Interface\\Icons\\spell_fire_flameshock', 'Limit AoE', 'Toggle to avoid using CC breaking aoe effects.')
 	ProbablyEngine.toggle.create('autotarget', 'Interface\\Icons\\ability_hunter_snipershot', 'Auto Target', 'Automaticaly target the nearest enemy when target dies or does not exist.')

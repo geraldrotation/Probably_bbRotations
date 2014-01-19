@@ -24,7 +24,7 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
     -- Pet
     { "883", "!pet.exists" }, -- Call Pet 1
     { "Heart of the Phoenix", "!pet.alive" },
-	{ "Mend Pet", { "pet.health <= 75", "pet.exists", "!pet.buff(Mend Pet)", "pet.range < 40" } },
+	{ "Mend Pet", { "pet.health <= 50", "pet.exists", "!pet.buff(Mend Pet)", "pet.range < 40" } },
 
 	-- PvP Abilities
 	{ "Master's Call", "player.state.disorient" },
@@ -61,12 +61,13 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 	
 	-- TODO: Cleave Rotation?
 
-    -- Misdirect to focus target or pet when threat is above a certain threshold
-    { "Misdirection", { "!toggle.pvpmode", "!target.isPlayer", "focus.exists", "!player.buff(Misdirection)", "target.threat > 60" }, "focus" },
-    { "Misdirection", { "!toggle.pvpmode", "!target.isPlayer", "pet.exists", "!player.buff(Misdirection)", "!focus.exists", "target.threat > 85" }, "pet" },
+    -- Misdirects to focus -> tank -> pet
+    { "Misdirection", { "!toggle.pvpmode", "!target.isPlayer", "focus.exists", "focus.alive", "!player.buff(Misdirection)", "target.threat > 60" }, "focus" },
+	{ "Misdirection", { "!toggle.pvpmode", "!player.buff(Misdirection)", "tank.exists", "tank.alive", "!focus.exists", "target.threat > 60" }, "tank" },
+    { "Misdirection", { "!toggle.pvpmode", "!target.isPlayer", "pet.exists", "!player.buff(Misdirection)", "!focus.exists", "target.threat > 60" }, "pet" },
 
 	-- Stances
-    { "Aspect of the Iron Hawk", { "!player.buff(Aspect of the Hawk)", "!player.buff(Aspect of the Iron Hawk)", "!player.moving" } },
+    { "Aspect of the Iron Hawk", { "!player.buff(Aspect of the Hawk)", "!player.buff(Aspect of the Iron Hawk)", "!player.moving" } }, --TODO: Make toggle
     { "Aspect of the Hawk", { "!player.buff(Aspect of the Hawk)", "!player.buff(Aspect of the Iron Hawk)", "!player.moving" } },
 	
 	-- Pre DPS Pause
@@ -80,8 +81,8 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 	-- Cooldowns
 	{ "Exhilaration", { "modifier.cooldowns", "player.health < 50" } },
 	{ "#5512", { "modifier.cooldowns", "player.health < 40" } }, -- Healthstone (5512)
-	{ "#76097", { "modifier.cooldowns", "player.health < 40", "@bbLib.useHealthPot" } }, -- Master Healing Potion (76097)
-	{ "#76089", { "modifier.cooldowns", "pet.exists", "target.exists", "@bbLib.useAgiPot" } }, -- Agility Potion (76089)
+	--{ "#76097", { "modifier.cooldowns", "player.health < 40", "@bbLib.useHealthPot" } }, -- Master Healing Potion (76097) 
+	{ "#76089", { "modifier.cooldowns", "toggle.consume", "pet.exists", "target.exists", "@bbLib.useAgiPot" } }, -- Agility Potion (76089)
 	{ "Blood Fury", "modifier.cooldowns" },
 	{ "#gloves", { "modifier.cooldowns", "pet.exists", "target.exists" } },
 	{ "Berserking", { "modifier.cooldowns", "pet.exists", "target.exists", "!@bbLib.playerHasted" } },
@@ -150,17 +151,19 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 	-- Mark
 	{ "Hunter's Mark", { "target.exists", "target.alive", "!target.debuff(Hunter's Mark).any" }, "target" },
 	
-	-- Consumables
-	-- TODO: flask,type=spring_blossoms
-	-- TODO: food,type=sea_mist_rice_noodles
-	-- TODO: PRE POT: virmens_bite_potion
+	-- Food / Flask
+	-- TODO: flask of spring blossoms
+	-- TODO: food mist rice noodles
+	-- TODO: PRE POT: virmens bite potion
 	
 }, 
 function()
-	ProbablyEngine.toggle.create('cleavemode', 'Interface\\Icons\\achievement_pvp_o_h', 'Cleave Mode', 'Toggle the usage of AoE abilities for 2 to 3 enemies.')
+	ProbablyEngine.toggle.create('consume', 'Interface\\Icons\\inv_alchemy_endlessflask_06', 'Use Consumables', 'Toggle the usage of Flasks/Food/Potions etc..')
+	ProbablyEngine.toggle.create('autotarget', 'Interface\\Icons\\ability_hunter_snipershot', 'Auto Target', 'Automaticaly target the nearest enemy when target dies or does not exist.')
 	ProbablyEngine.toggle.create('aspect', 'Interface\\Icons\\ability_mount_jungletiger', 'Auto Aspect', 'Automatically switch aspect when moving and not in combat.')
 	ProbablyEngine.toggle.create('mousesting', 'Interface\\Icons\\ability_hunter_quickshot', 'Auto Sting', 'Automatically cast Serpent Sting on mouseover targets.')
 	ProbablyEngine.toggle.create('pvpmode', 'Interface\\Icons\\achievement_pvp_o_h', 'PvP', 'Toggle the usage of PvP abilities.')
 	ProbablyEngine.toggle.create('camomode', 'Interface\\Icons\\ability_hunter_displacement', 'Camouflage', 'Toggle the usage Camouflage when out of combat.')
-	ProbablyEngine.toggle.create('autotarget', 'Interface\\Icons\\ability_hunter_snipershot', 'Auto Target', 'Automaticaly target the nearest enemy when target dies or does not exist.')
+	ProbablyEngine.toggle.create('cleavemode', 'Interface\\Icons\\achievement_pvp_o_h', 'Cleave Mode', 'Toggle the usage of AoE abilities for 2 to 3 enemies.')
+
 end)
