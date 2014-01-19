@@ -44,30 +44,30 @@ ProbablyEngine.rotation.register_custom(250, "bbBloodDeathKnight", {
 	
 	-- Keybound Cooldowns
 	{ "Death and Decay", "modifier.lshift", "ground" },
-	{ "Army of the Dead", "modifier.rshift" },
+	{ "Anti-Magic Zone", "modifier.rshift", "ground" },
+	{ "Army of the Dead", "modifier.rcontrol" },
 	{ "Death Grip", { "modifier.lalt", "mouseover.threat < 100", "!target.spell(Death Strike).range", "!target.boss" }, "mouseover" },
 	-- Chains of Ice Mouseover
-	-- Anti-Magic Zone Ground
 	-- Raise Dead
 	-- Plague Leech Talent
 	-- Blood Presence
 	-- Death Coil at range and for heal
-	
-	-- Blood Tap
-	{ "Blood Tap", { "player.buff(Blood Charge).count > 5", "player.runes(death).count < 2" } },
 	
 	-- Survival
 	{ "#5512", { "modifier.cooldowns", "player.health < 40" } }, -- Healthstone (5512)
 	{ "Anti-Magic Shell", { "player.health <= 70", "target.casting" } },
 	{ "Dancing Rune Weapon", "player.health <= 75" },
 	{ "Conversion", "player.health <= 60" }, -- Nobody should ever use this talent, but just in case.
+	{ "Death Siphon", "player.health < 60" },
 	{ "Vampiric Blood", "player.health <= 55" },
 	{ "Icebound Fortitude", { "modifier.cooldowns", "player.health <= 50" } },
 	{ "Rune Tap", "player.health <= 40" },
-	{ "Empower Rune Weapon", { "modifier.cooldowns", "player.health <= 40" } },
+	{ "Empower Rune Weapon", { "modifier.cooldowns", "player.health <= 40", "target.spell(Death Strike).range" } },
 	{ "/cast Raise Dead\n/cast Death Pact", { "modifier.cooldowns", "player.health < 35", "player.spell(Death Pact).cooldown", "player.spell(Raise Dead).cooldown", "player.spell(Death Pact).usable" } },
 
 	-- Diseases
+	{ "Unholy Blight", "!target.debuff(Frost Fever)" },
+	{ "Unholy Blight", "!target.debuff(Blood Plague)" },
 	{ "Outbreak", "!target.debuff(Frost Fever)" },
 	{ "Outbreak", "!target.debuff(Blood Plague)" },
 	{ "Blood Boil", { "player.runes(blood).count > 1", "target.spell(Death Strike).range", "target.debuff(Frost Fever).duration < 3" } },
@@ -75,16 +75,23 @@ ProbablyEngine.rotation.register_custom(250, "bbBloodDeathKnight", {
 	{ "Icy Touch", { "!target.debuff(Frost Fever)", "!player.spell(Outbreak).exists" },
 	{ "Plague Strike", { "!target.debuff(Blood Plague)", "!player.spell(Outbreak).exists" },
 	
-	-- Rotation
+	-- AoE Rotation
 	{ "Heart Strike", { "modifier.multitarget", "player.runes(blood).count > 0", "modifier.enemies < 4" } },
 	{ "Pestilence", { "modifier.multitarget", "target.debuff(Blood Plague)", "target.debuff(Frost Fever)", "modifier.timeout(Pestilence, 30)", "modifier.enemies > 2", "!player.spell(Roiling Blood).exists" } },
 	{ "Blood Boil", { "modifier.multitarget", "target.spell(Death Strike).range", "modifier.enemies > 3"  } },
+
+	
+	-- Rotation
 	{ "Blood Boil", { "player.buff(Crimson Scourge)", "target.spell(Death Strike).range" } },
+	{ "Death Strike", "player.health < 50" },
+	{ "Death Strike", "player.buff(Blood Shield).duration < 5" },
+	{ "Soul Reaper", "target.health <= 35" },
+	{ "Rune Strike", "player.runicpower > 75", "player.runes(frost).count < 2","player.runes(unholy).count < 2" },
 	{ "Death Strike" },
-	{ "Soul Reaper", {"player.runes(blood).count > 0", "target.health < 35" } },
-	{ "Heart Strike", "player.runes(blood).count > 0" },
-	{ "Rune Strike", "player.runicpower > 40" },
+	{ "Heart Strike", { "player.runes(blood).count > 0", "target.debuff(Frost Fever)", "target.debuff(Blood Plague)" } },
+	{ "Rune Strike", { "player.runicpower > 40", "!player.buff(lichborne)" } },
 	{ "Horn of Winter", "player.runicpower < 90" },
+	{ "Blood Tap", { "player.buff(Blood Charge).count > 5", "player.runes(death).count < 2" } },
 	{ "Blood Boil", { "!player.spell(Crimson Scourge)", "target.spell(Death Strike).range" } },
 	
 },{
