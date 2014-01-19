@@ -61,9 +61,10 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 	-- Cooldowns
 	{ "Healing Stream Totem", { "!player.totem(Healing Tide Totem)", "!player.totem(Mana Tide Totem)" } },
 	{ "Mana Tide Totem", { "modifier.cooldowns", "player.mana < 30" } },
-	{ "Healing Tide Totem", { "modifier.cooldowns", "@coreHealing.needsHealing(40, 8)" } },
-	{ "Spirit Link Totem", { "modifier.cooldowns", "!player.totem(Healing Tide Totem)", "@coreHealing.needsHealing(40, 8)" } },
-	{ "Ascendance", { "modifier.cooldowns", "modifier.cooldowns", "!player.totem(Spirit Link Totem)", "!player.totem(Healing Tide Totem)", "@coreHealing.needsHealing(40, 8)" } },
+	{ "Healing Tide Totem", { "modifier.cooldowns", "@coreHealing.needsHealing(50, 6)" } },
+	{ "Spirit Link Totem", { "modifier.cooldowns", "!player.totem(Healing Tide Totem)", "@coreHealing.needsHealing(45, 6)" } },
+	{ "Spirit Walker's Grace", { "modifier.cooldowns", "!player.totem(Spirit Link Totem)", "!player.totem(Healing Tide Totem)", "@coreHealing.needsHealing(40, 6)" } },
+	{ "Ascendance", { "modifier.cooldowns", "!player.totem(Spirit Link Totem)", "!player.totem(Healing Tide Totem)", "@coreHealing.needsHealing(40, 6)" } },
 
 	-- Dispel
 	{ "Purify Spirit", "@coreHealing.needsDispelled('Aqua Bomb')" },
@@ -83,17 +84,17 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 	{ "Chain Heal", "lowest.health < 80", "lowest" }, --Therefore, you should always cast Chain Heal Icon Chain Heal on targets with an active Riptide Icon Riptide. 
 	{ "Healing Wave", "lowest.health < 80", "lowest" },
 
-
 	-- DPS
+	{ "Lightning Bolt", { "toggle.dpsmode", "focus.exists", "focustarget.exists", "focustarget.enemy", "focustarget.range < 40", "player.glyph(Glyph of Telluric Currents)", "!modifier.last(Lightning Bolt)" }, "focustarget" },
 	{{
-		{ "Lightning Bolt", { "focus.exists", "focustarget.exists", "focustarget.enemy", "focustarget.range < 40", "player.mana < 50", "player.glyph(Glyph of Telluric Currents)" }, "focustarget" },
-		{ "Fire Elemental Totem", { "modifier.cooldowns", "target.boss" } },
-		{ "Stormlash Totem", { "modifier.cooldowns", "target.boss" } },
+		{ "Fire Elemental Totem", { "modifier.cooldowns", "target.boss", "target.range < 40"  } },
+		{ "Stormlash Totem", { "modifier.cooldowns", "target.boss", "target.range < 40" } },
 		{ "Searing Totem", { "!player.totem(Magma Totem)", "!player.totem(Fire Elemental Totem)", "!player.totem(Searing Totem)" } },
-		----{ "Flame Shock", { "focustarget.exists", "!focustarget.debuff(Flame Shock)", "player.mana > 66" }, "focustarget" },
-		--{ "Lava Burst", { "focustarget.exists", "focustarget.debuff(Flame Shock)", "player.mana > 66" }, "focustarget" },
+		{ "Flame Shock", { "focustarget.exists", "!focustarget.debuff(Flame Shock)" }, "focustarget" },
+		{ "Lava Burst", { "focustarget.exists", "focustarget.debuff(Flame Shock)" }, "focustarget" },
 	}, {
 		"toggle.dpsmode",
+		"player.mana > 70",
 	}},
 	
 }, {
