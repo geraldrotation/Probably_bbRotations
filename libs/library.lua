@@ -168,6 +168,15 @@ function bbLib.conjureManaGem()
 	return false
 end
 
+bbLib.darkSimSpells = { "Froststorm Bolt","Arcane Shock","Rage of the Empress","Chain Lightning","Hex","Mind Control","Cyclone","Polymorph","Pyroblast","Tranquility","Divine Hymn","Hymn of Hope","Ring of Frost","Entangling Roots" }
+function bbLib.useDarkSim(unit)
+	-- Thanks to PCMD
+	for index,spellName in pairs(pcmdDK.darkSimSpells) do
+			if ProbablyEngine.condition["casting"](unit, spellName) then return true end
+	end
+	return false
+end
+
 function bbLib.isTargetingMe(target)
 	if UnitExists(target) then
 		return UnitGUID(target.."target") == UnitGUID("player")

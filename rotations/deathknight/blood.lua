@@ -4,7 +4,7 @@
 ProbablyEngine.rotation.register_custom(250, "bbBloodDeathKnight", {
 -- PLAYER CONTROLLED: 
 -- SUGGESTED TALENTS:
--- CONTROLS: Pause - Left Control, Death Grip Mouseover - Left Alt, Army of the Dead - Left Shift
+-- CONTROLS: Pause - Left Control, Death and Decay - Left Shift,  Death Grip Mouseover - Left Alt, Anti-Magic Zone - Right Shift, Army of the Dead - Right Control
 
 -- COMBAT
 	-- Rotation Utilities
@@ -34,6 +34,7 @@ ProbablyEngine.rotation.register_custom(250, "bbBloodDeathKnight", {
 	-- Interrupts
 	{ "Mind Freeze", "modifier.interrupts" },
 	{ "Strangulate", "modifier.interrupts" },
+	{ "Dark Simulacrum", { "target.casting", "@bbLib.useDarkSim(target)" } },
 	
 	-- Off GCD
 	{ "Death's Advance", "player.state.snare" },
@@ -42,17 +43,13 @@ ProbablyEngine.rotation.register_custom(250, "bbBloodDeathKnight", {
 	{ "Bone Shield", "!player.buff(Bone Shield)" },
 	{ "Horn of Winter", "!player.buff(Horn of Winter).any" },
 	
-	-- Keybound Cooldowns
+	-- Keybinds
 	{ "Death and Decay", "modifier.lshift", "ground" },
 	{ "Anti-Magic Zone", "modifier.rshift", "ground" },
 	{ "Army of the Dead", "modifier.rcontrol" },
 	{ "Death Grip", { "modifier.lalt", "mouseover.threat < 100", "!target.spell(Death Strike).range", "!target.boss" }, "mouseover" },
-	-- Chains of Ice Mouseover
-	-- Raise Dead
-	-- Plague Leech Talent
-	-- Blood Presence
-	-- Death Coil at range and for heal
-	
+	{ "Chains of Ice", { "modifier.ralt", "!target.boss" }, "mouseover" },
+
 	-- Survival
 	{ "#5512", { "modifier.cooldowns", "player.health < 40" } }, -- Healthstone (5512)
 	{ "Anti-Magic Shell", { "player.health <= 70", "target.casting" } },
@@ -79,7 +76,6 @@ ProbablyEngine.rotation.register_custom(250, "bbBloodDeathKnight", {
 	{ "Heart Strike", { "modifier.multitarget", "player.runes(blood).count > 0", "modifier.enemies < 4" } },
 	{ "Pestilence", { "modifier.multitarget", "target.debuff(Blood Plague)", "target.debuff(Frost Fever)", "modifier.timeout(Pestilence, 30)", "modifier.enemies > 2", "!player.spell(Roiling Blood).exists" } },
 	{ "Blood Boil", { "modifier.multitarget", "target.spell(Death Strike).range", "modifier.enemies > 3"  } },
-
 	
 	-- Rotation
 	{ "Blood Boil", { "player.buff(Crimson Scourge)", "target.spell(Death Strike).range" } },
@@ -91,6 +87,7 @@ ProbablyEngine.rotation.register_custom(250, "bbBloodDeathKnight", {
 	{ "Heart Strike", { "player.runes(blood).count > 0", "target.debuff(Frost Fever)", "target.debuff(Blood Plague)" } },
 	{ "Rune Strike", { "player.runicpower > 40", "!player.buff(lichborne)" } },
 	{ "Horn of Winter", "player.runicpower < 90" },
+	{ "Plague Leech", { "target.debuff(Frost Fever)", "target.debuff(Blood Plague)", "target.debuff(Frost Fever).duration < 3", "target.debuff(Blood Plague).duration < 3", "player.runes(death).count < 1" } },
 	{ "Blood Tap", { "player.buff(Blood Charge).count > 5", "player.runes(death).count < 2" } },
 	{ "Blood Boil", { "!player.spell(Crimson Scourge)", "target.spell(Death Strike).range" } },
 	
