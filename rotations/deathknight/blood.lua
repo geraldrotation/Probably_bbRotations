@@ -63,29 +63,33 @@ ProbablyEngine.rotation.register_custom(250, "bbBloodDeathKnight", {
 	{ "/cast Raise Dead\n/cast Death Pact", { "modifier.cooldowns", "player.health < 35", "player.spell(Death Pact).cooldown", "player.spell(Raise Dead).cooldown", "player.spell(Death Pact).usable" } },
 
 	-- Diseases
-	{ "Unholy Blight", "!target.debuff(Frost Fever)" },
-	{ "Unholy Blight", "!target.debuff(Blood Plague)" },
+	{ "Unholy Blight", { "!target.debuff(Frost Fever)", "target.spell(Death Strike).range" } },
+	{ "Unholy Blight", { "!target.debuff(Blood Plague)", "target.spell(Death Strike).range" } },
 	{ "Outbreak", "!target.debuff(Frost Fever)" },
 	{ "Outbreak", "!target.debuff(Blood Plague)" },
 	{ "Blood Boil", { "player.runes(blood).count > 1", "target.spell(Death Strike).range", "target.debuff(Frost Fever).duration < 3" } },
-	{ "Blood Boil", { "player.runes(death).count > 1", "target.spell(Death Strike).range", "target.debuff(Blood Plague).duration < 3" } },  
-	{ "Icy Touch", { "!target.debuff(Frost Fever)", "!player.spell(Outbreak).exists" },
-	{ "Plague Strike", { "!target.debuff(Blood Plague)", "!player.spell(Outbreak).exists" },
+	{ "Blood Boil", { "player.runes(death).count > 1", "target.spell(Death Strike).range", "target.debuff(Blood Plague).duration < 3" } },
+	{ "Icy Touch", "!target.debuff(Frost Fever)" },
+	{ "Plague Strike", "!target.debuff(Blood Plague)" },
 	
 	-- AoE Rotation
-	{ "Heart Strike", { "modifier.multitarget", "player.runes(blood).count > 0", "modifier.enemies < 4" } },
-	{ "Pestilence", { "modifier.multitarget", "target.debuff(Blood Plague)", "target.debuff(Frost Fever)", "modifier.timeout(Pestilence, 30)", "modifier.enemies > 2", "!player.spell(Roiling Blood).exists" } },
-	{ "Blood Boil", { "modifier.multitarget", "target.spell(Death Strike).range", "modifier.enemies > 3"  } },
+	{{
+		{ "Heart Strike", { "player.runes(blood).count > 0", "modifier.enemies < 4" } },
+		{ "Pestilence", { "target.debuff(Blood Plague)", "target.debuff(Frost Fever)", "modifier.timeout(Pestilence, 30)", "modifier.enemies > 2", "!player.spell(Roiling Blood).exists" } },
+		{ "Blood Boil", { "target.spell(Death Strike).range", "modifier.enemies > 3"  } },
+		{ "Death Strike" },
+		{ "Rune Strike", "player.runicpower > 95" },
+		{ "Rune Strike", { "player.runes(frost).count < 1","player.runes(unholy).count < 1" } },
+	}, {
+		"modifier.multitarget",
+	}},
 	
 	-- Rotation
-	{ "Blood Boil", { "player.buff(Crimson Scourge)", "target.spell(Death Strike).range" } },
-	{ "Death Strike", "player.health < 50" },
-	{ "Death Strike", "player.buff(Blood Shield).duration < 5" },
-	{ "Soul Reaper", "target.health <= 35" },
-	{ "Rune Strike", "player.runicpower > 75", "player.runes(frost).count < 2","player.runes(unholy).count < 2" },
 	{ "Death Strike" },
-	{ "Heart Strike", { "player.runes(blood).count > 0", "target.debuff(Frost Fever)", "target.debuff(Blood Plague)" } },
-	{ "Rune Strike", { "player.runicpower > 40", "!player.buff(lichborne)" } },
+	{ "Soul Reaper", "target.health <= 35" },
+	{ "Heart Strike", { "target.health > 35", "player.runes(blood).count > 0", "target.debuff(Frost Fever)", "target.debuff(Blood Plague)" } },
+	{ "Rune Strike", "player.runicpower > 95" },
+	{ "Rune Strike", { "player.runes(frost).count < 1","player.runes(unholy).count < 1" } },
 	{ "Horn of Winter", "player.runicpower < 90" },
 	{ "Plague Leech", { "target.debuff(Frost Fever)", "target.debuff(Blood Plague)", "target.debuff(Frost Fever).duration < 3", "target.debuff(Blood Plague).duration < 3", "player.runes(death).count < 1" } },
 	{ "Blood Tap", { "player.buff(Blood Charge).count > 5", "player.runes(death).count < 2" } },
