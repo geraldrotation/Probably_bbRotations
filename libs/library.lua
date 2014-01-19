@@ -1,4 +1,5 @@
 bbLib = {}
+--TODO: Alpha, Beta, and Raid Ready Alert
 
 function bbLib.bossMods()
 	-- Darkmoon Faerie Cannon

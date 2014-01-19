@@ -56,10 +56,7 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
     { "Tranquilizing Shot", "target.dispellable(Tranquilizing Shot)", "target" },
 
 	-- TODO: Boss Functions + hold cooldowns
-
 	-- TODO: Energy Pooling Toggle
-	
-	-- TODO: Cleave Rotation?
 
     -- Misdirects to focus -> tank -> pet
     { "Misdirection", { "!toggle.pvpmode", "!target.isPlayer", "focus.exists", "focus.alive", "!player.buff(Misdirection)", "target.threat > 60" }, "focus" },

@@ -67,16 +67,16 @@ ProbablyEngine.rotation.register_custom(250, "bbBloodDeathKnight", {
 	{ "Unholy Blight", { "!target.debuff(Blood Plague)", "target.spell(Death Strike).range" } },
 	{ "Outbreak", "!target.debuff(Frost Fever)" },
 	{ "Outbreak", "!target.debuff(Blood Plague)" },
-	{ "Blood Boil", { "target.spell(Death Strike).range", "target.debuff(Frost Fever).duration < 5" } },
-	{ "Blood Boil", { "target.spell(Death Strike).range", "target.debuff(Blood Plague).duration < 5" } },
+	{ "Blood Boil", { "!modifier.last(Blood Boil)", "player.runes(blood).count > 0", "target.spell(Death Strike).range", "target.debuff(Blood Plague).duration < 5", "target.debuff(Blood Plague)"  } },
+	{ "Blood Boil", { "!modifier.last(Blood Boil)", "player.runes(blood).count > 0", "target.spell(Death Strike).range", "target.debuff(Frost Fever).duration < 5", "target.debuff(Frost Fever)" } },
 	{ "Icy Touch", "!target.debuff(Frost Fever)" },
 	{ "Plague Strike", "!target.debuff(Blood Plague)" },
 	
 	-- AoE Rotation
 	{{
 		{ "Heart Strike", { "player.runes(blood).count > 0", "modifier.enemies < 4" } },
-		{ "Pestilence", { "target.debuff(Blood Plague)", "target.debuff(Frost Fever)", "modifier.timeout(Pestilence, 30)", "modifier.enemies > 2", "!player.spell(Roiling Blood).exists" } },
-		{ "Blood Boil", { "target.spell(Death Strike).range", "modifier.enemies > 3"  } },
+		--{ "Pestilence", { "target.debuff(Blood Plague)", "target.debuff(Frost Fever)", "modifier.timeout(Pestilence,30)", "modifier.enemies > 2", "!player.spell(Roiling Blood).exists" } }, -- TODO: error with timeout "has no time period"
+		{ "Blood Boil", { "!modifier.last(Blood Boil)", "player.runes(blood).count > 0", "target.spell(Death Strike).range", "modifier.enemies > 3"  } },
 		{ "Death Strike" },
 		{ "Rune Strike", "player.runicpower > 95" },
 		{ "Rune Strike", { "player.runes(frost).count < 1","player.runes(unholy).count < 1" } },
@@ -86,7 +86,7 @@ ProbablyEngine.rotation.register_custom(250, "bbBloodDeathKnight", {
 	
 	-- Rotation
 	{ "Death Strike" },
-	{ "Blood Boil", { "target.spell(Death Strike).range", "player.buff(Crimson Scourge)" } },
+	{ "Blood Boil", { "!modifier.last(Blood Boil)", "target.spell(Death Strike).range", "player.buff(Crimson Scourge)" } },
 	{ "Soul Reaper", "target.health <= 35" },
 	{ "Heart Strike", { "target.health > 35", "player.runes(blood).count > 0", "target.debuff(Frost Fever)", "target.debuff(Blood Plague)" } },
 	{ "Rune Strike", "player.runicpower > 95" },
@@ -94,7 +94,7 @@ ProbablyEngine.rotation.register_custom(250, "bbBloodDeathKnight", {
 	{ "Horn of Winter", "player.runicpower < 90" },
 	{ "Plague Leech", { "target.debuff(Frost Fever)", "target.debuff(Blood Plague)", "target.debuff(Frost Fever).duration < 3", "target.debuff(Blood Plague).duration < 3", "player.runes(death).count < 1" } },
 	{ "Blood Tap", { "player.buff(Blood Charge).count > 5", "player.runes(death).count < 2" } },
-	{ "Blood Boil", { "!player.spell(Crimson Scourge)", "target.spell(Death Strike).range" } },
+	{ "Blood Boil", { "!modifier.last(Blood Boil)", "!player.spell(Crimson Scourge)", "player.runes(blood).count > 0", "target.spell(Death Strike).range" } },
 	
 },{
 -- OUT OF COMBAT ROTATION
