@@ -160,6 +160,13 @@ function bbLib.useManaGem()
 	return false
 end
 
+function bbLib.isMounted()
+	if IsMounted() then
+		return true
+	end
+	return false
+end
+
 function bbLib.conjureManaGem()
 	-- 36799 = Mana Gem
 	if GetItemCount(36799) < 1 then -- TODO: make to work with charges
