@@ -67,8 +67,8 @@ ProbablyEngine.rotation.register_custom(250, "bbBloodDeathKnight", {
 	{ "Unholy Blight", { "!target.debuff(Blood Plague)", "target.spell(Death Strike).range" } },
 	{ "Outbreak", "!target.debuff(Frost Fever)" },
 	{ "Outbreak", "!target.debuff(Blood Plague)" },
-	{ "Blood Boil", { "player.runes(blood).count > 1", "target.spell(Death Strike).range", "target.debuff(Frost Fever).duration < 3" } },
-	{ "Blood Boil", { "player.runes(death).count > 1", "target.spell(Death Strike).range", "target.debuff(Blood Plague).duration < 3" } },
+	{ "Blood Boil", { "target.spell(Death Strike).range", "target.debuff(Frost Fever).duration < 5" } },
+	{ "Blood Boil", { "target.spell(Death Strike).range", "target.debuff(Blood Plague).duration < 5" } },
 	{ "Icy Touch", "!target.debuff(Frost Fever)" },
 	{ "Plague Strike", "!target.debuff(Blood Plague)" },
 	
@@ -86,6 +86,7 @@ ProbablyEngine.rotation.register_custom(250, "bbBloodDeathKnight", {
 	
 	-- Rotation
 	{ "Death Strike" },
+	{ "Blood Boil", { "target.spell(Death Strike).range", "player.buff(Crimson Scourge)" } },
 	{ "Soul Reaper", "target.health <= 35" },
 	{ "Heart Strike", { "target.health > 35", "player.runes(blood).count > 0", "target.debuff(Frost Fever)", "target.debuff(Blood Plague)" } },
 	{ "Rune Strike", "player.runicpower > 95" },
@@ -103,7 +104,7 @@ ProbablyEngine.rotation.register_custom(250, "bbBloodDeathKnight", {
 	{ "Path of Frost", { "!player.buff(Path of Frost).any", "@bbLib.isMounted" } },
 	{ "49222", "!player.buff(49222)" }, -- Bone Shield (49222)
 
-	-- Keybound Cooldowns
+	-- Keybinds
 	{ "Army of the Dead", { "target.boss", "modifier.rshift" } },
 	{ "Death Grip", "modifier.lalt" },
 },
