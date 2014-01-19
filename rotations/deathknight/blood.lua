@@ -101,7 +101,7 @@ ProbablyEngine.rotation.register_custom(250, "bbBloodDeathKnight", {
 	{ "Blood Presence", "!player.buff(Blood Presence)" },
 	{ "Horn of Winter", "!player.buff(Horn of Winter).any" },
 	{ "Path of Frost", { "!player.buff(Path of Frost).any", "player.mounted" } },
-	{ "Bone Shield", "!player.buff(Bone Shield)" },
+	{ "49222", "!player.buff(49222)" }, -- Bone Shield (49222)
 
 	-- Keybound Cooldowns
 	{ "Army of the Dead", { "target.boss", "modifier.rshift" } },
