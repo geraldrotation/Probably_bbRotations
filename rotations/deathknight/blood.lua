@@ -34,25 +34,30 @@ ProbablyEngine.rotation.register_custom(250, "bbBloodDeathKnight", {
 	-- Interrupts
 	{ "Mind Freeze", "modifier.interrupts" },
 	{ "Strangulate", "modifier.interrupts" },
+	
+	-- Off GCD
+	{ "Death's Advance", "player.state.snare" },
 
 	-- Buffs
-	{ "Bone Shield", "!player.buff" },
+	{ "Bone Shield", "!player.buff(Bone Shield)" },
 	{ "Horn of Winter", "!player.buff(Horn of Winter).any" },
 	
 	-- Keybound Cooldowns
-	{ "Army of the Dead", "modifier.lshift" },
-	{ "Death Grip", { "modifier.lalt", "mouseover.threat < 100", "target.range > 10", "!target.boss" }, "mouseover" },
+	{ "Death and Decay", "modifier.lshift", "ground" },
+	{ "Army of the Dead", "modifier.rshift" },
+	{ "Death Grip", { "modifier.lalt", "mouseover.threat < 100", "!target.spell(Death Strike).range", "!target.boss" }, "mouseover" },
 	-- Chains of Ice Mouseover
 	-- Anti-Magic Zone Ground
 	-- Raise Dead
 	-- Plague Leech Talent
-	-- Death's Advance
 	-- Blood Presence
+	-- Death Coil at range and for heal
 	
 	-- Blood Tap
 	{ "Blood Tap", { "player.buff(Blood Charge).count > 5", "player.runes(death).count < 2" } },
 	
 	-- Survival
+	{ "#5512", { "modifier.cooldowns", "player.health < 40" } }, -- Healthstone (5512)
 	{ "Anti-Magic Shell", { "player.health <= 70", "target.casting" } },
 	{ "Dancing Rune Weapon", "player.health <= 75" },
 	{ "Conversion", "player.health <= 60" }, -- Nobody should ever use this talent, but just in case.
@@ -63,34 +68,35 @@ ProbablyEngine.rotation.register_custom(250, "bbBloodDeathKnight", {
 	{ "/cast Raise Dead\n/cast Death Pact", { "modifier.cooldowns", "player.health < 35", "player.spell(Death Pact).cooldown", "player.spell(Raise Dead).cooldown", "player.spell(Death Pact).usable" } },
 
 	-- Diseases
-	{ "Outbreak", { "!target.debuff(Frost Fever)", "!target.debuff(Blood Plague)" } },
-	{ "Blood Boil", { "player.runes(blood).count > 1","target.debuff(Frost Fever).duration < 3", "target.debuff(Blood Plague).duration <3", "target.range <= 10" } },
-	{ "Blood Boil", { "player.runes(death).count > 1","target.debuff(Frost Fever).duration < 3", "target.debuff(Blood Plague).duration <3", "target.range <= 10" } },  
-	{ "Icy Touch", "target.debuff(Frost Fever).duration < 3" },
-	{ "Plague Strike", "target.debuff(Blood Plague).duration < 3" },
+	{ "Outbreak", "!target.debuff(Frost Fever)" },
+	{ "Outbreak", "!target.debuff(Blood Plague)" },
+	{ "Blood Boil", { "player.runes(blood).count > 1", "target.spell(Death Strike).range", "target.debuff(Frost Fever).duration < 3" } },
+	{ "Blood Boil", { "player.runes(death).count > 1", "target.spell(Death Strike).range", "target.debuff(Blood Plague).duration < 3" } },  
+	{ "Icy Touch", { "!target.debuff(Frost Fever)", "!player.spell(Outbreak).exists" },
+	{ "Plague Strike", { "!target.debuff(Blood Plague)", "!player.spell(Outbreak).exists" },
 	
 	-- Rotation
 	{ "Heart Strike", { "modifier.multitarget", "player.runes(blood).count > 0", "modifier.enemies < 4" } },
 	{ "Pestilence", { "modifier.multitarget", "target.debuff(Blood Plague)", "target.debuff(Frost Fever)", "modifier.timeout(Pestilence, 30)", "modifier.enemies > 2", "!player.spell(Roiling Blood).exists" } },
-	{ "Blood Boil", { "modifier.multitarget", "target.range <= 10", "modifier.enemies > 3"  } },
-	{ "Death and Decay", { "modifier.multitarget", "!player.moving", "!target.moving" }, "ground" },
-	{ "Death Strike", "!modifier.last(Death Strike)" },
+	{ "Blood Boil", { "modifier.multitarget", "target.spell(Death Strike).range", "modifier.enemies > 3"  } },
+	{ "Blood Boil", { "player.buff(Crimson Scourge)", "target.spell(Death Strike).range" } },
+	{ "Death Strike" },
 	{ "Soul Reaper", {"player.runes(blood).count > 0", "target.health < 35" } },
 	{ "Heart Strike", "player.runes(blood).count > 0" },
 	{ "Rune Strike", "player.runicpower > 40" },
 	{ "Horn of Winter", "player.runicpower < 90" },
-	{ "Death and Decay", { "player.buff(Crimson Scourge)", "!player.moving", "!target.moving" }, "ground" },
-	{ "Blood Boil", { "player.buff(Crimson Scourge)", "target.range <= 10" } },
+	{ "Blood Boil", { "!player.spell(Crimson Scourge)", "target.spell(Death Strike).range" } },
 	
 },{
 -- OUT OF COMBAT ROTATION
 	-- Buffs
+	{ "Blood Presence", "!player.buff(Blood Presence)" },
 	{ "Horn of Winter", "!player.buff(Horn of Winter).any" },
-	{ "Path of Frost", "!player.buff(Path of Frost).any" },
+	{ "Path of Frost", { "!player.buff(Path of Frost).any", "player.mounted" } },
 	{ "Bone Shield", "!player.buff(Bone Shield)" },
 
 	-- Keybound Cooldowns
-	{ "Army of the Dead", "modifier.lshift" },
+	{ "Army of the Dead", { "target.boss", "modifier.rshift" } },
 	{ "Death Grip", "modifier.lalt" },
 },
 function ()
