@@ -40,7 +40,7 @@ ProbablyEngine.rotation.register_custom(250, "bbBloodDeathKnight", {
 	{ "Death's Advance", "player.state.snare" },
 
 	-- Buffs
-	{ "49222", "!player.buff(49222)" }, -- Bone Shield (49222)
+	{ "49222", "!player.buff(49222)", "player" }, -- Bone Shield (49222)
 	{ "Horn of Winter", "!player.buff(Horn of Winter).any" },
 	
 	-- Keybinds
@@ -102,7 +102,7 @@ ProbablyEngine.rotation.register_custom(250, "bbBloodDeathKnight", {
 	{ "Blood Presence", "!player.buff(Blood Presence)" },
 	{ "Horn of Winter", "!player.buff(Horn of Winter).any" },
 	{ "Path of Frost", { "!player.buff(Path of Frost).any", "@bbLib.isMounted" } },
-	{ "49222", "!player.buff(49222)" }, -- Bone Shield (49222)
+	{ "49222", "!player.buff(49222)", "player" }, -- Bone Shield (49222)
 
 	-- Keybinds
 	{ "Army of the Dead", { "target.boss", "modifier.rshift" } },
