@@ -34,7 +34,7 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 	{ "Scatter Shot", { "toggle.pvpmode", "mouseover.exists", "mouseover.enemy", "mouseover.alive", "!mouseover.status.disorient", 
 		"!mouseover.status.sleep", "!mouseover.status.incapacitate", "!mouseover.status.fear", "!mouseover.status.misc", "!mouseover.status.root", 
 		"!mouseover.status.stun", "!mouseover.status.snare", "!mouseover.immune.all", "!mouseover.immune.disorient" }, "mouseover" }, -- If casting too?
-	{ "Scatter Shot", { "toggle.rcontrol", "mouseover.exists", "mouseover.enemy", "mouseover.alive", "!mouseover.status.disorient", 
+	{ "Scatter Shot", { "modifier.rcontrol", "mouseover.exists", "mouseover.enemy", "mouseover.alive", "!mouseover.status.disorient", 
 		"!mouseover.status.sleep", "!mouseover.status.incapacitate", "!mouseover.status.fear", "!mouseover.status.misc", "!mouseover.status.root", 
 		"!mouseover.status.stun", "!mouseover.status.snare", "!mouseover.immune.all", "!mouseover.immune.disorient" }, "mouseover" }, -- If casting too?
 	{ "Wyvern Sting", { "toggle.pvpmode", "mouseover.exists", "mouseover.enemy", "mouseover.alive", "!mouseover.status.disorient", 
@@ -138,7 +138,7 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 	{ "Camouflage", { "toggle.camomode", "!player.buff(Camouflage)", "!player.debuff(Orb of Power)" } }, 
 	
 	-- Pet
-	{ "883", "!pet.exists" }, -- Call Pet 1
+	{ "883", { "toggle.callpet", "!pet.exists" } }, -- Call Pet 1
 	{ "Revive Pet", "!pet.alive" },
     { "Mend Pet", { "pet.health <= 90", "pet.exists", "pet.alive", "!pet.buff(Mend Pet)" } },
 
