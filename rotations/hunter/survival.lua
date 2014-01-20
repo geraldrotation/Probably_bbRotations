@@ -10,11 +10,10 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 	-- Rotation Utilities
     { "pause", "modifier.lcontrol" },
 	{ "pause", "@bbLib.bossMods" },
-	{ "pause", "player.buff(Feign Death)" },
+	{ "pause", "player.buff(5384)" }, -- Feign Death
 	{ "pause", { "toggle.pvpmode", "@bbLib.BGFlag" } },
-
-	--{ "/script TargetNearestEnemy()", { "toggle.autotarget", "!target.exists" } },
-	{ "/script TargetNearestEnemy()", { "toggle.autotarget", "target.exists", "target.dead" } },
+	{ "/targetenemy [noexists]", { "toggle.autotarget", "!target.exists" } },
+	{ "/targetenemy", { "toggle.autotarget", "target.exists", "target.dead" } },
 	
 	--{ "pause", "player.time >= 300", "toggle.dpstest" } },
 
@@ -23,26 +22,26 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 	
     -- Pet
     { "883", { "toggle.callpet", "!pet.exists" } }, -- Call Pet 1
-    { "Heart of the Phoenix", "!pet.alive" },
-	{ "Mend Pet", { "pet.health <= 50", "pet.exists", "!pet.buff(Mend Pet)", "pet.range < 40" } },
+    { "55709", "!pet.alive" }, -- Heart of the Phoenix
+	{ "136", { "pet.health <= 50", "pet.exists", "!pet.buff(136)", "pet.range < 40" } }, -- Mend Pet
 
 	-- PvP Abilities
-	{ "Master's Call", "player.state.disorient" },
-    { "Master's Call", "player.state.stun" },
-    { "Master's Call", "player.state.root" },
-    { "Master's Call", "player.state.snare" },
-	{ "Scatter Shot", { "toggle.mouseovers", "toggle.pvpmode", "mouseover.exists", "mouseover.enemy", "mouseover.alive", "!mouseover.status.disorient", 
+	{ "53271", "player.state.disorient" }, -- Master's Call
+    { "53271", "player.state.stun" }, -- Master's Call
+    { "53271", "player.state.root" }, -- Master's Call
+    { "53271", "player.state.snare" }, -- Master's Call
+	{ "19503", { "toggle.mouseovers", "toggle.pvpmode", "mouseover.exists", "mouseover.enemy", "mouseover.alive", "!mouseover.status.disorient",  -- Scatter Shot
 		"!mouseover.status.sleep", "!mouseover.status.incapacitate", "!mouseover.status.fear", "!mouseover.status.misc", "!mouseover.status.root", 
 		"!mouseover.status.stun", "!mouseover.status.snare", "!mouseover.immune.all", "!mouseover.immune.disorient" }, "mouseover" }, -- If casting too?
-	{ "Scatter Shot", { "modifier.rcontrol", "mouseover.exists", "mouseover.enemy", "mouseover.alive", "!mouseover.status.disorient", 
+	{ "19503", { "modifier.rcontrol", "mouseover.exists", "mouseover.enemy", "mouseover.alive", "!mouseover.status.disorient", -- Scatter Shot
 		"!mouseover.status.sleep", "!mouseover.status.incapacitate", "!mouseover.status.fear", "!mouseover.status.misc", "!mouseover.status.root", 
-		"!mouseover.status.stun", "!mouseover.status.snare", "!mouseover.immune.all", "!mouseover.immune.disorient" }, "mouseover" }, -- If casting too?
-	{ "Wyvern Sting", { "toggle.mouseovers", "toggle.pvpmode", "player.spell(Scatter Shot).cooldown > 0", "mouseover.exists", "mouseover.enemy", "mouseover.alive", "!mouseover.status.disorient", 
-		"!mouseover.status.sleep", "!mouseover.status.incapacitate", "!mouseover.status.fear", "!mouseover.status.misc", "!mouseover.status.root", 
-		"!mouseover.status.stun", "!mouseover.status.snare", "!mouseover.immune.all", "!mouseover.immune.sleep" }, "mouseover" }, -- If casting too?
-	{ "Wyvern Sting", { "modifier.rcontrol", "player.spell(Scatter Shot).cooldown > 0", "mouseover.exists", "mouseover.enemy", "mouseover.alive", "!mouseover.status.disorient", 
+		"!mouseover.status.stun", "!mouseover.status.snare", "!mouseover.immune.all", "!mouseover.immune.disorient" }, "mouseover" },
+	{ "19386", { "toggle.mouseovers", "toggle.pvpmode", "player.spell(19503).cooldown > 0", "mouseover.exists", "mouseover.enemy", "mouseover.alive", "!mouseover.status.disorient", -- Wyvern Sting
 		"!mouseover.status.sleep", "!mouseover.status.incapacitate", "!mouseover.status.fear", "!mouseover.status.misc", "!mouseover.status.root", 
 		"!mouseover.status.stun", "!mouseover.status.snare", "!mouseover.immune.all", "!mouseover.immune.sleep" }, "mouseover" }, -- If casting too?
+	{ "19386", { "modifier.rcontrol", "player.spell(19503).cooldown > 0", "mouseover.exists", "mouseover.enemy", "mouseover.alive", "!mouseover.status.disorient", -- Wyvern Sting
+		"!mouseover.status.sleep", "!mouseover.status.incapacitate", "!mouseover.status.fear", "!mouseover.status.misc", "!mouseover.status.root", 
+		"!mouseover.status.stun", "!mouseover.status.snare", "!mouseover.immune.all", "!mouseover.immune.sleep" }, "mouseover" }, 
 	-- TODO: Binding Shot (ground)
 	-- TODO: Reactive Deterrence
 	{ "Scare Beast", { "toggle.mouseovers", "toggle.pvpmode", "mouseover.exists", "mouseover.enemy", "mouseover.alive", "mouseover.creatureType(Beast)" }, "mouseover" },

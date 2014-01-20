@@ -26,8 +26,8 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 	{ "pause", "modifier.lcontrol" },
 	{ "pause", "@bbLib.bossMods" },
 	{ "pause", { "toggle.pvpmode", "@bbLib.BGFlag" } },
-	{ "/script TargetNearestEnemy()", { "toggle.autotarget", "!target.exists" } },
-	{ "/script TargetNearestEnemy()", { "toggle.autotarget", "target.exists", "target.dead" } },
+	{ "/targetenemy [noexists]", { "toggle.autotarget", "!target.exists" } },
+	{ "/targetenemy", { "toggle.autotarget", "target.exists", "target.dead" } },
 	{ "/follow focus", { "toggle.autofollow", "focus.exists", "focus.alive", "focus.friend", "focus.spell(Water Walking).range", "!focus.spell(Primal Strike).range" } }, -- TODO: NYI: isFollowing()
 	
 	-- Racials 
