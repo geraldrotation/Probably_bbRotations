@@ -12,7 +12,7 @@ ProbablyEngine.rotation.register_custom(66, "bbProtectionPaladin", {
 	{ "pause", "@bbLib.bossMods" },
 	{ "pause", { "toggle.pvpmode", "@bbLib.BGFlag" } },
 	{ "/targetenemy [noexists]", { "toggle.autotarget", "!target.exists" } },
-	{ "/targetenemy", { "toggle.autotarget", "target.exists", "target.dead" } },
+	{ "/targetenemy [dead]", { "toggle.autotarget", "target.exists", "target.dead" } },
 	
 	-- Racials
 	{ "Stoneform", "player.health <= 65" },
@@ -41,7 +41,7 @@ ProbablyEngine.rotation.register_custom(66, "bbProtectionPaladin", {
 	{ "Eternal Flame", "player.buff(Eternal Flame).duration < 3" }, -- T3
 	{ "Sacred Shield", "player.buff(Sacred Shield).duration < 3" }, -- T3
 	{ "#5512", { "modifier.cooldowns", "player.health < 30" } }, -- Healthstone (5512)
-	{ "Cleanse", { "!modifier.last(Cleanse)", "player.dispellable(Cleanse)", "player" }, -- Cleanse Poison or Disease
+	{ "Cleanse", { "!modifier.last(Cleanse)", "player.dispellable(Cleanse)" }, "player" }, -- Cleanse Poison or Disease
 	
 	-- BossMods
 	{ "Reckoning", { "toggle.autotaunt", "@bbLib.bossTaunt" } },

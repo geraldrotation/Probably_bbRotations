@@ -27,7 +27,7 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 	{ "pause", "@bbLib.bossMods" },
 	{ "pause", { "toggle.pvpmode", "@bbLib.BGFlag" } },
 	{ "/targetenemy [noexists]", { "toggle.autotarget", "!target.exists" } },
-	{ "/targetenemy", { "toggle.autotarget", "target.exists", "target.dead" } },
+	{ "/targetenemy [dead]", { "toggle.autotarget", "target.exists", "target.dead" } },
 	{ "/follow focus", { "toggle.autofollow", "focus.exists", "focus.alive", "focus.friend", "focus.spell(Water Walking).range", "!focus.spell(Primal Strike).range" } }, -- TODO: NYI: isFollowing()
 	
 	-- Racials 
@@ -124,5 +124,5 @@ function()
 	ProbablyEngine.toggle.create('dpsmode', 'Interface\\Icons\\ability_dualwield', 'DPS Mode', 'Toggle the usage of damage dealing abilities.')
 	ProbablyEngine.toggle.create('mouseovers', 'Interface\\Icons\\spell_fire_flameshock', 'Toggle Mouseovers', 'Automatically cast spells on mouseover targets')
 	ProbablyEngine.toggle.create('autotarget', 'Interface\\Icons\\ability_hunter_snipershot', 'Auto Target', 'Automaticaly target the nearest enemy when target dies or does not exist.')
-	ProbablyEngine.toggle.create('autofollow', 'Interface\\Icons\\ui_charactercreate_gender_male', 'Auto Follow', 'Automaticaly follows your focus target. Must be another player.')
+	ProbablyEngine.toggle.create('autofollow', 'Interface\\Icons\\ui_charactercreate_gendermale', 'Auto Follow', 'Automaticaly follows your focus target. Must be another player.')
 end)

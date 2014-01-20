@@ -12,7 +12,7 @@ ProbablyEngine.rotation.register_custom(250, "bbBloodDeathKnight", {
 	{ "pause", "@bbLib.bossMods" },
 	{ "pause", { "toggle.pvpmode", "@bbLib.BGFlag" } },
 	{ "/targetenemy [noexists]", { "toggle.autotarget", "!target.exists" } },
-	{ "/targetenemy", { "toggle.autotarget", "target.exists", "target.dead" } },
+	{ "/targetenemy [dead]", { "toggle.autotarget", "target.exists", "target.dead" } },
 	
 	-- BossMods
 	{ "Dark Command", { "toggle.autotaunt", "@bbLib.bossTaunt" } },

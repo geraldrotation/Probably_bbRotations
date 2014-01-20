@@ -13,7 +13,7 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 	{ "pause", "player.buff(5384)" }, -- Feign Death
 	{ "pause", { "toggle.pvpmode", "@bbLib.BGFlag" } },
 	{ "/targetenemy [noexists]", { "toggle.autotarget", "!target.exists" } },
-	{ "/targetenemy", { "toggle.autotarget", "target.exists", "target.dead" } },
+	{ "/targetenemy [dead]", { "toggle.autotarget", "target.exists", "target.dead" } },
 	
 	--{ "pause", "player.time >= 300", "toggle.dpstest" } },
 

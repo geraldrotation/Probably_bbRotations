@@ -11,7 +11,7 @@ ProbablyEngine.rotation.register_custom(63, "bbFireMage", {
 	{ "pause", { "toggle.pvpmode", "@bbLib.BGFlag" } },
 	{ "pause", "player.buff(Evocation)" },
 	{ "/targetenemy [noexists]", { "toggle.autotarget", "!target.exists" } },
-	{ "/targetenemy", { "toggle.autotarget", "target.exists", "target.dead" } },
+	{ "/targetenemy [dead]", { "toggle.autotarget", "target.exists", "target.dead" } },
 
 	-- Racials
 	{ "Stoneform", "player.health <= 65" },
