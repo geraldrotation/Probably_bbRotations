@@ -90,10 +90,11 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 	-- DPS
 	{ "Lightning Bolt", { "toggle.dpsmode", "focus.exists", "focustarget.exists", "focustarget.enemy", "focustarget.range < 40", "player.glyph(Glyph of Telluric Currents)", "!modifier.last(Lightning Bolt)" }, "focustarget" },
 	{{
+		{ "Wind Shear", { "focus.friend", "focustarget.casting", "focustarget.range <= 25" }, "focustarget" }, -- Interrupt focustarget
 		{ "Fire Elemental Totem", { "modifier.cooldowns", "target.boss", "target.range < 40"  } },
 		{ "Stormlash Totem", { "modifier.cooldowns", "target.boss", "target.range < 40" } },
 		{ "Searing Totem", { "!player.totem(Magma Totem)", "!player.totem(Fire Elemental Totem)", "!player.totem(Searing Totem)" } },
-		{ "Flame Shock", { "focustarget.exists", "!focustarget.debuff(Flame Shock)" }, "focustarget" },
+		{ "Flame Shock", { "focustarget.exists", "!focustarget.debuff(Flame Shock)", "focustarget.deathin > 20" }, "focustarget" },
 		{ "Lava Burst", { "focustarget.exists", "focustarget.debuff(Flame Shock)" }, "focustarget" },
 	}, {
 		"toggle.dpsmode",
