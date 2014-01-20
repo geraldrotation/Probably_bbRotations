@@ -110,6 +110,8 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 	{ "Earthliving Weapon", "!player.enchant.mainhand" },
 	{ "Water Shield", "!player.buff" },
 	{ "Ghost Wolf", { "!player.buff(Ghost Wolf)", "player.moving" } },
+	
+	{ "/target focus\n/follow\n/target lasttarget", { "toggle.autofollow", "focus.exists", "focus.alive", "focus.friend", "focus.range < 30", "focus.range > 10" } }, -- TODO: NYI: isFollowing()
 
 	-- Heal
 	{ "Healing Stream Totem", "player.health < 80" },
