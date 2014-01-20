@@ -84,10 +84,10 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 	{ "109304", { "modifier.cooldowns", "player.health < 50" } }, -- Exhilaration
 	{ "#5512", { "modifier.cooldowns", "player.health < 40" } }, -- Healthstone (5512)
 	--{ "#76097", { "modifier.cooldowns", "player.health < 40", "@bbLib.useHealthPot" } }, -- Master Healing Potion (76097) 
-	{ "#76089", { "modifier.cooldowns", "toggle.consume", "pet.exists", "target.exists", "@bbLib.useAgiPot" } }, -- Agility Potion (76089)
+	{ "#76089", { "modifier.cooldowns", "toggle.consume", "pet.exists", "target.exists", "player.hashero", "@bbLib.useAgiPot" } }, -- Agility Potion (76089)
 	{ "20572", "modifier.cooldowns" }, -- Blood Fury (AP)
 	{ "#gloves", { "modifier.cooldowns", "pet.exists", "target.exists" } },
-	{ "26297", { "modifier.cooldowns", "pet.exists", "target.exists", "!@bbLib.playerHasted" } }, -- Berserking
+	{ "26297", { "modifier.cooldowns", "pet.exists", "target.exists", "!player.hashero", "!player.buff(3045)" } }, -- Berserking
 
 	-- PvP
 	{ "5116", { "toggle.pvpmode", "!target.debuff(5116).any", "target.moving", "!target.immune.snare" }}, -- Concussive Shot
@@ -100,7 +100,7 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 	
 	-- Multi Target
 	{ "2643", "modifier.multitarget" }, -- Multi-Shot
-	{ "Glaive Toss", "modifier.multitarget" }, -- TIER 6: Glaive Toss --TODO: do range check, two spellids
+	{ "117050", "modifier.multitarget" }, -- TIER 6: Glaive Toss --TODO: do range check
 	{ "109259", "modifier.multitarget" }, -- TIER 6: Powershot
 	{ "120360", "modifier.multitarget" }, -- TIER 6: Barrage
 	{ "13813", "modifier.multitarget", "ground" }, --  Explosive Trap
@@ -111,7 +111,7 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 	
 	-- Single Target
 	{ "53301", "player.buff(56343)" }, -- Explosive Shot, Lock and Load
-	{ "Glaive Toss" }, -- TIER 6: Glaive Toss --TODO: do range check, two spellids
+	{ "117050" }, -- TIER 6: Glaive Toss --TODO: do range check
 	{ "109259" }, -- TIER 6: Powershot
 	{ "120360" }, -- TIER 6: Barrage
 	{ "1978", { "!target.debuff", "target.deathin >= 10", "!target.state.charm" } }, -- Serpent Sting
@@ -120,9 +120,10 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 	{ "3674", { "!target.debuff", "target.deathin >= 8", "!target.state.charm" } }, -- Black Arrow
 	{ "2643", { "player.buff(109306)", "target.debuff(1978).duration < 2" } }, -- Multi-Shot, Thrill of the Hunt, Serpent Sting
 	{ "3044", "player.buff(109306)" }, -- Arcane Shot, Thrill of the Hunt
-	{ "3045", { "pet.exists", "target.exists", "!@bbLib.playerHasted" } }, -- Rapid Fire
+	{ "3045", { "pet.exists", "target.exists", "!player.hashero" } }, -- Rapid Fire
 	{ "120679" }, -- TIER 4: Dire Beast -- Dire Beast
-	{ "121818", { "pet.exists", "@bbLib.playerHasted" } }, -- Stampede
+	{ "121818", { "pet.exists", "player.hashero" } }, -- Stampede
+	{ "121818", { "pet.exists", "player.buff(3045)" } }, -- Stampede
 	{ "77767", "target.debuff(Serpent Sting).duration < 6" }, -- Cobra Shot, Serpent Sting
 	{ "2643", { "player.focus >= 67", "toggle.cleavemode", "modifier.enemies > 1" } }, -- Multi-Shot
 	{ "13813", { "toggle.cleavemode", "modifier.enemies > 2" }, "ground" }, --  Explosive Trap

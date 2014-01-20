@@ -48,7 +48,7 @@ ProbablyEngine.rotation.register_custom(63, "bbFireMage", {
 	{ "Time Warp", { "modifier.cooldowns", "target.boss", "target.health < 25", "player.time > 5" } },
 	{ "Evocation", { "player.spell(Invocation).exists", "!player.buff(Invoker's Energy)", "target.debuff(Living Bomb).duration > 3" } },
 	{ "Berserking", { "modifier.cooldowns", "target.exists", "target.boss", "!player.buff(Alter Time)", "target.deathin < 18" } },
-	{ "#114757", { "modifier.cooldowns", "@bbLib.useIntPot", "target.exists", "!player.buff(Alter Time)", "target.deathin < 45" } }, -- Jade Serpent Potion
+	{ "#114757", { "modifier.cooldowns", "@bbLib.useIntPot", "player.hashero", "target.exists", "!player.buff(Alter Time)", "target.deathin < 45" } }, -- Jade Serpent Potion
 	{ "Mirror Image", { "modifier.cooldowns", "target.boss" } },
 	{ "Combustion",  { "modifier.cooldowns", "target.boss", "target.deathin < 22" } },
 	--{ "11129",  "target.debuff(12654)" }, -- Combustion
