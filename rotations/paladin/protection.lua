@@ -2,7 +2,7 @@
 -- Custom Protection Paladin Rotation
 -- Created on Dec 25th 2013 1:00 am
 ProbablyEngine.rotation.register_custom(66, "bbProtectionPaladin", {
--- PLAYER CONTROLLED: Guardian of Ancient Kings, Divine Protection, Divine Shield, Devotion Aura, Light's Hammer (T6)
+-- PLAYER CONTROLLED: Guardian of Ancient Kings, Divine Protection, Divine Shield, Devotion Aura
 -- SUGGESTED TALENTS:
 -- CONTROLS: Pause - Left Control, Light's Hammer - Left Alt
 
@@ -36,11 +36,12 @@ ProbablyEngine.rotation.register_custom(66, "bbProtectionPaladin", {
 	{ "Rebuke", "modifier.interrupts" }, --TODO: Interrupt at 50% cast
 	
 	-- Survivability
-	{ "Hand of Freedom", { "!player.buff", "player.state.root" }, "player" },
-	{ "Hand of Freedom", { "!player.buff", "player.state.snare" }, "player" },
+	{ "Hand of Freedom", { "!modifier.last(Cleanse)", "!player.buff", "player.state.root" }, "player" },
+	{ "Hand of Freedom", { "!modifier.last(Cleanse)", "!player.buff", "player.state.snare" }, "player" },
 	{ "Eternal Flame", "player.buff(Eternal Flame).duration < 3" }, -- T3
 	{ "Sacred Shield", "player.buff(Sacred Shield).duration < 3" }, -- T3
 	{ "#5512", { "modifier.cooldowns", "player.health < 30" } }, -- Healthstone (5512)
+	{ "Cleanse", { "!modifier.last(Cleanse)", "player.dispellable(Cleanse)", "player" }, -- Cleanse Poison or Disease
 	
 	-- BossMods
 	{ "Reckoning", { "toggle.autotaunt", "@bbLib.bossTaunt" } },
@@ -65,11 +66,13 @@ ProbablyEngine.rotation.register_custom(66, "bbProtectionPaladin", {
 	-- Mouseovers
 	{ "Light's Hammer", { "modifier.lalt" }, "ground" },
 	{{
-		{ "Hand of Freedom", { "mouseover.exists", "mouseover.alive", "mouseover.friend", "mouseover.range <= 40", "mouseover.state.root", "!mouseover.buff" }, "mouseover" },
-		{ "Hand of Freedom", { "mouseover.exists", "mouseover.alive", "mouseover.friend", "mouseover.range <= 40", "mouseover.state.snare", "!mouseover.buff" }, "mouseover" },
+		{ "Hand of Freedom", { "!modifier.last(Cleanse)", "mouseover.exists", "mouseover.alive", "mouseover.friend", "mouseover.range <= 40", "mouseover.state.root", "!mouseover.buff" }, "mouseover" },
+		{ "Hand of Freedom", { "!modifier.last(Cleanse)", "mouseover.exists", "mouseover.alive", "mouseover.friend", "mouseover.range <= 40", "mouseover.state.snare", "!mouseover.buff" }, "mouseover" },
 		{ "Hand of Salvation", { "mouseover.exists", "mouseover.alive", "mouseover.friend", "mouseover.range <= 40", "!mouseover.role(tank)", "@bbLib.highThreatOnPlayerTarget(mouseover)" }, "mouseover" },
+		{ "Cleanse", { "!modifier.last(Cleanse)", "mouseover.exists", "mouseover.alive", "mouseover.friend", "mouseover.range <= 40", "mouseover.dispellable(Cleanse)" }, "mouseover" },
 	}, {
 		"toggle.mouseovers",
+		"player.health > 50",
 	}},
 	
 	-- DPS Rotation
@@ -102,8 +105,8 @@ ProbablyEngine.rotation.register_custom(66, "bbProtectionPaladin", {
   
 },
 function()
-	ProbablyEngine.toggle.create('mouseovers', 'Interface\\Icons\\inv_pet_lilsmoky', 'Toggle Mouseovers', 'Automatically cast spells on mouseover targets')
-	ProbablyEngine.toggle.create('pvpmode', 'Interface\\Icons\\achievement_pvp_o_h', 'PvP', 'Toggle the usage of PvP abilities.')
+	ProbablyEngine.toggle.create('mouseovers', 'Interface\\Icons\\inv_pet_lilsmoky', 'Use Mouseovers', 'Automatically cast spells on mouseover targets')
+	ProbablyEngine.toggle.create('pvpmode', 'Interface\\Icons\\achievement_pvp_o_h', 'Enable PvP', 'Toggle the usage of PvP abilities.')
 	ProbablyEngine.toggle.create('limitaoe', 'Interface\\Icons\\spell_fire_flameshock', 'Limit AoE', 'Toggle to avoid using CC breaking aoe effects.')
 	ProbablyEngine.toggle.create('autotarget', 'Interface\\Icons\\ability_hunter_snipershot', 'Auto Target', 'Automaticaly target the nearest enemy when target dies or does not exist.')
 	ProbablyEngine.toggle.create('autotaunt', 'Interface\\Icons\\spell_nature_reincarnation', 'Auto Taunt', 'Automaticaly taunt the boss at the appropriate stacks')

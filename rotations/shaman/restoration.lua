@@ -28,13 +28,14 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 	{ "pause", { "toggle.pvpmode", "@bbLib.BGFlag" } },
 	{ "/script TargetNearestEnemy()", { "toggle.autotarget", "!target.exists" } },
 	{ "/script TargetNearestEnemy()", { "toggle.autotarget", "target.exists", "target.dead" } },
-	--{ "/script FollowUnit('focus')", { "toggle.autofollow", "focus.exists", "focus.alive" } }, -- TODO: NYI: isFollowing()
+	{ "/target focus\n/follow\n/target lasttarget", { "toggle.autofollow", "focus.exists", "focus.alive", "focus.friend", "focus.range < 30", "focus.range > 10" } }, -- TODO: NYI: isFollowing()
 	
 	-- Racials 
 	{ "Stoneform", "player.health <= 65" },
 	{ "Gift of the Naaru", "player.health <= 70", "player" },
 	{ "Rocket Barrage", "player.moving" },
 	{ "Quaking Palm", "modifier.interrupts" },
+	{ "Lifeblood", { "modifier.cooldowns", "player.spell(Lifeblood).cooldown < 1" }, "player" },
 	
 	-- Buffs
 	{ "Earthliving Weapon", "!player.enchant.mainhand" },
@@ -59,12 +60,15 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 	{ "Greater Healing Wave", { "lowest.health < 25", "player.buff(Ancestral Swiftness)" }, "lowest" },
 
 	-- Cooldowns
+	{ "#gloves", { "modifier.cooldowns", "player.totem(Healing Tide Totem)" } },
+	{ "#gloves", { "modifier.cooldowns", "player.totem(Spirit Link Totem)" } },
+	{ "#gloves", { "modifier.cooldowns", "player.buff(Ascendance)" } },
+	{ "Spirit Walker's Grace", { "modifier.cooldowns", "player.buff(Ascendance)" } },
 	{ "Healing Stream Totem", { "!player.totem(Healing Tide Totem)", "!player.totem(Mana Tide Totem)" } },
-	{ "Mana Tide Totem", { "modifier.cooldowns", "player.mana < 30" } },
-	{ "Healing Tide Totem", { "modifier.cooldowns", "@coreHealing.needsHealing(50, 6)" } },
-	{ "Spirit Link Totem", { "modifier.cooldowns", "!player.totem(Healing Tide Totem)", "@coreHealing.needsHealing(45, 6)" } },
-	{ "Spirit Walker's Grace", { "modifier.cooldowns", "!player.totem(Spirit Link Totem)", "!player.totem(Healing Tide Totem)", "@coreHealing.needsHealing(40, 6)" } },
-	{ "Ascendance", { "modifier.cooldowns", "!player.totem(Spirit Link Totem)", "!player.totem(Healing Tide Totem)", "@coreHealing.needsHealing(40, 6)" } },
+	{ "Mana Tide Totem", { "modifier.cooldowns", "!player.totem(Healing Tide Totem)", "!player.totem(Healing Stream Totem)", "player.mana < 30" } },
+	{ "Healing Tide Totem", { "modifier.cooldowns", "!player.totem(Mana Tide Totem)", "!player.totem(Spirit Link Totem)", "!player.buff(Ascendance)", "@coreHealing.needsHealing(50, 5)" } },
+	{ "Spirit Link Totem", { "modifier.cooldowns", "!player.totem(Healing Tide Totem)", "!player.buff(Ascendance)", "@coreHealing.needsHealing(45, 4)" } },
+	{ "Ascendance", { "modifier.cooldowns", "!player.totem(Spirit Link Totem)", "!player.totem(Healing Tide Totem)", "@coreHealing.needsHealing(40, 5)" } },
 
 	-- Dispel
 	{ "Purify Spirit", "@coreHealing.needsDispelled('Aqua Bomb')" },
@@ -81,8 +85,8 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 	{ "Healing Surge", "lowest.health < 40", "lowest" }, -- only if you feel that the target will die before you have a chance to complete a Greater Healing Wave Icon Greater Healing Wave cast on them. If you suspect that a player may be in danger of dying in the near future, apply Riptide Icon Riptide on them, this will give them a bit of healing and, thanks to Tidal Waves Icon Tidal Waves, this will increase the critical strike chance of Healing Surge Icon Healing Surge.
 	{ "Riptide", { "!lowest.buff(Riptide)", "lowest.health < 99" }, "lowest" },
 	{ "Greater Healing Wave", { "lowest.health < 70", "player.buff(Tidal Waves).count = 2" }, "lowest" },
-	{ "Chain Heal", "lowest.health < 80", "lowest" }, --Therefore, you should always cast Chain Heal Icon Chain Heal on targets with an active Riptide Icon Riptide. 
-	{ "Healing Wave", "lowest.health < 80", "lowest" },
+	{ "Chain Heal", { "modifier.multitarget", "@coreHealing.needsHealing(80, 3)" }, "lowest" }, --Therefore, you should always cast Chain Heal Icon Chain Heal on targets with an active Riptide Icon Riptide. 
+	{ "Healing Wave", "lowest.health < 85", "lowest" },
 
 	-- DPS
 	{ "Lightning Bolt", { "toggle.dpsmode", "focus.exists", "focustarget.exists", "focustarget.enemy", "focustarget.range < 40", "player.glyph(Glyph of Telluric Currents)", "!modifier.last(Lightning Bolt)" }, "focustarget" },
@@ -105,6 +109,7 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 	-- Buffs
 	{ "Earthliving Weapon", "!player.enchant.mainhand" },
 	{ "Water Shield", "!player.buff" },
+	{ "Ghost Wolf", { "!player.buff(Ghost Wolf)", "player.moving" } },
 
 	-- Heal
 	{ "Healing Stream Totem", "player.health < 80" },
@@ -117,4 +122,5 @@ function()
 	ProbablyEngine.toggle.create('dpsmode', 'Interface\\Icons\\ability_dualwield', 'DPS Mode', 'Toggle the usage of damage dealing abilities.')
 	ProbablyEngine.toggle.create('mouseovers', 'Interface\\Icons\\spell_fire_flameshock', 'Toggle Mouseovers', 'Automatically cast spells on mouseover targets')
 	ProbablyEngine.toggle.create('autotarget', 'Interface\\Icons\\ability_hunter_snipershot', 'Auto Target', 'Automaticaly target the nearest enemy when target dies or does not exist.')
+	ProbablyEngine.toggle.create('autofollow', 'Interface\\Icons\\ui_charactercreate_gender_male', 'Auto Follow', 'Automaticaly follows your focus target. Must be another player.')
 end)
