@@ -45,10 +45,10 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 	{ "Call of the Elements", { "player.state.fear", "player.spell(Tremor Totem).cooldown > 1" } },
 	{ "Call of the Elements", { "player.state.charm", "player.spell(Tremor Totem).cooldown > 1" } },
 	{ "Call of the Elements", { "player.state.sleep", "player.spell(Tremor Totem).cooldown > 1" } },
-
-	-- Emergency Heal
-	{ "Ancestral Swiftness", "lowest.health < 25" },
-	{ "Greater Healing Wave", { "lowest.health < 25", "player.buff(Ancestral Swiftness)" }, "lowest" },
+	
+	-- Healing Rain Mouseover
+	{ "Unleash Elements", "modifier.lshift" },
+	{ "Healing Rain", "modifier.lshift", "ground" },
 	
 	-- Buffs
 	{ "Earthliving Weapon", "!player.enchant.mainhand" },
@@ -66,35 +66,38 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 	{ "Spirit Link Totem", { "modifier.cooldowns", "!player.totem(Healing Tide Totem)", "!player.buff(Ascendance)", "@coreHealing.needsHealing(45, 4)" } },
 	{ "Ascendance", { "modifier.cooldowns", "!player.totem(Spirit Link Totem)", "!player.totem(Healing Tide Totem)", "@coreHealing.needsHealing(40, 5)" } },
 	
-	-- Tank
+	-- Focus / Tank Healing
 	{ "Earth Shield", "!focus.buff(Earth Shield).any", "focus" },
 	{ "Earth Shield", { "!focus.buff(Earth Shield)", "!tank.buff(Earth Shield).any" }, "tank" },
 	{ "Riptide", "!focus.buff(Riptide).duration < 3", "focus" },
 	{ "Riptide", "!tank.buff(Riptide).duration < 3", "tank" },
+	{ "Unleash Elements", "focus.health < 65" },
+	{ "Greater Healing Wave", { "focus.health < 65", "player.buff(Unleash Life)" }, "focus" },
+	{ "Unleash Elements", "tank.health < 65" },
+	{ "Greater Healing Wave", { "tank.health < 65", "player.buff(Unleash Life)" }, "tank" },
 
 	-- Dispel
 	{ "Purify Spirit", "@coreHealing.needsDispelled('Aqua Bomb')" },
 	
 	-- Interrupt
-	{ "Quaking Palm", "modifier.interrupts" }, -- Pandaren
+	{ "Quaking Palm", "modifier.interrupts" }, -- Pandaren Racial
 	{ "Wind Shear", "modifier.interrupt" },
 
-	-- AoE Heal
-	{ "Unleash Elements", "modifier.lshift" },
-	{ "Healing Rain", "modifier.lshift", "ground" },
+	-- Riptide
+	{ "Riptide", { "!lowest.buff(Riptide)", "lowest.health < 99" }, "lowest" },
+	
+	-- Healing Rotation
+	{ "Ancestral Swiftness", "lowest.health < 25" },
+	{ "Greater Healing Wave", { "lowest.health < 25", "player.buff(Ancestral Swiftness)" }, "lowest" },
+	{ "Healing Surge", "lowest.health < 30", "lowest" }, -- only if you feel that the target will die before you have a chance to complete a Greater Healing Wave
+	{ "Greater Healing Wave", "lowest.health < 40", "lowest" },
+	{ "Chain Heal", { "modifier.multitarget", "@coreHealing.needsHealing(80, 3)" }, "lowest" },
+	{ "Greater Healing Wave", { "lowest.health < 65", "player.buff(Tidal Waves).count = 2" }, "lowest" },
+	{ "Greater Healing Wave", { "tank.health < 80" }, "focus" },
+	{ "Greater Healing Wave", { "tank.health < 80" }, "tank" },
+	{ "Healing Wave", { "lowest.health > 65", "lowest.health < 99" }, "lowest" }, -- Do not use on tank, use greater
 
-	-- Unleash Life
-	{ "Greater Healing Wave", { "lowest.health < 50", "player.buff(Unleash Life)" }, "lowest" },
-	{ "Unleash Elements", "lowest.health < 50" }, -- Use before direct heals
-
-	-- regular healing
-	{ "Healing Surge", "lowest.health < 40", "lowest" }, -- only if you feel that the target will die before you have a chance to complete a Greater Healing Wave Icon Greater Healing Wave cast on them. If you suspect that a player may be in danger of dying in the near future, apply Riptide Icon Riptide on them, this will give them a bit of healing and, thanks to Tidal Waves Icon Tidal Waves, this will increase the critical strike chance of Healing Surge Icon Healing Surge.
-	{ "Riptide", { "!lowest.buff(Riptide)", "lowest.health < 100" }, "lowest" },
-	{ "Greater Healing Wave", { "lowest.health < 70", "player.buff(Tidal Waves).count = 2" }, "lowest" },
-	{ "Chain Heal", { "modifier.multitarget", "@coreHealing.needsHealing(80, 3)" }, "lowest" }, --Therefore, you should always cast Chain Heal Icon Chain Heal on targets with an active Riptide Icon Riptide. 
-	{ "Healing Wave", "lowest.health < 100", "lowest" },
-
-	-- DPS
+	-- DPS Rotation
 	{ "Lightning Bolt", { "toggle.dpsmode", "focus.exists", "focustarget.exists", "focustarget.enemy", "focustarget.range < 40", "player.glyph(Glyph of Telluric Currents)", "!modifier.last(Lightning Bolt)" }, "focustarget" },
 	{{
 		{ "Wind Shear", { "focus.friend", "focustarget.casting", "focustarget.range <= 25" }, "focustarget" }, -- Interrupt focustarget
@@ -108,6 +111,7 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 		"player.mana > 70",
 	}},
 	
+	-- Auto Follow
 	{ "/follow focus", { "toggle.autofollow", "focus.exists", "focus.alive", "focus.friend", "focus.spell(Water Walking).range", "!focus.spell(Primal Strike).range" } }, -- TODO: NYI: isFollowing()
 	
 }, {

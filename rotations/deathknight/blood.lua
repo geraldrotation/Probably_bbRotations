@@ -34,7 +34,7 @@ ProbablyEngine.rotation.register_custom(250, "bbBloodDeathKnight", {
 	-- Interrupts
 	{ "Mind Freeze", "modifier.interrupts" },
 	{ "Strangulate", "modifier.interrupts" },
-	{ "Dark Simulacrum", { "target.casting", "@bbLib.useDarkSim(target)" } },
+	{ "Dark Simulacrum", { "target.casting", "@bbLib.canDarkSimulacrum(target)" } },
 	
 	-- Off GCD
 	{ "Death's Advance", "player.state.snare" },
