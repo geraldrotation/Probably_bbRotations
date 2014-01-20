@@ -176,7 +176,7 @@ function bbLib.conjureManaGem()
 	return false
 end
 
-bblib.badMisdirectTargets = { "Kor'kron Warshaman" }
+bbLib.badMisdirectTargets = { "Kor'kron Warshaman" }
 function bbLib.canMisdirect(target)
 	local targetName = UnitName(target)
 	for _,v in pairs(bblib.badMisdirectTargets) do
