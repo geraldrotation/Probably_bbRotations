@@ -4,7 +4,7 @@
 ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 -- PLAYER CONTROLLED:
 -- SUGGESTED TALENTS:
--- CONTROLS: Pause - Left Control, Explosive/Ice/Snake Traps - Left Alt, Freezing Trap - Right Alt
+-- CONTROLS: Pause - Left Control, Explosive/Ice/Snake Traps - Left Alt, Freezing Trap - Right Alt, Scatter Shot - Right Control
 
 -- COMBAT
 	-- Rotation Utilities
@@ -22,7 +22,7 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
     { "Counter Shot", { "modifier.interruptAt(80)", "player.range < 40" } },
 	
     -- Pet
-    { "883", "!pet.exists" }, -- Call Pet 1
+    { "883", { "toggle.callpet", "!pet.exists" } }, -- Call Pet 1
     { "Heart of the Phoenix", "!pet.alive" },
 	{ "Mend Pet", { "pet.health <= 50", "pet.exists", "!pet.buff(Mend Pet)", "pet.range < 40" } },
 
@@ -32,6 +32,9 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
     { "Master's Call", "player.state.root" },
     { "Master's Call", "player.state.snare" },
 	{ "Scatter Shot", { "toggle.pvpmode", "mouseover.exists", "mouseover.enemy", "mouseover.alive", "!mouseover.status.disorient", 
+		"!mouseover.status.sleep", "!mouseover.status.incapacitate", "!mouseover.status.fear", "!mouseover.status.misc", "!mouseover.status.root", 
+		"!mouseover.status.stun", "!mouseover.status.snare", "!mouseover.immune.all", "!mouseover.immune.disorient" }, "mouseover" }, -- If casting too?
+	{ "Scatter Shot", { "toggle.rcontrol", "mouseover.exists", "mouseover.enemy", "mouseover.alive", "!mouseover.status.disorient", 
 		"!mouseover.status.sleep", "!mouseover.status.incapacitate", "!mouseover.status.fear", "!mouseover.status.misc", "!mouseover.status.root", 
 		"!mouseover.status.stun", "!mouseover.status.snare", "!mouseover.immune.all", "!mouseover.immune.disorient" }, "mouseover" }, -- If casting too?
 	{ "Wyvern Sting", { "toggle.pvpmode", "mouseover.exists", "mouseover.enemy", "mouseover.alive", "!mouseover.status.disorient", 
@@ -155,6 +158,7 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 	
 }, 
 function()
+	ProbablyEngine.toggle.create('callpet', 'Interface\\Icons\\inv_alchemy_endlessflask_06', 'Call Pet 1', 'Toggle to keep the pet in your first pet slot out.')
 	ProbablyEngine.toggle.create('consume', 'Interface\\Icons\\inv_alchemy_endlessflask_06', 'Use Consumables', 'Toggle the usage of Flasks/Food/Potions etc..')
 	ProbablyEngine.toggle.create('autotarget', 'Interface\\Icons\\ability_hunter_snipershot', 'Auto Target', 'Automaticaly target the nearest enemy when target dies or does not exist.')
 	ProbablyEngine.toggle.create('aspect', 'Interface\\Icons\\ability_mount_jungletiger', 'Auto Aspect', 'Automatically switch aspect when moving and not in combat.')
