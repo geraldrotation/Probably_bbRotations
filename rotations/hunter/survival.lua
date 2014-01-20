@@ -18,7 +18,7 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 	--{ "pause", "player.time >= 300", "toggle.dpstest" } },
 
 	-- Interrupts
-    { "Counter Shot", { "modifier.interruptAt(80)", "player.range < 40" } },
+    { "147362", { "modifier.interruptAt(80)", "player.range < 40" } }, -- Counter Shot
 	
     -- Pet
     { "883", { "toggle.callpet", "!pet.exists" } }, -- Call Pet 1
