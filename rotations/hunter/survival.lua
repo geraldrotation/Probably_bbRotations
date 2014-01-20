@@ -44,114 +44,114 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 		"!mouseover.status.stun", "!mouseover.status.snare", "!mouseover.immune.all", "!mouseover.immune.sleep" }, "mouseover" }, 
 	-- TODO: Binding Shot (ground)
 	-- TODO: Reactive Deterrence
-	{ "Scare Beast", { "toggle.mouseovers", "toggle.pvpmode", "mouseover.exists", "mouseover.enemy", "mouseover.alive", "mouseover.creatureType(Beast)" }, "mouseover" },
-	{ "Scare Beast", { "toggle.pvpmode", "target.exists", "target.enemy", "target.alive", "target.creatureType(Beast)" } },
+	{ "1513", { "toggle.mouseovers", "toggle.pvpmode", "mouseover.exists", "mouseover.enemy", "mouseover.alive", "!mouseover.debuff(1513)", "mouseover.creatureType(Beast)" }, "mouseover" }, -- Scare Beast
+	{ "1513", { "toggle.pvpmode", "target.exists", "target.enemy", "target.alive", "!target.debuff(1513)", "target.creatureType(Beast)" } }, -- Scare Beast
 	
     -- Mouseovers
-	{ "Serpent Sting", { "!modifier.pvpmode", "toggle.mouseovers", "mouseover.exists", "mouseover.enemy", "mouseover.alive", "!mouseover.debuff(Serpent Sting)",
+	{ "1978", { "!modifier.pvpmode", "toggle.mouseovers", "mouseover.exists", "mouseover.enemy", "mouseover.alive", "!mouseover.debuff(1978)", -- Serpent Sting
 		"!mouseover.state.charm", "mouseover.deathin > 10" }, "mouseover" },
 	
 	-- Traps
-    { "Explosive Trap", "modifier.lalt", "ground" },
-    { "Ice Trap" , "modifier.lalt", "ground" },
-	{ "Snake Trap" , "modifier.lalt", "ground" },
-	{ "Freezing Trap" , "modifier.ralt", "ground" },
+    { "13813", "modifier.lalt", "ground" }, -- Explosive Trap
+    { "13809" , "modifier.lalt", "ground" }, -- Ice Trap
+	{ "34600" , "modifier.lalt", "ground" }, -- Snake Trap
+	{ "1499" , "modifier.ralt", "ground" }, -- Freezing Trap
 	
     -- Tranq Shot
-    { "Tranquilizing Shot", "target.dispellable(Tranquilizing Shot)", "target" },
+    { "19801", "target.dispellable(19801)", "target" }, -- Tranquilizing Shot
 
 	-- TODO: Boss Functions + hold cooldowns
 	-- TODO: Energy Pooling Toggle
 
     -- Misdirects to focus -> tank -> pet
-    { "Misdirection", { "!toggle.pvpmode", "!target.isPlayer", "focus.exists", "focus.alive", "!player.buff(Misdirection)", "target.threat > 60" }, "focus" },
-	{ "Misdirection", { "!toggle.pvpmode", "!player.buff(Misdirection)", "tank.exists", "tank.alive", "!focus.exists", "target.threat > 60" }, "tank" },
-    { "Misdirection", { "!toggle.pvpmode", "!target.isPlayer", "pet.exists", "!player.buff(Misdirection)", "!focus.exists", "target.threat > 60" }, "pet" },
+    { "34477", { "!toggle.pvpmode", "!target.isPlayer", "focus.exists", "focus.alive", "!player.buff(34477)", "target.threat > 60" }, "focus" }, -- Misdirection
+	{ "34477", { "!toggle.pvpmode", "!player.buff(34477)", "tank.exists", "tank.alive", "!focus.exists", "target.threat > 60" }, "tank" }, -- Misdirection
+    { "34477", { "!toggle.pvpmode", "!target.isPlayer", "pet.exists", "!player.buff(34477)", "!focus.exists", "target.threat > 60" }, "pet" }, -- Misdirection
 
 	-- Stances
-    { "Aspect of the Iron Hawk", { "!player.buff(Aspect of the Hawk)", "!player.buff(Aspect of the Iron Hawk)", "!player.moving" } }, --TODO: Make toggle
-    { "Aspect of the Hawk", { "!player.buff(Aspect of the Hawk)", "!player.buff(Aspect of the Iron Hawk)", "!player.moving" } },
+    { "109260", { "toggle.aspect", "!player.buff(13165)", "!player.buff(109260)", "!player.moving" } }, -- Aspect of the Iron Hawk
+    { "13165", { "toggle.aspect", "!player.buff(13165)", "!player.buff(109260)", "!player.moving" } }, -- Aspect of the Hawk
 	
 	-- Pre DPS Pause
-	{ "pause", "target.debuff(Wyvern Sting).any" },
-	{ "pause", "target.debuff(Scatter Shot).any" },
+	{ "pause", "target.debuff(19386).any" }, -- Wyvern Sting
+	{ "pause", "target.debuff(19503).any" }, -- Scatter Shot
 	{ "pause", "target.immune.all" },
 	{ "pause", "target.status.disorient" },
 	{ "pause", "target.status.incapacitate" },
 	{ "pause", "target.status.sleep" },
 
 	-- Cooldowns
-	{ "Exhilaration", { "modifier.cooldowns", "player.health < 50" } },
+	{ "109304", { "modifier.cooldowns", "player.health < 50" } }, -- Exhilaration
 	{ "#5512", { "modifier.cooldowns", "player.health < 40" } }, -- Healthstone (5512)
 	--{ "#76097", { "modifier.cooldowns", "player.health < 40", "@bbLib.useHealthPot" } }, -- Master Healing Potion (76097) 
 	{ "#76089", { "modifier.cooldowns", "toggle.consume", "pet.exists", "target.exists", "@bbLib.useAgiPot" } }, -- Agility Potion (76089)
-	{ "Blood Fury", "modifier.cooldowns" },
+	{ "20572", "modifier.cooldowns" }, -- Blood Fury (AP)
 	{ "#gloves", { "modifier.cooldowns", "pet.exists", "target.exists" } },
-	{ "Berserking", { "modifier.cooldowns", "pet.exists", "target.exists", "!@bbLib.playerHasted" } },
+	{ "26297", { "modifier.cooldowns", "pet.exists", "target.exists", "!@bbLib.playerHasted" } }, -- Berserking
 
 	-- PvP
-	{ "Concussive Shot", { "toggle.pvpmode", "!target.debuff(Concussive Shot).any", "target.moving", "!target.immune.snare" }},
-	{ "Widow Venom", { "toggle.pvpmode", "!target.debuff(Widow Venom).any", "target.health > 20" }},
+	{ "5116", { "toggle.pvpmode", "!target.debuff(5116).any", "target.moving", "!target.immune.snare" }}, -- Concussive Shot
+	{ "82654", { "toggle.pvpmode", "!target.debuff(82654).any", "target.health > 20" }}, -- Widow Venom
 
 	-- Dual Use
-	{ "Fervor", "player.focus <= 50" }, -- TIER 4: Fervor
-	{ "A Murder of Crows" }, -- TIER 5: A Murder of Crows
-	{ "Lynx Rush" }, -- TIER 5: Lynx Rush
+	{ "82726", "player.focus <= 50" }, -- TIER 4: Fervor
+	{ "131894" }, -- TIER 5: A Murder of Crows
+	{ "120697" }, -- TIER 5: Lynx Rush
 	
 	-- Multi Target
-	{ "Multi-Shot", "modifier.multitarget" },
-	{ "Glaive Toss", "modifier.multitarget" }, -- TIER 6: Glaive Toss --TODO: do range check
-	{ "Powershot", "modifier.multitarget" }, -- TIER 6: Powershot
-	{ "Barrage", "modifier.multitarget" }, -- TIER 6: Barrage
-	{ "Explosive Trap", "modifier.multitarget", "ground" },
-	{ "Black Arrow", { "modifier.multitarget", "!target.debuff", "target.deathin >= 8", "!target.state.charm" } },
-	{ "Explosive Shot", { "modifier.multitarget", "player.buff(Lock and Load)" } },
-	{ "Kill Shot", { "modifier.multitarget", "target.health <= 20" } },
-	{ "Cobra Shot", { "modifier.multitarget", "player.focus < 40" } },
+	{ "2643", "modifier.multitarget" }, -- Multi-Shot
+	{ "Glaive Toss", "modifier.multitarget" }, -- TIER 6: Glaive Toss --TODO: do range check, two spellids
+	{ "109259", "modifier.multitarget" }, -- TIER 6: Powershot
+	{ "120360", "modifier.multitarget" }, -- TIER 6: Barrage
+	{ "13813", "modifier.multitarget", "ground" }, --  Explosive Trap
+	{ "3674", { "modifier.multitarget", "!target.debuff", "target.deathin >= 8", "!target.state.charm" } }, -- Black Arrow
+	{ "53301", { "modifier.multitarget", "player.buff(56343)" } }, -- Explosive Shot, Lock and Load
+	{ "53351", { "modifier.multitarget", "target.health <= 20" } }, -- Kill Shot
+	{ "77767", { "modifier.multitarget", "player.focus < 40" } }, -- Cobra Shot
 	
 	-- Single Target
-	{ "Explosive Shot", "player.buff(Lock and Load)" },
-	{ "Glaive Toss" }, -- TIER 6: Glaive Toss --TODO: do range check
-	{ "Powershot" }, -- TIER 6: Powershot
-	{ "Barrage" }, -- TIER 6: Barrage
-	{ "Serpent Sting", { "!target.debuff", "target.deathin >= 10", "!target.state.charm" } },
-	{ "Explosive Shot" },
-	{ "Kill Shot", "target.health <= 20" }, -- Kill Shot
-	{ "Black Arrow", { "!target.debuff", "target.deathin >= 8", "!target.state.charm" } },
-	{ "Multi-Shot", { "player.buff(Thrill of the Hunt)", "target.debuff(Serpent Sting).duration < 2" } },
-	{ "Arcane Shot", "player.buff(Thrill of the Hunt)" },
-	{ "Rapid Fire", { "pet.exists", "target.exists", "!@bbLib.playerHasted" } },
-	{ "Dire Beast" }, -- TIER 4: Dire Beast
-	{ "Stampede", { "pet.exists", "@bbLib.playerHasted" } },
-	{ "Cobra Shot", "target.debuff(Serpent Sting).duration < 6" }, -- Cobra Shot if sting is about to drop.
-	{ "Multi-Shot", { "player.focus >= 67", "toggle.cleavemode", "modifier.enemies > 1" } },
-	{ "Explosive Trap", { "toggle.cleavemode", "modifier.enemies > 2" }, "ground" },
-	{ "Arcane Shot", { "player.focus >= 67" } },
-	{ "Cobra Shot", "player.spell(Explosive Shot).cooldown > 1" },
-	{ "Cobra Shot", "player.focus < 40" },
+	{ "53301", "player.buff(56343)" }, -- Explosive Shot, Lock and Load
+	{ "Glaive Toss" }, -- TIER 6: Glaive Toss --TODO: do range check, two spellids
+	{ "109259" }, -- TIER 6: Powershot
+	{ "120360" }, -- TIER 6: Barrage
+	{ "1978", { "!target.debuff", "target.deathin >= 10", "!target.state.charm" } }, -- Serpent Sting
+	{ "53301" }, -- Explosive Shot
+	{ "53351", "target.health <= 20" }, -- Kill Shot
+	{ "3674", { "!target.debuff", "target.deathin >= 8", "!target.state.charm" } }, -- Black Arrow
+	{ "2643", { "player.buff(109306)", "target.debuff(1978).duration < 2" } }, -- Multi-Shot, Thrill of the Hunt, Serpent Sting
+	{ "3044", "player.buff(109306)" }, -- Arcane Shot, Thrill of the Hunt
+	{ "3045", { "pet.exists", "target.exists", "!@bbLib.playerHasted" } }, -- Rapid Fire
+	{ "120679" }, -- TIER 4: Dire Beast -- Dire Beast
+	{ "121818", { "pet.exists", "@bbLib.playerHasted" } }, -- Stampede
+	{ "77767", "target.debuff(Serpent Sting).duration < 6" }, -- Cobra Shot, Serpent Sting
+	{ "2643", { "player.focus >= 67", "toggle.cleavemode", "modifier.enemies > 1" } }, -- Multi-Shot
+	{ "13813", { "toggle.cleavemode", "modifier.enemies > 2" }, "ground" }, --  Explosive Trap
+	{ "3044", { "player.focus >= 67" } }, -- Arcane Shot
+	{ "77767", "player.spell(53301).cooldown > 1" }, -- Cobra Shot, Explosive Shot
+	{ "77767", "player.focus < 40" }, -- Cobra Shot
 	
 },
 {
 	-- Pauses
     { "pause", "modifier.lcontrol" },
-	{ "pause", "player.buff(Feign Death)" },
+	{ "pause", "player.buff(5384)" }, -- Feign Death
 	
-	{ "Aspect of the Cheetah", { "toggle.aspect", "player.moving", "!player.buff(Aspect of the Cheetah)", "!player.buff(Aspect of the Pack)" } },
-	{ "Camouflage", { "toggle.camomode", "!player.buff(Camouflage)", "!player.debuff(Orb of Power)" } }, 
+	{ "5118", { "toggle.aspect", "player.moving", "!player.buff(5118)", "!player.buff(13159)" } }, -- Aspect of the Cheetah
+	{ "51753", { "toggle.camomode", "!player.buff(51753)", "!player.debuff(Orb of Power)" } }, -- Camouflage
 	
 	-- Pet
 	{ "883", { "toggle.callpet", "!pet.exists" } }, -- Call Pet 1
-	{ "Revive Pet", "!pet.alive" },
-    { "Mend Pet", { "pet.health <= 90", "pet.exists", "pet.alive", "!pet.buff(Mend Pet)" } },
+	{ "982", "!pet.alive" }, -- Revive Pet
+    { "136", { "pet.health <= 90", "pet.exists", "pet.alive", "!pet.buff(136)" } }, -- Mend Pet
 
 	-- Traps
-	{ "Explosive Trap", "modifier.lalt", "ground" },
-    { "Ice Trap" , "modifier.lalt", "ground" },
-	{ "Snake Trap" , "modifier.lalt", "ground" },
-	{ "Freezing Trap" , "modifier.ralt", "ground" },
+    { "13813", "modifier.lalt", "ground" }, -- Explosive Trap
+    { "13809" , "modifier.lalt", "ground" }, -- Ice Trap
+	{ "34600" , "modifier.lalt", "ground" }, -- Snake Trap
+	{ "1499" , "modifier.ralt", "ground" }, -- Freezing Trap
 	
 	-- Mark
-	{ "Hunter's Mark", { "target.exists", "target.alive", "!target.debuff(Hunter's Mark).any" }, "target" },
+	{ "1130", { "target.exists", "target.alive", "!target.debuff(1130).any" }, "target" }, -- Hunter's Mark
 	
 	-- Food / Flask
 	-- TODO: flask of spring blossoms
