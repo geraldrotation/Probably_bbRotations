@@ -28,7 +28,6 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 	{ "pause", { "toggle.pvpmode", "@bbLib.BGFlag" } },
 	{ "/targetenemy [noexists]", { "toggle.autotarget", "!target.exists" } },
 	{ "/targetenemy [dead]", { "toggle.autotarget", "target.exists", "target.dead" } },
-	{ "/follow focus", { "toggle.autofollow", "focus.exists", "focus.alive", "focus.friend", "focus.spell(Water Walking).range", "!focus.spell(Primal Strike).range" } }, -- TODO: NYI: isFollowing()
 	
 	-- Racials 
 	{ "Stoneform", "player.health <= 65" },
@@ -101,6 +100,8 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 		"player.mana > 70",
 	}},
 	
+	{ "/follow focus", { "toggle.autofollow", "focus.exists", "focus.alive", "focus.friend", "focus.spell(Water Walking).range", "!focus.spell(Primal Strike).range" } }, -- TODO: NYI: isFollowing()
+	
 }, {
 -- OUT OF COMBAT ROTATION
 	-- Pause
@@ -109,18 +110,20 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 	-- Buffs
 	{ "Earthliving Weapon", "!player.enchant.mainhand" },
 	{ "Water Shield", "!player.buff" },
-	{ "Ghost Wolf", { "!player.buff(Ghost Wolf)", "player.moving" } },
 	
 	-- Pull us into combat and out of Ghost Wolf
 	{ "Riptide", { "focus.exists", "focus.friend", "!focus.buff(Riptide)", "focus.combat" }, "focus" },
 	
-	-- Auto Follow
-	{ "/follow focus", { "toggle.autofollow", "focus.exists", "focus.alive", "focus.friend", "focus.spell(Water Walking).range", "!focus.spell(Primal Strike).range" } }, -- TODO: NYI: isFollowing()
-
 	-- Heal
 	{ "Healing Stream Totem", "player.health < 80" },
 	--{ "Healing Wave", "@coreHealing.needsHealing(80, 1)", "lowest" },
 	{ "Healing Wave", "lowest.health < 85", "lowest" },
+	
+	-- Ghost Wolf
+	{ "Ghost Wolf", { "!player.buff(Ghost Wolf)", "player.moving", "!modifier.last(Ghost Wolf)" } },
+	
+	-- Auto Follow
+	{ "/follow focus", { "toggle.autofollow", "focus.exists", "focus.alive", "focus.friend", "focus.spell(Water Walking).range", "!focus.spell(Primal Strike).range" } }, -- TODO: NYI: isFollowing()
 	
 },
 function()
