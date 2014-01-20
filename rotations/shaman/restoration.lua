@@ -111,6 +111,9 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 	{ "Water Shield", "!player.buff" },
 	{ "Ghost Wolf", { "!player.buff(Ghost Wolf)", "player.moving" } },
 	
+	-- Pull us into combat and out of Ghost Wolf
+	{ "Riptide", { "focus.exists", "focus.friend", "!focus.buff(Riptide)", "focus.combat" }, "focus" },
+	
 	-- Auto Follow
 	{ "/follow focus", { "toggle.autofollow", "focus.exists", "focus.alive", "focus.friend", "focus.spell(Water Walking).range", "!focus.spell(Primal Strike).range" } }, -- TODO: NYI: isFollowing()
 
