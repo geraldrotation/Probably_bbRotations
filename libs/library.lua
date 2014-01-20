@@ -121,6 +121,11 @@ function bbLib.bossTaunt()
 						ProbablyEngine.dsl.parsedTarget = bossID
 						return true
 					end
+					local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Empowered Gripping Despair")
+					if debuffName and debuffCount > 2 and not UnitDebuff("player", "Empowered Gripping Despair") then
+						ProbablyEngine.dsl.parsedTarget = bossID
+						return true
+					end
 				end
 			end
 		end
