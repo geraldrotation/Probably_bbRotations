@@ -32,33 +32,30 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 	-- Racials 
 	{ "Stoneform", "player.health <= 65" },
 	{ "Gift of the Naaru", "player.health <= 70", "player" },
-	{ "Rocket Barrage", "player.moving" },
-	{ "Quaking Palm", "modifier.interrupts" },
-	{ "Lifeblood", { "modifier.cooldowns", "player.spell(Lifeblood).cooldown < 1" }, "player" },
+	{ "Lifeblood", { "target.enemy", "modifier.cooldowns", "player.spell(Lifeblood).cooldown < 1" }, "player" },
+	
+	-- PvP
+	{ "Wind Walk Totem", "player.state.root" },
+	{ "Wind Walk Totem", "player.state.snare" },
+	{ "Tremor Totem", "player.state.fear" },
+	{ "Tremor Totem", "player.state.charm" },
+	{ "Tremor Totem", "player.state.sleep" },
+	{ "Call of the Elements", { "player.state.root", "player.spell(Wind Walk Totem).cooldown > 1" } },
+	{ "Call of the Elements", { "player.state.snare", "player.spell(Wind Walk Totem).cooldown > 1" } },
+	{ "Call of the Elements", { "player.state.fear", "player.spell(Tremor Totem).cooldown > 1" } },
+	{ "Call of the Elements", { "player.state.charm", "player.spell(Tremor Totem).cooldown > 1" } },
+	{ "Call of the Elements", { "player.state.sleep", "player.spell(Tremor Totem).cooldown > 1" } },
+
+	-- Emergency Heal
+	{ "Ancestral Swiftness", "lowest.health < 25" },
+	{ "Greater Healing Wave", { "lowest.health < 25", "player.buff(Ancestral Swiftness)" }, "lowest" },
 	
 	-- Buffs
 	{ "Earthliving Weapon", "!player.enchant.mainhand" },
 	{ "Water Shield", "!player.buff" },
-
-	-- Interrupt
-	{ "Wind Shear", "modifier.interrupt" },
-
-	-- Mouseovers
-	--{ "Flame Shock", { "mouseover.enemy", "mouseover.alive", "mouseover.deathin > 15", "mouseover.debuff(Flame Shock).duration <= 3", "toggle.mouseovers" }, "mouseover" },
-
-	-- Cooldowns
-	{ "Elemental Mastery", { "modifier.cooldowns", "target.boss" } }, -- T4
-
-	-- Tank
-	{ "Earth Shield", "!focus.buff(Earth Shield).any", "focus" },
-	{ "Riptide", "!focus.buff(Riptide)", "focus" },
-	{ "Riptide", "!tank.buff(Riptide)", "tank" },
 	
-	-- Oh Shit
-	{ "Ancestral Swiftness", "lowest.health < 25" },
-	{ "Greater Healing Wave", { "lowest.health < 25", "player.buff(Ancestral Swiftness)" }, "lowest" },
-
 	-- Cooldowns
+	{ "Elemental Mastery", { "modifier.cooldowns", "target.boss" } }, -- T4	
 	{ "#gloves", { "modifier.cooldowns", "player.totem(Healing Tide Totem)" } },
 	{ "#gloves", { "modifier.cooldowns", "player.totem(Spirit Link Totem)" } },
 	{ "#gloves", { "modifier.cooldowns", "player.buff(Ascendance)" } },
@@ -68,11 +65,21 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 	{ "Healing Tide Totem", { "modifier.cooldowns", "!player.totem(Mana Tide Totem)", "!player.totem(Spirit Link Totem)", "!player.buff(Ascendance)", "@coreHealing.needsHealing(50, 5)" } },
 	{ "Spirit Link Totem", { "modifier.cooldowns", "!player.totem(Healing Tide Totem)", "!player.buff(Ascendance)", "@coreHealing.needsHealing(45, 4)" } },
 	{ "Ascendance", { "modifier.cooldowns", "!player.totem(Spirit Link Totem)", "!player.totem(Healing Tide Totem)", "@coreHealing.needsHealing(40, 5)" } },
+	
+	-- Tank
+	{ "Earth Shield", "!focus.buff(Earth Shield).any", "focus" },
+	{ "Earth Shield", { "!focus.buff(Earth Shield)", "!tank.buff(Earth Shield).any" }, "tank" },
+	{ "Riptide", "!focus.buff(Riptide).duration < 3", "focus" },
+	{ "Riptide", "!tank.buff(Riptide).duration < 3", "tank" },
 
 	-- Dispel
 	{ "Purify Spirit", "@coreHealing.needsDispelled('Aqua Bomb')" },
+	
+	-- Interrupt
+	{ "Quaking Palm", "modifier.interrupts" }, -- Pandaren
+	{ "Wind Shear", "modifier.interrupt" },
 
-	-- AoE
+	-- AoE Heal
 	{ "Unleash Elements", "modifier.lshift" },
 	{ "Healing Rain", "modifier.lshift", "ground" },
 
@@ -82,10 +89,10 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 
 	-- regular healing
 	{ "Healing Surge", "lowest.health < 40", "lowest" }, -- only if you feel that the target will die before you have a chance to complete a Greater Healing Wave Icon Greater Healing Wave cast on them. If you suspect that a player may be in danger of dying in the near future, apply Riptide Icon Riptide on them, this will give them a bit of healing and, thanks to Tidal Waves Icon Tidal Waves, this will increase the critical strike chance of Healing Surge Icon Healing Surge.
-	{ "Riptide", { "!lowest.buff(Riptide)", "lowest.health < 99" }, "lowest" },
+	{ "Riptide", { "!lowest.buff(Riptide)", "lowest.health < 100" }, "lowest" },
 	{ "Greater Healing Wave", { "lowest.health < 70", "player.buff(Tidal Waves).count = 2" }, "lowest" },
 	{ "Chain Heal", { "modifier.multitarget", "@coreHealing.needsHealing(80, 3)" }, "lowest" }, --Therefore, you should always cast Chain Heal Icon Chain Heal on targets with an active Riptide Icon Riptide. 
-	{ "Healing Wave", "lowest.health < 85", "lowest" },
+	{ "Healing Wave", "lowest.health < 100", "lowest" },
 
 	-- DPS
 	{ "Lightning Bolt", { "toggle.dpsmode", "focus.exists", "focustarget.exists", "focustarget.enemy", "focustarget.range < 40", "player.glyph(Glyph of Telluric Currents)", "!modifier.last(Lightning Bolt)" }, "focustarget" },

@@ -64,9 +64,13 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 	-- TODO: Energy Pooling Toggle
 
     -- Misdirects to focus -> tank -> pet
-    { "34477", { "!toggle.pvpmode", "!target.isPlayer", "focus.exists", "focus.alive", "!player.buff(34477)", "target.threat > 60" }, "focus" }, -- Misdirection
-	{ "34477", { "!toggle.pvpmode", "!player.buff(34477)", "tank.exists", "tank.alive", "!focus.exists", "target.threat > 60" }, "tank" }, -- Misdirection
-    { "34477", { "!toggle.pvpmode", "!target.isPlayer", "pet.exists", "!player.buff(34477)", "!focus.exists", "target.threat > 60" }, "pet" }, -- Misdirection
+	{{
+		{ "34477", { "@bbLib.canMisdirect", "focus.exists", "focus.alive", "!player.buff(34477)", "target.threat > 60" }, "focus" }, -- Misdirection
+		{ "34477", { "@bbLib.canMisdirect", "tank.exists", "tank.alive", "!focus.exists", "target.threat > 60" }, "tank" }, -- Misdirection
+		{ "34477", {  "pet.exists", "pet.alive", "!focus.exists", "!tank.exists", "target.threat > 60" }, "pet" }, -- Misdirection
+	}, {
+		"!toggle.pvpmode", "!target.isPlayer", "!player.buff(34477)", "@bbLib.canMisdirect" 
+	}},
 
 	-- Stances
     { "109260", { "toggle.aspect", "!player.buff(13165)", "!player.buff(109260)", "!player.moving" } }, -- Aspect of the Iron Hawk

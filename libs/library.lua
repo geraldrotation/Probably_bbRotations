@@ -176,7 +176,18 @@ function bbLib.conjureManaGem()
 	return false
 end
 
-bbLib.darkSimSpells = { "Froststorm Bolt","Arcane Shock","Rage of the Empress","Chain Lightning","Hex","Mind Control","Cyclone","Polymorph","Pyroblast","Tranquility","Divine Hymn","Hymn of Hope","Ring of Frost","Entangling Roots" }
+bblib.badMisdirectTargets = { "Target Dummy", "Kor'kron Warshaman" }
+function bbLib.canMisdirect(target)
+	local targetName = UnitName(target)
+	for _,v in pairs(bblib.badMisdirectTargets) do
+		if v == targetName then
+			return false
+		end
+	end
+	return true
+end
+
+bbLib.darkSimSpells = { "Froststorm Bolt", "Arcane Shock", "Rage of the Empress", "Chain Lightning", "Hex", "Mind Control", "Cyclone", "Polymorph", "Pyroblast", "Tranquility", "Divine Hymn", "Hymn of Hope", "Ring of Frost", "Entangling Roots" }
 function bbLib.useDarkSim(unit)
 	-- Thanks to PCMD
 	for index,spellName in pairs(pcmdDK.darkSimSpells) do
