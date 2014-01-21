@@ -27,8 +27,17 @@ function bbLib.bossMods()
 	return false
 end
 
+function bbLib.stackCheck(spell, otherTank, stacks)
+	local debuffName, _, _, debuffCount = UnitDebuff(otherTank, spell)
+	if debuffName and debuffCount >= stacks and not UnitDebuff("player", spell) then
+		return true
+	end 
+	return false
+end
+
 function bbLib.bossTaunt()
-	-- Thanks to Rubim!
+	-- TODO: May be double taunting if we dont get a stack before taunt comes back up.
+	-- Thanks to Rubim for the idea!
 	-- Make sure we're a tank first and we're in a raid
 	if UnitGroupRolesAssigned("player") == "TANK" and IsInRaid() then
 		local otherTank
@@ -42,91 +51,133 @@ function bbLib.bossTaunt()
 			for j = 1, 4 do
 				local bossID = "boss" .. j
 				local boss = UnitID(bossID) -- /script print(UnitID("target"))
+				
+				-- START Siege of Orgrimmar
 				if     boss == 71543 then -- Immersus
-					if UnitDebuff(otherTank, "Corrosive Blast") and not UnitDebuff("player", "Corrosive Blast") then
+					if bbLib.stackCheck("Corrosive Blast", otherTank, 1) then
 						ProbablyEngine.dsl.parsedTarget = bossID
 						return true
 					end 
 				elseif boss == 72276 then -- Norushen
-					local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Self Doubt") -- Possibly a buff?
-					if debuffName and debuffCount > 2 and not UnitDebuff("player", "Self Doubt") then
+					if bbLib.stackCheck("Self Doubt", otherTank, 3) then
 						ProbablyEngine.dsl.parsedTarget = bossID
 						return true
 					end 
 				elseif boss == 71734 then -- Sha of Pride
-					if UnitDebuff(otherTank, "Wounded Pride") and not UnitDebuff("player", "Wounded Pride") then
+					if bbLib.stackCheck("Wounded Pride", otherTank, 1) then
 						ProbablyEngine.dsl.parsedTarget = bossID
 						return true
 					end
 				elseif boss == 72249 then -- Galakras
-					local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Flames of Galakrond")
-					if debuffName and debuffCount > 2 and not UnitDebuff("player", "Flames of Galakrond") then
+					if bbLib.stackCheck("Flames of Galakrond", otherTank, 3) then
 						ProbablyEngine.dsl.parsedTarget = bossID
 						return true
 					end  
 				elseif boss == 71466 then -- Iron Juggernaut
-					local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Ignite Armor")
-					if debuffName and debuffCount > 1 and not UnitDebuff("player", "Ignite Armor") then
+					if bbLib.stackCheck("Ignite Armor", otherTank, 2) then
 						ProbablyEngine.dsl.parsedTarget = bossID
 						return true
 					end  
-				elseif boss == 71859 then -- Kor'kron Dark Shaman
-					local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Froststorm Strike") -- Earthbreaker Haromm
-					if debuffName and debuffCount > 4 and not UnitDebuff("player", "Froststorm Strike") then
+				elseif boss == 71859 then -- Kor'kron Dark Shaman -- Earthbreaker Haromm
+					if bbLib.stackCheck("Froststorm Strike", otherTank, 5) then
 						ProbablyEngine.dsl.parsedTarget = bossID
 						return true
 					end   
 				elseif boss == 71515 then -- General Nazgrim
-					local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Sundering Blow")
-					if debuffName and debuffCount > 2 and not UnitDebuff("player", "Sundering Blow") then
+					if bbLib.stackCheck("Sundering Blow", otherTank, 3) then
 						ProbablyEngine.dsl.parsedTarget = bossID
 						return true
 					end
 				elseif boss == 71454 then -- Malkorok
-					local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Fatal Strike")
-					if debuffName and debuffCount > 11 and not UnitDebuff("player", "Fatal Strike") then
+					if bbLib.stackCheck("Fatal Strike", otherTank, 12) then
 						ProbablyEngine.dsl.parsedTarget = bossID
 						return true
 					end
 				elseif boss == 71529 then -- Thok the Bloodsthirsty
-					local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Panic")
-					if debuffName and debuffCount > 2 and not UnitDebuff("player", "Panic") then
-						ProbablyEngine.dsl.parsedTarget = bossID
-						return true
-					end
-					local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Acid Breath")
-					if debuffName and debuffCount > 2 and not UnitDebuff("player", "Acid Breath") then
-						ProbablyEngine.dsl.parsedTarget = bossID
-						return true
-					end 
-					local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Freezing Breath")
-					if debuffName and debuffCount > 2 and not UnitDebuff("player", "Freezing Breath") then
-						ProbablyEngine.dsl.parsedTarget = bossID
-						return true
-					end 
-					local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Scorching Breath")
-					if debuffName and debuffCount > 2 and not UnitDebuff("player", "Scorching Breath") then
+					if bbLib.stackCheck("Panic", otherTank, 3)
+					  or bbLib.stackCheck("Acid Breath", otherTank, 3) 
+					  or bbLib.stackCheck("Freezing Breath", otherTank, 3)
+					  or bbLib.stackCheck("Scorching Breath", otherTank, 3) then
 						ProbablyEngine.dsl.parsedTarget = bossID
 						return true
 					end
 				elseif boss == 71504 then -- Siegecrafter Blackfuse
-					local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Electrostatic Charge")
-					if debuffName and debuffCount > 3 and not UnitDebuff("player", "Electrostatic Charge") then
+					if bbLib.stackCheck("Electrostatic Charge", otherTank, 4) then
 						ProbablyEngine.dsl.parsedTarget = bossID
 						return true
 					end
 				elseif boss == 71865 then -- Garrosh Hellscream
-					local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Gripping Despair")
-					if debuffName and debuffCount > 2 and not UnitDebuff("player", "Gripping Despair") then
-						ProbablyEngine.dsl.parsedTarget = bossID
-						return true
-					end
-					local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Empowered Gripping Despair")
-					if debuffName and debuffCount > 2 and not UnitDebuff("player", "Empowered Gripping Despair") then
+					if bbLib.stackCheck("Gripping Despair", otherTank, 3)
+					  or bbLib.stackCheck("Empowered Gripping Despair", otherTank, 3) then
 						ProbablyEngine.dsl.parsedTarget = bossID
 						return true
 					end
 				end
+				-- END Siege of Orgrimmar
+				
+				-- START Throne of Thunder
+				if boss == 69465 then -- Jin’rokh the Breaker
+					local debuffName, _, _, debuffCount = UnitDebuff(otherTank, "Static Wound")
+					local debuffName2, _, _, debuffCount2 = UnitDebuff("player", "Static Wound")
+					if debuffName 
+					  and ( not debuffName2 or debuffCount > debuffCount2) then
+						ProbablyEngine.dsl.parsedTarget = bossID
+						return true
+					end
+				elseif boss == 68476 then -- Horridon
+					if bbLib.stackCheck("Triple Puncture", otherTank, 9) then
+						ProbablyEngine.dsl.parsedTarget = bossID
+						return true
+					end
+				elseif boss == 69131 then -- Council of Elders - Frost King Malakk
+					if bbLib.stackCheck("Frigid Assault", otherTank, 13) then
+						ProbablyEngine.dsl.parsedTarget = bossID
+						return true
+					end				
+				elseif boss == 69712 then -- Ji-Kun
+					if bbLib.stackCheck("Talon Rake", otherTank, 2) then
+						ProbablyEngine.dsl.parsedTarget = bossID
+						return true
+					end
+				elseif boss == 68036 then -- Durumu the Forgotten
+					if bbLib.stackCheck("Hard Stare", otherTank, 5) then
+						ProbablyEngine.dsl.parsedTarget = bossID
+						return true
+					end
+				elseif boss == 69017 then -- Primordius
+					if bbLib.stackCheck("Malformed Blood", otherTank, 8) then
+						ProbablyEngine.dsl.parsedTarget = bossID
+						return true
+					end
+				elseif boss == 69699 then -- Dark Animus - Massive Anima Golem -- TODO: May not show up in boss frames.
+					if bbLib.stackCheck("Explosive Slam", otherTank, 5) then
+						ProbablyEngine.dsl.parsedTarget = bossID
+						return true
+					end
+				elseif boss == 68078 then -- Iron Qon -- TODO: check if boss id stays same during encounter
+					if bbLib.stackCheck("Impale", otherTank, 4) then
+						ProbablyEngine.dsl.parsedTarget = bossID
+						return true
+					end
+				elseif boss == 68905 then -- Twin Consorts - Lu’lin
+					if bbLib.stackCheck("Beast of Nightmare", otherTank, 1) then
+						ProbablyEngine.dsl.parsedTarget = bossID
+						return true
+					end
+				elseif boss == 68904 then -- Twin Consorts - Suen
+					if bbLib.stackCheck("Fan of Flames", otherTank, 3) then
+						ProbablyEngine.dsl.parsedTarget = bossID
+						return true
+					end
+				elseif boss == 68397 then -- Lei Shen
+					if bbLib.stackCheck("Decapitate", otherTank, 1) 
+					  or bbLib.stackCheck("Fusion Slash", otherTank, 1) 
+					  or bbLib.stackCheck("Overwhelming Power", otherTank, 12) then
+						ProbablyEngine.dsl.parsedTarget = bossID
+						return true
+					end 
+				end
+				-- END Throne of Thunder
 			end
 		end
 	end

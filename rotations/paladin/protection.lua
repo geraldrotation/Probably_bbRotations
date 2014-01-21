@@ -2,7 +2,7 @@
 -- Custom Protection Paladin Rotation
 -- Created on Dec 25th 2013 1:00 am
 ProbablyEngine.rotation.register_custom(66, "bbProtectionPaladin", {
--- PLAYER CONTROLLED: Guardian of Ancient Kings, Divine Protection, Divine Shield, Devotion Aura
+-- PLAYER CONTROLLED: Guardian of Ancient Kings, Divine Shield, Devotion Aura
 -- SUGGESTED TALENTS:
 -- CONTROLS: Pause - Left Control, Light's Hammer - Left Alt
 
@@ -23,17 +23,29 @@ ProbablyEngine.rotation.register_custom(66, "bbProtectionPaladin", {
 	{ "Every Man for Himself", "player.state.stun" },
   
 	-- OFF GCD
-	{ "Word of Glory", {"player.health < 60", "player.holypower > 4" } },
+	{ "Word of Glory", {"player.health < 65", "player.holypower > 4" } },
 	{ "Word of Glory", {"player.health < 30", "player.holypower > 1" } },
-	{ "Shield of the Righteous", "player.holypower > 4" },
-	{ "Shield of the Righteous", "player.buff(Divine Purpose)" },
+	{ "Shield of the Righteous", { "target.spell(Crusader Strike).range", "player.holypower > 4" } },
+	{ "Shield of the Righteous", { "target.spell(Crusader Strike).range", "player.buff(Divine Purpose)" } },
   
 	-- Seals
 	{ "Seal of Insight", "player.seal != 3" },
 
 	-- Interrupts
 	{ "Avenger's Shield", "modifier.interrupts" }, 
-	{ "Rebuke", "modifier.interrupts" }, --TODO: Interrupt at 50% cast
+	{ "Rebuke", "modifier.interrupt" }, --TODO: Interrupt at 50% cast
+	
+	--Cooldowns
+	{{
+		{ "Ardent Defender", "player.health < 25" },
+		{ "Lay on Hands", { "player.health < 25", "!player.buff(Ardent Defender)" } },
+		{ "Avenging Wrath", "target.boss" },
+		{ "Holy Avenger", { "player.holypower < 2", "target.boss" } },  -- T5
+		{ "Divine Protection", { "player.health < 70", "target.casting.time > 0", "!player.buff(Ardent Defender)", "!player.buff(Guardian of Ancient Kings)" } },
+		-- TODO: Use Survival Trinkets
+	}, {
+		"modifier.cooldowns",
+	}},
 	
 	-- Survivability
 	{ "Hand of Freedom", { "!modifier.last(Cleanse)", "!player.buff", "player.state.root" }, "player" },
@@ -53,16 +65,6 @@ ProbablyEngine.rotation.register_custom(66, "bbProtectionPaladin", {
 	{ "Flash of Light", { "lowest.health < 50", "player.buff(Selfless Healer).count > 2" }, "lowest" }, -- T3
 	{ "Flash of Light", { "player.health < 70", "player.buff(Selfless Healer).count > 2", "player.buff(Bastion of Glory)" }, "player" }, -- T3
 	
-	--Cooldowns
-	{{
-		{ "Lay on Hands", "player.health < 20" },
-		{ "Ardent Defender", "player.health < 20" },
-		{ "Avenging Wrath", "target.boss" },
-		{ "Holy Avenger", "player.holypower < 2" },  -- T5
-	}, {
-		"modifier.cooldowns",
-	}},
-	
 	-- Mouseovers
 	{ "Light's Hammer", { "modifier.lalt" }, "ground" },
 	{{
@@ -73,6 +75,17 @@ ProbablyEngine.rotation.register_custom(66, "bbProtectionPaladin", {
 	}, {
 		"toggle.mouseovers",
 		"player.health > 50",
+	}},
+	
+	-- Out of Melee
+	{{
+		{ "Judgment" },
+		{ "Avenger's Shield" },
+		{ "Holy Prism" }, --T6
+		{ "Execution Sentence", "player.health < 70", "player" }, --T6
+		{ "Execution Sentence", "player.health > 70", "target" }, --T6
+	}, {
+		"!target.spell(Crusader Strike).range",
 	}},
 	
 	-- DPS Rotation
@@ -86,8 +99,8 @@ ProbablyEngine.rotation.register_custom(66, "bbProtectionPaladin", {
 	{ "Holy Prism" }, --T6
 	{ "Execution Sentence", "player.health < 70", "player" }, --T6
 	{ "Execution Sentence", "player.health > 70", "target" }, --T6
-	{ "Hand of Purity" },  -- T4
-	{ "Holy Wrath", "!toggle.limitaoe" },
+	{ "Hand of Purity", true, "player" },  -- T4
+	{ "Holy Wrath", { "target.spell(Crusader Strike).range", "!toggle.limitaoe" } },
 	{ "Hammer of Wrath", "!toggle.limitaoe" },
 	{ "Consecration", { "target.spell(Crusader Strike).range", "!toggle.limitaoe", "!player.moving" } },
 	
@@ -99,6 +112,8 @@ ProbablyEngine.rotation.register_custom(66, "bbProtectionPaladin", {
 
 	-- Blessings
 	{ "Blessing of Might", "!player.buff(Blessing of Might).any" },
+	{ "Blessing of Kings", { "!player.buff(Blessing of Kings).any", "!player.buff(Blessing of Might)" } },
+
 
 	-- Stance
 	{ "Righteous Fury", "!player.buff(Righteous Fury)" },
