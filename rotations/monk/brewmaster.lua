@@ -25,11 +25,9 @@ ProbablyEngine.rotation.register_custom(268, "bbBrewmasterMonk", {
 
 	-- Off GCD
 	{ "Touch of Death", "player.buff(Death Note)" },
-
 	{ "Provoke", { "toggle.autotaunt", "@bbLib.bossTaunt" } },
 
 	-- Survival
-	{ "Expel Harm", "player.health < 95" },
 	{ "Fortifying Brew", "player.health <= 50" },
 	{ "Nimble Brew", "player.state.fear" },
 	{ "Nimble Brew", "player.state.stun" },
@@ -37,10 +35,6 @@ ProbablyEngine.rotation.register_custom(268, "bbBrewmasterMonk", {
 	{ "Nimble Brew", "player.state.horror" },
 	{ "Dampen Harm", "player.health <= 60" },
 	{ "Diffuse Magic", "player.health <= 60" },
-
-	-- Multitarget
-	{ "Rushing Jade Wind", { "modifier.multitarget", "!player.buff(Rushing Jade Wind)", "!player.buff(Rushing Jade Wind).duration < 2" } },
-	{ "Spinning Crane Kick", "modifier.multitarget" },
 
 	-- Ground Stuff
 	{ "Dizzying Haze", "modifier.shift", "ground" },
@@ -53,30 +47,45 @@ ProbablyEngine.rotation.register_custom(268, "bbBrewmasterMonk", {
 	{ "Leg Sweep", "modifier.interrupts", "target.range <= 10" },
 
 	-- Talents
-	{ "Chi Wave" },
+	{ "Chi Wave" }, --  heal or dps
 	{ "Zen Sphere", "!player.buff(Zen Sphere)", "player" },
 	{ "Chi Burst" },
 	{ "Invoke Xuen, the White Tiger" },
 	{ "Tiger's Lust", "target.range >= 15" },
-
-	-- Brews
+	
+	-- Threat Rotation
+	-- CHI DUMP
+	-- Purifying Brew to remove your Stagger DoT when Yellow or Red.
 	{ "Purifying Brew", "player.debuff(Moderate Stagger)" },
 	{ "Purifying Brew", "player.debuff(Heavy Stagger)" },
+	-- Elusive Brew if > 10 stacks. Delay up to 10-15 sec for anticipated damage.
 	{ "Elusive Brew", "player.buff(Elusive Brew).count >= 10" },
-
-	-- Rotation
-	{ "Keg Smash" },
+	-- Guard on cooldown. Delay up to 10-15 sec for anticipated damage.
 	{ "Guard", "player.buff(Power Guard)" },
-
-	{ "Breath of Fire", { "target.debuff(Dizzying Haze)", "!target.debuff(Breath of Fire)" } },
-
-	{ "Tiger Palm", "player.buff(Tiger Power).duration < 4" },
+	-- Blackout Kick as often as possible. Aim for ~80% uptime on Shuffle.
 	{ "Blackout Kick" },
+	-- Tiger Palm does not cost Chi, but is used like a finisher (see explanation).
+	{ "Tiger Palm", "player.buff(Tiger Power).duration < 4" },
+	
+	-- Multitarget
+	{ "Keg Smash", { "modifier.multitarget", "modifier.enemies > 2", "!target.debuff(Dizzying Haze)" } },
+	{ "Breath of Fire", { "modifier.multitarget", "modifier.enemies > 2", "target.debuff(Dizzying Haze)", "!target.debuff(Breath of Fire)" } },
+	{ "Rushing Jade Wind", { "modifier.multitarget", "!player.buff(Rushing Jade Wind)" } },
+	{ "Spinning Crane Kick", { "modifier.multitarget", "modifier.enemies > 9" } },
+	
+	-- CHI BUILD
+	-- Keg Smash on cooldown when at < 3 Chi. Applies Weakened Blows.
+	{ "Keg Smash", "player.chi < 3" },
+	-- Expel Harm when you are not at full health.
+	{ "Expel Harm", "player.health < 95" },
+	-- Jab use to build Chi and prevent Energy capping.
 	{ "Jab" },
-	{ "Tiger Palm" },
-
+	
   },{
 -- OUT OF COMBAT
+	-- Pause
+	{ "pause", "modifier.lcontrol" },
+	
 	-- Buffs
 	{ "Legacy of the Emperor", "!player.buff(Legacy of the Emperor).any" },
 
