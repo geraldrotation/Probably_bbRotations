@@ -36,10 +36,11 @@ ProbablyEngine.rotation.register_custom(268, "bbBrewmasterMonk", {
 	{ "Dampen Harm", "player.health <= 60" },
 	{ "Diffuse Magic", "player.health <= 60" },
 
-	-- Ground Stuff
-	{ "Dizzying Haze", "modifier.shift", "ground" },
-	{ "Summon Black Ox Statue", "modifier.control", "ground" },
-	{ "Healing Sphere", "modifer.alt", "ground" },
+	-- Keybinds
+	{ "Dizzying Haze", "modifier.lshift", "ground" },
+	{ "Summon Black Ox Statue", "modifier.lalt", "ground" },
+	{ "Healing Sphere", "modifer.ralt", "ground" },
+	{ "Spinning Crane Kick", "modifier.rshift" },
 
 	-- Interrupts
 	{ "Spear Hand Strike", "modifier.interrupts" },
@@ -90,8 +91,8 @@ ProbablyEngine.rotation.register_custom(268, "bbBrewmasterMonk", {
 	{ "Legacy of the Emperor", "!player.buff(Legacy of the Emperor).any" },
 
 	-- Ground Stuff
-	{ "Dizzying Haze", "modifier.shift", "ground" },
-	{ "Summon Black Ox Statue", "modifier.control", "ground" },
+	{ "Dizzying Haze", "modifier.lshift", "ground" },
+	{ "Summon Black Ox Statue", "modifier.lalt", "ground" },
 
 },
 function()
