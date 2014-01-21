@@ -32,7 +32,7 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 	-- Racials 
 	{ "Stoneform", "player.health <= 65" },
 	{ "Gift of the Naaru", "player.health <= 70", "player" },
-	{ "Lifeblood", { "target.enemy", "modifier.cooldowns", "player.spell(Lifeblood).cooldown < 1" }, "player" },
+	{ "Lifeblood", { "modifier.cooldowns", "player.spell(Lifeblood).cooldown < 1" }, "player" },
 	
 	-- PvP
 	{ "Wind Walk Totem", "player.state.root" },
@@ -55,11 +55,11 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 	{ "Water Shield", "!player.buff" },
 	
 	-- Cooldowns
-	{ "Elemental Mastery", { "modifier.cooldowns", "target.boss" } }, -- T4	
+	{ "Elemental Mastery", { "modifier.cooldowns", "focustarget.boss" } }, -- T4	
 	{ "#gloves", { "modifier.cooldowns", "player.totem(Healing Tide Totem)" } },
 	{ "#gloves", { "modifier.cooldowns", "player.totem(Spirit Link Totem)" } },
 	{ "#gloves", { "modifier.cooldowns", "player.buff(Ascendance)" } },
-	{ "Spirit Walker's Grace", { "modifier.cooldowns", "player.buff(Ascendance)" } },
+	{ "Spirit Walker's Grace", { "modifier.cooldowns", "player.buff(Ascendance)", "player.moving" } },
 	{ "Healing Stream Totem", { "!player.totem(Healing Tide Totem)", "!player.totem(Mana Tide Totem)" } },
 	{ "Mana Tide Totem", { "modifier.cooldowns", "!player.totem(Healing Tide Totem)", "!player.totem(Healing Stream Totem)", "player.mana < 30" } },
 	{ "Healing Tide Totem", { "modifier.cooldowns", "!player.totem(Mana Tide Totem)", "!player.totem(Spirit Link Totem)", "!player.buff(Ascendance)", "@coreHealing.needsHealing(50, 5)" } },
@@ -102,8 +102,8 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 	{ "Lightning Bolt", { "toggle.dpsmode", "focus.exists", "focustarget.exists", "focustarget.enemy", "focustarget.range < 40", "player.glyph(Glyph of Telluric Currents)", "!modifier.last(Lightning Bolt)" }, "focustarget" },
 	{{
 		{ "Wind Shear", { "focus.friend", "focustarget.casting", "focustarget.range <= 25" }, "focustarget" }, -- Interrupt focustarget
-		{ "Fire Elemental Totem", { "modifier.cooldowns", "target.boss", "target.range < 40"  } },
-		{ "Stormlash Totem", { "modifier.cooldowns", "target.boss", "target.range < 40" } },
+		{ "Fire Elemental Totem", { "modifier.cooldowns", "focustarget.boss", "focustarget.range < 40"  } },
+		{ "Stormlash Totem", { "modifier.cooldowns", "player.hashero", "focustarget.boss", "focustarget.range < 40" } },
 		{ "Searing Totem", { "!player.totem(Magma Totem)", "!player.totem(Fire Elemental Totem)", "!player.totem(Searing Totem)" } },
 		{ "Flame Shock", { "focustarget.exists", "!focustarget.debuff(Flame Shock)", "focustarget.deathin > 20" }, "focustarget" },
 		{ "Lava Burst", { "focustarget.exists", "focustarget.debuff(Flame Shock)" }, "focustarget" },
