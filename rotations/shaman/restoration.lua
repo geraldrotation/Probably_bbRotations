@@ -69,8 +69,8 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 	-- Focus / Tank Healing
 	{ "Earth Shield", "!focus.buff(Earth Shield).any", "focus" },
 	{ "Earth Shield", { "!focus.buff(Earth Shield)", "!tank.buff(Earth Shield).any" }, "tank" },
-	{ "Riptide", "!focus.buff(Riptide).duration < 3", "focus" },
-	{ "Riptide", "!tank.buff(Riptide).duration < 3", "tank" },
+	{ "Riptide", "!focus.buff(Riptide)", "focus" },
+	{ "Riptide", "!tank.buff(Riptide)", "tank" },
 	{ "Unleash Elements", "focus.health < 65" },
 	{ "Greater Healing Wave", { "focus.health < 65", "player.buff(Unleash Life)" }, "focus" },
 	{ "Unleash Elements", "tank.health < 65" },
