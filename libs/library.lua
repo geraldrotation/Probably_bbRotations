@@ -179,7 +179,7 @@ end
 bbLib.badMisdirectTargets = { "Kor'kron Warshaman" }
 function bbLib.canMisdirect(target)
 	local targetName = UnitName(target)
-	for _,v in pairs(bblib.badMisdirectTargets) do
+	for _,v in pairs(bbLib.badMisdirectTargets) do
 		if v == targetName then
 			return false
 		end

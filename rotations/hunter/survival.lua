@@ -48,7 +48,7 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 	{ "1513", { "toggle.pvpmode", "target.exists", "target.enemy", "target.alive", "!target.debuff(1513)", "target.creatureType(Beast)" } }, -- Scare Beast
 	
     -- Mouseovers
-	{ "1978", { "!modifier.pvpmode", "toggle.mouseovers", "mouseover.exists", "mouseover.enemy", "mouseover.alive", "!mouseover.debuff(1978)", -- Serpent Sting
+	{ "1978", { "!modifier.pvpmode", "toggle.mouseovers", "mouseover.exists", "mouseover.enemy", "mouseover.alive", "!mouseover.debuff(Serpent Sting)", -- Serpent Sting -- TODO spellid
 		"!mouseover.state.charm", "mouseover.deathin > 10" }, "mouseover" },
 	
 	-- Traps
@@ -94,8 +94,8 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 	{ "26297", { "modifier.cooldowns", "pet.exists", "target.exists", "!player.hashero", "!player.buff(3045)" } }, -- Berserking
 
 	-- PvP
-	{ "5116", { "toggle.pvpmode", "!target.debuff(5116).any", "target.moving", "!target.immune.snare" }}, -- Concussive Shot
-	{ "82654", { "toggle.pvpmode", "!target.debuff(82654).any", "target.health > 20" }}, -- Widow Venom
+	{ "5116", { "toggle.pvpmode", "!target.debuff(5116).any", "target.moving", "!target.immune.snare" } }, -- Concussive Shot
+	{ "82654", { "toggle.pvpmode", "!target.debuff(82654).any", "target.health > 20" } }, -- Widow Venom
 
 	-- Dual Use
 	{ "82726", "player.focus <= 50" }, -- TIER 4: Fervor
@@ -118,17 +118,17 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 	{ "117050" }, -- TIER 6: Glaive Toss --TODO: do range check
 	{ "109259" }, -- TIER 6: Powershot
 	{ "120360" }, -- TIER 6: Barrage
-	{ "1978", { "!target.debuff", "target.deathin >= 10", "!target.state.charm" } }, -- Serpent Sting
+	{ "1978", { "!target.debuff(Serpent Sting)", "target.deathin >= 10", "!target.state.charm" } }, -- Serpent Sting -- TODO spellid
 	{ "53301" }, -- Explosive Shot
 	{ "53351", "target.health <= 20" }, -- Kill Shot
 	{ "3674", { "!target.debuff", "target.deathin >= 8", "!target.state.charm" } }, -- Black Arrow
-	{ "2643", { "player.buff(109306)", "target.debuff(1978).duration < 2" } }, -- Multi-Shot, Thrill of the Hunt, Serpent Sting
-	{ "3044", "player.buff(109306)" }, -- Arcane Shot, Thrill of the Hunt
+	{ "2643", { "player.buff(34720)", "target.debuff(Serpent Sting).duration < 2" } }, -- Multi-Shot, Thrill of the Hunt, Serpent Sting -- TODO spellid
+	{ "3044", "player.buff(34720)" }, -- Arcane Shot, Thrill of the Hunt
 	{ "3045", { "pet.exists", "target.exists", "!player.hashero" } }, -- Rapid Fire
 	{ "120679" }, -- TIER 4: Dire Beast -- Dire Beast
 	{ "121818", { "pet.exists", "player.hashero" } }, -- Stampede
 	{ "121818", { "pet.exists", "player.buff(3045)" } }, -- Stampede
-	{ "77767", "target.debuff(Serpent Sting).duration < 6" }, -- Cobra Shot, Serpent Sting
+	{ "77767", "target.debuff(Serpent Sting).duration < 6" }, -- Cobra Shot, Serpent Sting -- TODO spellid
 	{ "2643", { "player.focus >= 67", "toggle.cleavemode", "modifier.enemies > 1" } }, -- Multi-Shot
 	{ "13813", { "toggle.cleavemode", "modifier.enemies > 2" }, "ground" }, --  Explosive Trap
 	{ "3044", { "player.focus >= 67" } }, -- Arcane Shot
