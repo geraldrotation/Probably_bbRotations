@@ -90,6 +90,7 @@ ProbablyEngine.rotation.register_custom(264, "bbRestorationShaman", {
 	{ "Ancestral Swiftness", "lowest.health < 25" },
 	{ "Greater Healing Wave", { "lowest.health < 25", "player.buff(Ancestral Swiftness)" }, "lowest" },
 	{ "Healing Surge", "lowest.health < 30", "lowest" }, -- only if you feel that the target will die before you have a chance to complete a Greater Healing Wave
+	{ "Greater Healing Wave", "@coreHealing.needsDispelled(Chomp)" },
 	{ "Greater Healing Wave", "lowest.health < 40", "lowest" },
 	{ "Chain Heal", { "modifier.multitarget", "@coreHealing.needsHealing(80, 3)" }, "lowest" },
 	{ "Greater Healing Wave", { "lowest.health < 65", "player.buff(Tidal Waves).count = 2" }, "lowest" },
