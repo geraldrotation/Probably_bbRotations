@@ -2,12 +2,14 @@
 -- Custom Survival Hunter Rotation
 -- Created on Dec 25th 2013 1:00 am
 ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
--- PLAYER CONTROLLED:
+-- PLAYER CONTROLLED: Rabid MUST be on Auto-Cast for Stampede pets to use them :)
 -- SUGGESTED TALENTS:
 -- CONTROLS: Pause - Left Control, Explosive/Ice/Snake Traps - Left Alt, Freezing Trap - Right Alt, Scatter Shot - Right Control
 
 -- COMBAT
 	-- Rotation Utilities
+	-- TODO: Explosive Trap timer cooldown OSD
+	-- cant place traps without target?
     { "pause", "modifier.lcontrol" },
 	{ "pause", "@bbLib.bossMods" },
 	{ "pause", "player.buff(5384)" }, -- Feign Death
@@ -42,6 +44,8 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 	{ "19386", { "modifier.rcontrol", "player.spell(19503).cooldown > 0", "mouseover.exists", "mouseover.enemy", "mouseover.alive", "!mouseover.status.disorient", -- Wyvern Sting
 		"!mouseover.status.sleep", "!mouseover.status.incapacitate", "!mouseover.status.fear", "!mouseover.status.misc", "!mouseover.status.root", 
 		"!mouseover.status.stun", "!mouseover.status.snare", "!mouseover.immune.all", "!mouseover.immune.sleep" }, "mouseover" }, 
+	{ "13809", { "modifier.rcontrol", "player.spell(19503).cooldown > 0", "mouseover.exists", "mouseover.enemy", "mouseover.alive", "mouseover.status.disorient", -- Ice Trap on Scatter Shot targets
+		"!mouseover.immune.all", "!mouseover.immune.sleep" }, "ground" }, 
 	-- TODO: Binding Shot (ground)
 	-- TODO: Reactive Deterrence
 	{ "1513", { "toggle.mouseovers", "toggle.pvpmode", "mouseover.exists", "mouseover.enemy", "mouseover.alive", "!mouseover.debuff(1513)", "mouseover.creatureType(Beast)" }, "mouseover" }, -- Scare Beast
@@ -52,6 +56,7 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 		"!mouseover.state.charm", "mouseover.deathin > 10" }, "mouseover" },
 	
 	-- Traps
+	{ "77769", { "modifier.lalt", "!player.buff" } }, -- Trap Launcher
     { "13813", "modifier.lalt", "ground" }, -- Explosive Trap
     { "13809" , "modifier.lalt", "ground" }, -- Ice Trap
 	{ "34600" , "modifier.lalt", "ground" }, -- Snake Trap
@@ -63,7 +68,7 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 	-- TODO: Boss Functions + hold cooldowns
 	-- TODO: Energy Pooling Toggle
 
-    -- Misdirects to focus -> tank -> pet
+    -- Misdirect ( focus -> tank -> pet )
 	{{
 		{ "34477", { "@bbLib.canMisdirect", "focus.exists", "focus.alive", "!player.buff(34477)", "target.threat > 60" }, "focus" }, -- Misdirection
 		{ "34477", { "@bbLib.canMisdirect", "tank.exists", "tank.alive", "!focus.exists", "target.threat > 60" }, "tank" }, -- Misdirection
@@ -75,6 +80,7 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 	-- Stances
     { "109260", { "toggle.aspect", "!player.buff(13165)", "!player.buff(109260)", "!player.moving" } }, -- Aspect of the Iron Hawk
     { "13165", { "toggle.aspect", "!player.buff(13165)", "!player.buff(109260)", "!player.moving" } }, -- Aspect of the Hawk
+	
 	
 	-- Pre DPS Pause
 	{ "pause", "target.debuff(19386).any" }, -- Wyvern Sting
@@ -90,12 +96,11 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 	--{ "#76097", { "modifier.cooldowns", "player.health < 40", "@bbLib.useHealthPot" } }, -- Master Healing Potion (76097) 
 	{ "#76089", { "modifier.cooldowns", "toggle.consume", "pet.exists", "target.exists", "player.hashero", "@bbLib.useAgiPot" } }, -- Agility Potion (76089)
 	{ "20572", "modifier.cooldowns" }, -- Blood Fury (AP)
-	{ "#gloves", { "modifier.cooldowns", "pet.exists", "target.exists" } },
+	{ "#gloves", { "modifier.cooldowns", "pet.exists", "target.exists" } }, -- Synapse Springs
 	{ "26297", { "modifier.cooldowns", "pet.exists", "target.exists", "!player.hashero", "!player.buff(3045)" } }, -- Berserking
 
 	-- PvP
-	{ "5116", { "toggle.pvpmode", "!target.debuff(5116).any", "target.moving", "!target.immune.snare" } }, -- Concussive Shot
-	{ "82654", { "toggle.pvpmode", "!target.debuff(82654).any", "target.health > 20" } }, -- Widow Venom
+
 
 	-- Dual Use
 	{ "82726", "player.focus <= 50" }, -- TIER 4: Fervor
@@ -121,14 +126,16 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 	{ "1978", { "!target.debuff(118253)", "target.deathin >= 10", "!target.state.charm" } }, -- Serpent Sting
 	{ "53301" }, -- Explosive Shot
 	{ "53351", "target.health <= 20" }, -- Kill Shot
+	{ "5116", { "toggle.pvpmode", "!target.debuff(5116).any", "target.moving", "!target.immune.snare" } }, -- PvP: Concussive Shot
+	{ "82654", { "toggle.pvpmode", "!target.debuff(82654).any", "target.health > 20" } }, -- PvP: Widow Venom
 	{ "3674", { "!target.debuff", "target.deathin >= 8", "!target.state.charm" } }, -- Black Arrow
 	{ "2643", { "player.buff(34720)", "target.debuff(118253).duration < 2" } }, -- Multi-Shot, Thrill of the Hunt, Serpent Sting
 	{ "2643", { "toggle.cleavemode", "player.buff(34720)" } }, -- Multi-Shot, Thrill of the Hunt
 	{ "3044", "player.buff(34720)" }, -- Arcane Shot, Thrill of the Hunt
-	{ "3045", { "pet.exists", "target.exists", "!player.hashero" } }, -- Rapid Fire
+	{ "3045", { "modifier.cooldowns", "pet.exists", "target.exists", "!player.hashero" } }, -- Rapid Fire
 	{ "120679" }, -- TIER 4: Dire Beast -- Dire Beast
-	{ "121818", { "pet.exists", "player.hashero" } }, -- Stampede
-	{ "121818", { "pet.exists", "player.buff(3045)" } }, -- Stampede
+	{ "121818", { "modifier.cooldowns", "pet.exists", "player.hashero" } }, -- Stampede
+	{ "121818", { "modifier.cooldowns", "pet.exists", "player.buff(3045)" } }, -- Stampede
 	{ "77767", "target.debuff(118253).duration < 6" }, -- Cobra Shot, Serpent Sting
 	{ "2643", { "toggle.cleavemode", "player.focus >= 67", "modifier.enemies > 1" } }, -- Multi-Shot
 	{ "13813", { "toggle.cleavemode", "modifier.enemies > 2" }, "ground" }, --  Explosive Trap
@@ -142,12 +149,12 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
     { "pause", "modifier.lcontrol" },
 	{ "pause", "player.buff(5384)" }, -- Feign Death
 	
-	{ "5118", { "toggle.aspect", "player.moving", "!player.buff(5118)", "!player.buff(13159)" } }, -- Aspect of the Cheetah
+	{ "5118", { "toggle.aspect", "player.moving", "!player.buff(5118)", "!player.buff(13159)" } }, -- Aspect of the Cheetah, 
 	{ "51753", { "toggle.camomode", "!player.buff(51753)", "!player.debuff(Orb of Power)" } }, -- Camouflage
 	
 	-- Pet
 	{ "883", { "toggle.callpet", "!pet.exists" } }, -- Call Pet 1
-	{ "982", "!pet.alive" }, -- Revive Pet
+	--{ "982", "!pet.alive" }, -- Revive Pet
     { "136", { "pet.health <= 90", "pet.exists", "pet.alive", "!pet.buff(136)" } }, -- Mend Pet
 
 	-- Traps
@@ -162,7 +169,7 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 	-- Food / Flask
 	-- TODO: flask of spring blossoms
 	-- TODO: food mist rice noodles
-	-- TODO: PRE POT: virmens bite potion
+	-- TODO: PRE POT: Virmen's Bite potion
 	
 }, 
 function()
