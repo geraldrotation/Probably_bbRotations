@@ -33,6 +33,7 @@ ProbablyEngine.rotation.register_custom(262, "bbElementalShaman", {
 	-- Cooldowns
 	{ "Stormlash Totem", { "modifier.cooldowns", "target.boss" } },
 	{ "Fire Elemental Totem", { "modifier.cooldowns", "target.boss" } },
+	{ "Earth Elemental Totem", { "modifier.cooldowns", "target.boss", "!player.totem(Fire Elemental Totem)" } },
 	{ "Elemental Mastery", { "modifier.cooldowns", "target.boss" } },
 	{ "Ascendance", { "modifier.cooldowns", "target.boss", "!player.buff(Ascendance)" } },
 	
