@@ -19,6 +19,7 @@ ProbablyEngine.rotation.register_custom(262, "bbElementalShaman", {
 	{ "Gift of the Naaru", "player.health <= 70", "player" },
 	{ "Rocket Barrage", "player.moving" },
 	{ "Quaking Palm", "modifier.interrupts" },
+	{ "Berserking", "modifier.cooldowns" },
 
 	-- Interrupt
 	{ "Wind Shear", "modifier.interrupt" },
@@ -34,6 +35,7 @@ ProbablyEngine.rotation.register_custom(262, "bbElementalShaman", {
 	{ "Fire Elemental Totem", { "modifier.cooldowns", "target.boss" } },
 	{ "Elemental Mastery", { "modifier.cooldowns", "target.boss" } },
 	{ "Ascendance", { "modifier.cooldowns", "target.boss", "!player.buff(Ascendance)" } },
+	
 	
 	-- AoE
 	{ "Chain Lightning", { "modifier.enemies >= 4", "modifier.multitarget" } },
