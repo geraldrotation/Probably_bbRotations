@@ -70,11 +70,11 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 
     -- Misdirect ( focus -> tank -> pet )
 	{{
-		{ "34477", { "focus.exists", "focus.alive", "focus.range <= 40", "!player.buff(34477)", "target.threat > 60" }, "focus" }, -- Misdirection
-		{ "34477", { "tank.exists", "tank.alive", "tank.range <= 40", "!focus.exists", "target.threat > 60" }, "tank" }, -- Misdirection
-		{ "34477", { "pet.exists", "pet.alive", "pet.range <= 40", "!focus.exists", "!tank.exists", "target.threat > 60" }, "pet" }, -- Misdirection
+		{ "34477", { "focus.exists", "focus.alive", "!player.buff(34477)", "target.threat > 60" }, "focus" }, -- Misdirection
+		{ "34477", { "tank.exists", "tank.alive", "!focus.exists", "target.threat > 60" }, "tank" }, -- Misdirection
+		{ "34477", { "pet.exists", "pet.alive", "!focus.exists", "!tank.exists", "target.threat > 60" }, "pet" }, -- Misdirection
 	}, {
-		"!toggle.pvpmode", "!target.isPlayer", "!player.buff(34477)", "@bbLib.canMisdirect" 
+		"toggle.misdirect", "!toggle.pvpmode", "!target.isPlayer", "!player.buff(34477)", "@bbLib.canMisdirect" 
 	}},
 
 	-- Stances
@@ -174,6 +174,7 @@ ProbablyEngine.rotation.register_custom(255, "bbHunterSurvival", {
 }, 
 function()
 	ProbablyEngine.toggle.create('callpet', 'Interface\\Icons\\ability_hunter_beastcall', 'Call Pet 1', 'Toggle to keep the pet in your first pet slot out.')
+	ProbablyEngine.toggle.create('misdirect', 'Interface\\Icons\\ability_hunter_misdirection', 'Auto Misdirect', 'Toggle to automatically misdirect to your Focus>Tank>Pet when high on threat.')
 	ProbablyEngine.toggle.create('consume', 'Interface\\Icons\\inv_alchemy_endlessflask_06', 'Use Consumables', 'Toggle the usage of Flasks/Food/Potions etc..')
 	ProbablyEngine.toggle.create('autotarget', 'Interface\\Icons\\ability_hunter_snipershot', 'Auto Target', 'Automatically target the nearest enemy when target dies or does not exist.')
 	ProbablyEngine.toggle.create('aspect', 'Interface\\Icons\\ability_mount_jungletiger', 'Auto Aspect', 'Automatically switch aspect when moving and not in combat.')
